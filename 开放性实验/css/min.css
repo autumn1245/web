@@ -1,0 +1,1133 @@
+  /*导航栏*/
+        .navbar-nav{
+            margin: 0;
+        }
+        .icon img{
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            margin-top: -5px;
+        }
+        .tubiao{
+            vertical-align: middle;
+            margin-left:20px;
+            margin-top: 6px;
+            width: 168px;
+            height: 40px;
+            line-height: 40px;
+            display: inline-block;
+        }
+  /*成员*/
+        .back{
+            top: 5px;
+            width: 250px;
+            background-color: black;
+            color: white;
+            margin: 0 auto;
+            position: relative;
+        }
+        .zubie{
+            width: 230px;
+            height: 32px;
+            padding-left: 20px;
+            display: inline-block;
+            background-color: black;
+            color: white;
+        }
+        .abc, .zuming,.bcd{
+            width: 230px;
+            padding: 5px 0 0 10px;
+        }
+        .bcd{
+            cursor: pointer;
+        }
+        .abc ul{
+            background-color: black;
+            display: none;
+            list-style-type: none;
+        }
+        .bcd:hover{
+            background-color: silver;
+            color: black;
+        }
+        .bcd img{
+          height: 10%;
+          width: 10%;
+          margin:-2% 8% 0 0;
+          padding: 0;
+          border: none;
+        }
+       .abc a{
+            display:inline-block;
+            color: white;
+            width: 150px;
+            height: 25px;
+        }
+        a.z:link {font-size: small;text-decoration:none;color: white;}
+        a.z:visited {font-size: small;text-decoration:none;color: silver;}
+        a.z:hover {font-size: larger;text-decoration:underline;color: white;}
+        a.z:active {font-size: larger;text-decoration:underline;color: white;}
+        .caidan{
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            right: 0;
+            top: 150px;
+            border-radius: 50px;
+            background-color: white;
+            z-index: 10;
+        }
+        .wai{
+            position: fixed;
+            right: 0;
+            width: 250px;
+            height: 500px;
+            top: 100px;
+            overflow: hidden;
+        }
+        .demo{
+            width: 250px;
+            height: 500px;
+            position: absolute;
+            right: -300px;
+            background-color: black;
+            opacity: 0.8;
+            border-radius: 5px;
+          }
+        .return{
+            width: 250px;
+            height: 30px;
+            background-color: black;
+          }
+        .return img{
+            float: right;
+        }
+    /*主体*/
+/*电脑端两侧留白*/
+@media (min-width: 1024px)
+{
+    .zhongjian{
+      width: 70%;
+      height: auto;
+      margin: 5% 15% 0 15%;
+      float: left;
+    }
+    .zuo{
+          float:left;
+          padding: 0 2% 0 3%;
+          width:20%;
+          position: relative;
+        }
+        .you{
+          float:left;
+          padding: 0 3% 0 2%;
+          width:70%;
+          position: relative;
+        }
+}
+/*平板上两侧不留白*/
+@media (max-width: 1023px) and (min-width: 768px)
+{
+    .zhongjian{
+      width: 100%;
+      height: auto;
+      float: left;
+    }
+    .zuo{
+          float:left;
+          padding: 0 2% 0 3%;
+          width:20%;
+          position: relative;
+        }
+        .you{
+          float:left;
+          padding: 0 3% 0 2%;
+          width:70%;
+          position: relative;
+        }
+    }
+/*手机端将菜单放在文章之上*/
+@media (max-width: 767px)
+    {
+    .zhongjian{
+      width: 100%;
+      height: auto;
+      float: left;
+    }
+    .zuo{
+          float:left;
+          padding: 0 2% 0 3%;
+          width: 200px;
+          margin: 0 0 0 50px;
+          position: relative;
+        }
+        .you{
+          float:left;
+          padding: 0 3% 0 2%;
+          position: relative;
+        }
+    }
+        .timu{
+          font-size: larger;
+          font-weight: bolder;
+        }
+        a.t:link {font-size: larger;text-decoration:none;color: black;}
+        a.t:visited {font-size: larger;text-decoration:none;color: black;}
+        a.t:hover {font-size: larger;text-decoration:underline;color: black;}
+        a.t:active {font-size: larger;text-decoration:underline;color: black;}
+        a.o:link {font-size: larger;text-decoration:none;color: silver;}
+        a.o:visited {font-size: larger;text-decoration:none;color: silver;}
+        a.o:hover {font-size: larger;text-decoration:underline;color: black;}
+        a.o:active {font-size: larger;text-decoration:underline;color: black;}
+        .zhai{
+          color: silver;
+        }
+        .zuozhe{
+          color: silver;
+          font-size: 80%;
+        }
+        .zuozhe img{
+          height: 3%;
+          width: 3%;
+          margin:0 2% 0 2%;
+          padding: 0;
+          border: none;
+        }
+        dl div{
+          margin: 2%;
+          padding: 5%;
+          border-radius: 8%;
+        }
+        dl dt img{
+          height: 15%;
+          width: 15%;
+          margin:0 15% 0 0;
+          padding: 0;
+          border: none;
+        }
+    .container111{
+      width: 100%;
+        height: auto;
+        margin: 0 auto;
+    }
+    input {
+        display: none;
+    }
+
+    .box {
+        width: 100%;
+        height: auto;
+        float: left;
+    }
+    .box-vs ul{
+        width: 100%;
+        height: auto;
+        float: left;
+    }
+    .box-vs ul li{
+          margin: 5% 0 0 0;
+          padding: 5% 5% 0 5%;
+          border-top-style: solid;
+          border-top-width: 1px;
+          border-top-color: silver;
+          list-style-type: none;
+        }
+    .btn-p {
+      width: 100%;
+        height: auto;
+        float: left;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        z-index: 10;
+        left: 0;
+        bottom: 0;
+        background-color: #FFF;
+    }
+    .btn-p ul {
+        width: auto;
+        height: auto;
+    }
+    .btn-p ul li {
+        width: 40px;
+        height: 40px;
+        float: left;
+        padding: 5px;
+        margin: 0 3px 0 0;
+        border: 0;
+    }
+    .btn-p ul li:last-child {
+        margin: 0;
+    }
+    .btn-p ul li label {
+        width: 100%;
+        height: 30px;
+        float: left;
+        text-align: center;
+        line-height: 30px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        font-size: 0.8em;
+        color: black;
+        cursor: pointer;
+        border-radius: 3px;
+        transition: background-color .25s ease-in-out;
+    }
+    .btn-p ul li label:hover {
+        background-color: black;
+        color: white;
+    }
+    .btn-p {
+      width: 100%;
+        height: auto;
+        float: left;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        z-index: 10;
+        left: 0;
+        bottom: 0;
+        background-color: #FFF;
+    }
+    .btn-p ul {
+        width: auto;
+        height: auto;
+    }
+    .btn-p ul li {
+        width: 40px;
+        height: 40px;
+        float: left;
+        padding: 5px;
+        margin: 0 3px 0 0;
+        border: 0;
+    }
+    .btn-p ul li:last-child {
+        margin: 0;
+    }
+    .btn-p ul li label {
+        width: 100%;
+        height: 30px;
+        float: left;
+        text-align: center;
+        line-height: 30px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        font-size: 0.8em;
+        color: black;
+        cursor: pointer;
+        border-radius: 3px;
+        transition: background-color .25s ease-in-out;
+    }
+    .btn-p ul li label:hover {
+        background-color: black;
+        color: white;
+    }
+/*不同屏幕大小下滚动文章的样式*/
+@media (min-width: 1700px)
+{
+    .box .box-vs {
+        width: 100%;
+        height: 1950px;
+        float: left;
+        overflow: hidden;
+        position: relative;
+    }
+    .box .v1,
+    .box .v2,
+    .box .v3,
+    .box .v4,
+    .box .v5,
+    .box .v6,
+    .box .v7,
+    .box .v8,
+    .box .v9,
+    .box .v10 {
+        width: 100%;
+        height: 1900px;
+        float: left;
+        position: relative;
+    }
+        #p1:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(0px);
+    }
+    #p1:checked ~ .box-vs label[for="p1"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p2:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-1900px);
+    }
+    #p2:checked ~ .box-vs label[for="p2"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p3:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-3800px);
+    }
+    #p3:checked ~ .box-vs label[for="p3"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p4:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-5700px);
+    }
+    #p4:checked ~ .box-vs label[for="p4"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p5:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-7600px);
+    }
+    #p5:checked ~ .box-vs label[for="p5"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p6:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-9500px);
+    }
+    #p6:checked ~ .box-vs label[for="p6"] {
+        background-color: black;
+        color: white;
+    }
+
+
+    #p7:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-11400px);
+    }
+    #p7:checked ~ .box-vs label[for="p7"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p8:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-13300px);
+    }
+    #p8:checked ~ .box-vs label[for="p8"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p9:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-15200px);
+    }
+    #p9:checked ~ .box-vs label[for="p9"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p10:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-17100px);
+    }
+    #p10:checked ~ .box-vs label[for="p10"] {
+        background-color: black;
+        color: white;
+    }
+}
+@media (min-width: 1500px) and (max-width: 1699px)
+{
+    .box .box-vs {
+        width: 100%;
+        height: 1780px;
+        float: left;
+        overflow: hidden;
+        position: relative;
+    }
+    .box .v1,
+    .box .v2,
+    .box .v3,
+    .box .v4,
+    .box .v5,
+    .box .v6,
+    .box .v7,
+    .box .v8,
+    .box .v9,
+    .box .v10 {
+        width: 100%;
+        height: 1730px;
+        float: left;
+        position: relative;
+    }
+    #p1:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(0px);
+    }
+    #p1:checked ~ .box-vs label[for="p1"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p2:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-1730px);
+    }
+    #p2:checked ~ .box-vs label[for="p2"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p3:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-3460px);
+    }
+    #p3:checked ~ .box-vs label[for="p3"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p4:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-5190px);
+    }
+    #p4:checked ~ .box-vs label[for="p4"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p5:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-6920px);
+    }
+    #p5:checked ~ .box-vs label[for="p5"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p6:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-8650px);
+    }
+    #p6:checked ~ .box-vs label[for="p6"] {
+        background-color: black;
+        color: white;
+    }
+
+
+    #p7:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-10380px);
+    }
+    #p7:checked ~ .box-vs label[for="p7"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p8:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-12110px);
+    }
+    #p8:checked ~ .box-vs label[for="p8"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p9:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-13840px);
+    }
+    #p9:checked ~ .box-vs label[for="p9"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p10:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-15570px);
+    }
+    #p10:checked ~ .box-vs label[for="p10"] {
+        background-color: black;
+        color: white;
+    }
+}
+@media (min-width: 1350px) and (max-width: 1499px)
+{
+    .box .box-vs {
+        width: 100%;
+        height: 1680px;
+        float: left;
+        overflow: hidden;
+        position: relative;
+    }
+    .box .v1,
+    .box .v2,
+    .box .v3,
+    .box .v4,
+    .box .v5,
+    .box .v6,
+    .box .v7,
+    .box .v8,
+    .box .v9,
+    .box .v10 {
+        width: 100%;
+        height: 1630px;
+        float: left;
+        position: relative;
+    }
+    #p1:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(0px);
+    }
+    #p1:checked ~ .box-vs label[for="p1"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p2:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-1630px);
+    }
+    #p2:checked ~ .box-vs label[for="p2"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p3:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-3260px);
+    }
+    #p3:checked ~ .box-vs label[for="p3"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p4:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-4890px);
+    }
+    #p4:checked ~ .box-vs label[for="p4"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p5:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-6520px);
+    }
+    #p5:checked ~ .box-vs label[for="p5"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p6:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-8150px);
+    }
+    #p6:checked ~ .box-vs label[for="p6"] {
+        background-color: black;
+        color: white;
+    }
+
+
+    #p7:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-9780px);
+    }
+    #p7:checked ~ .box-vs label[for="p7"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p8:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-11410px);
+    }
+    #p8:checked ~ .box-vs label[for="p8"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p9:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-13040px);
+    }
+    #p9:checked ~ .box-vs label[for="p9"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p10:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-14670px);
+    }
+    #p10:checked ~ .box-vs label[for="p10"] {
+        background-color: black;
+        color: white;
+    }
+}
+@media (min-width: 1100px) and (max-width: 1349px)
+{
+    .box .box-vs {
+        width: 100%;
+        height: 1630px;
+        float: left;
+        overflow: hidden;
+        position: relative;
+    }
+    .box .v1,
+    .box .v2,
+    .box .v3,
+    .box .v4,
+    .box .v5,
+    .box .v6,
+    .box .v7,
+    .box .v8,
+    .box .v9,
+    .box .v10 {
+        width: 100%;
+        height: 1580px;
+        float: left;
+        position: relative;
+    }
+    #p1:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(0px);
+    }
+    #p1:checked ~ .box-vs label[for="p1"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p2:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-1580px);
+    }
+    #p2:checked ~ .box-vs label[for="p2"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p3:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-3160px);
+    }
+    #p3:checked ~ .box-vs label[for="p3"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p4:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-4740px);
+    }
+    #p4:checked ~ .box-vs label[for="p4"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p5:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-6320px);
+    }
+    #p5:checked ~ .box-vs label[for="p5"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p6:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-7900px);
+    }
+    #p6:checked ~ .box-vs label[for="p6"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p7:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-9480px);
+    }
+    #p7:checked ~ .box-vs label[for="p7"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p8:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-11060px);
+    }
+    #p8:checked ~ .box-vs label[for="p8"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p9:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-12640px);
+    }
+    #p9:checked ~ .box-vs label[for="p9"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p10:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-14220px);
+    }
+    #p10:checked ~ .box-vs label[for="p10"] {
+        background-color: black;
+        color: white;
+    }
+}
+@media (min-width: 770px) and (max-width: 1099px)
+{
+    .box .box-vs {
+        width: 100%;
+        height: 1700px;
+        float: left;
+        overflow: hidden;
+        position: relative;
+    }
+    .box .v1,
+    .box .v2,
+    .box .v3,
+    .box .v4,
+    .box .v5,
+    .box .v6,
+    .box .v7,
+    .box .v8,
+    .box .v9,
+    .box .v10 {
+        width: 100%;
+        height: 1650px;
+        float: left;
+        position: relative;
+    }
+    #p1:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(0px);
+    }
+    #p1:checked ~ .box-vs label[for="p1"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p2:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-1650px);
+    }
+    #p2:checked ~ .box-vs label[for="p2"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p3:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-3300px);
+    }
+    #p3:checked ~ .box-vs label[for="p3"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p4:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-4950px);
+    }
+    #p4:checked ~ .box-vs label[for="p4"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p5:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-6600px);
+    }
+    #p5:checked ~ .box-vs label[for="p5"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p6:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-8250px);
+    }
+    #p6:checked ~ .box-vs label[for="p6"] {
+        background-color: black;
+        color: white;
+    }
+
+
+    #p7:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-9900px);
+    }
+    #p7:checked ~ .box-vs label[for="p7"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p8:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-11550px);
+    }
+    #p8:checked ~ .box-vs label[for="p8"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p9:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-13200px);
+    }
+    #p9:checked ~ .box-vs label[for="p9"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p10:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-14850px);
+    }
+    #p10:checked ~ .box-vs label[for="p10"] {
+        background-color: black;
+        color: white;
+    }
+}
+@media (min-width: 768px) and (max-width: 769px)
+{
+        .box .box-vs {
+        width: 100%;
+        height: 1500px;
+        float: left;
+        overflow: hidden;
+        position: relative;
+    }
+    .box .v1,
+    .box .v2,
+    .box .v3,
+    .box .v4,
+    .box .v5,
+    .box .v6,
+    .box .v7,
+    .box .v8,
+    .box .v9,
+    .box .v10 {
+        width: 100%;
+        height: 1450px;
+        float: left;
+        position: relative;
+    }
+    #p1:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(0px);
+    }
+    #p1:checked ~ .box-vs label[for="p1"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p2:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-1450px);
+    }
+    #p2:checked ~ .box-vs label[for="p2"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p3:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-2900px);
+    }
+    #p3:checked ~ .box-vs label[for="p3"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p4:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-4350px);
+    }
+    #p4:checked ~ .box-vs label[for="p4"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p5:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-5800px);
+    }
+    #p5:checked ~ .box-vs label[for="p5"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p6:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-7250px);
+    }
+    #p6:checked ~ .box-vs label[for="p6"] {
+        background-color: black;
+        color: white;
+    }
+
+
+    #p7:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-8700px);
+    }
+    #p7:checked ~ .box-vs label[for="p7"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p8:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-10150px);
+    }
+    #p8:checked ~ .box-vs label[for="p8"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p9:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-11600px);
+    }
+    #p9:checked ~ .box-vs label[for="p9"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p10:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-13050px);
+    }
+    #p10:checked ~ .box-vs label[for="p10"] {
+        background-color: black;
+        color: white;
+    }
+}
+@media (max-width: 767px)
+{
+        .box .box-vs {
+        width: 100%;
+        height: 1630px;
+        float: left;
+        overflow: hidden;
+        position: relative;
+    }
+    .box .v1,
+    .box .v2,
+    .box .v3,
+    .box .v4,
+    .box .v5,
+    .box .v6,
+    .box .v7,
+    .box .v8,
+    .box .v9,
+    .box .v10 {
+        width: 100%;
+        height: 1580px;
+        float: left;
+        position: relative;
+    }
+    #p1:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(0px);
+    }
+    #p1:checked ~ .box-vs label[for="p1"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p2:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-1580px);
+    }
+    #p2:checked ~ .box-vs label[for="p2"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p3:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-3160px);
+    }
+    #p3:checked ~ .box-vs label[for="p3"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p4:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-4740px);
+    }
+    #p4:checked ~ .box-vs label[for="p4"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p5:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-6320px);
+    }
+    #p5:checked ~ .box-vs label[for="p5"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p6:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-7900px);
+    }
+    #p6:checked ~ .box-vs label[for="p6"] {
+        background-color: black;
+        color: white;
+    }
+
+
+    #p7:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-9480px);
+    }
+    #p7:checked ~ .box-vs label[for="p7"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p8:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-11060px);
+    }
+    #p8:checked ~ .box-vs label[for="p8"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p9:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-12640px);
+    }
+    #p9:checked ~ .box-vs label[for="p9"] {
+        background-color: black;
+        color: white;
+    }
+
+    #p10:checked ~ .box-vs > ul {
+        transition: transform .7s ease-in-out;
+        transform: translateY(-14220px);
+    }
+    #p10:checked ~ .box-vs label[for="p10"] {
+        background-color: black;
+        color: white;
+    }
+}

@@ -1,0 +1,21 @@
+.mdown {
+    line-height: 2;
+    width: none;
+}
+.mdown blockquote {
+    padding: 0 15px;
+    color: #777;
+    border-left: 4px solid #ddd;
+}
+.mdown table {
+    border: 1px solid red;
+    border-collapse: collapse;
+    border-radius: 2px;
+}
+.mdown td, .mdown th{
+    padding: 2px 10px;
+    border: 1px solid #777;
+}
+.mdown th {
+    background-color: #f8f8f8;
+}

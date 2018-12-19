@@ -1,0 +1,664 @@
+/* CSS Document */
+@media (max-width: 760px) {
+    .f{
+        padding-top: 10%;
+        padding-left: 15%;
+    }
+    .f .list{
+        font-size: 105%;
+        float:left;
+        width:40%;
+        margin-left:0%;
+        display:inline;
+        padding-top: 10%;
+        list-style-type: none;
+    }
+    .ZZ{
+        float: left;
+        width: 100%;
+        padding-left: 10%;
+    }
+    .b{
+        width: 40%;
+        height: 15%;
+        margin-top: 10%;
+        float:right;
+        margin-left: 10%;
+        font-size: 105%;
+    }
+    .b2{
+        float: left;
+        width: 20%;
+        height: 50px;
+        margin-top: 10%;
+        position: relative;
+        font-size: 105%;
+        margin-left: 5%;
+    }
+    img {
+        float:left;
+        width: 5%；
+    }
+    .zhongjian{
+        width: 100%;
+        height: auto;
+        
+        float: left;
+    }
+    .you{
+        float:left;
+        padding-right: 40%;
+        width:100%;
+        position: relative;
+        margin-right: 50%;
+    }
+    .zuozhe{
+        padding-left: 77%;
+        color: silver;
+        font-size: 100%;
+    }
+    .zuozhe img{
+        height: 20px;
+        width: 20px;
+        margin:0 2% -1% 0%;
+        padding: 0;
+        border: none;
+    }
+    .box-vs{
+        width: 150%;
+    }
+}
+@media (min-width: 760px) and (max-width: 900px){
+    .f{
+        padding-top: 10%;
+        padding-left: 15%;
+    }
+    .f .list{
+        font-size: 105%;
+        float:left;
+        width:40%;
+        margin-left:0%;
+        display:inline;
+        padding-top: 7%;
+        width: 140px;
+        list-style-type: none;
+    }   
+    .ZZ{
+
+        float: left;
+        padding-top: 20px;
+        width: 100%;
+    }
+    .b{
+        width: 40%;
+        height: 15%;
+        margin-top: 10%;
+        float:left;
+        margin-left: 25%;
+        font-size: 105%;
+    }
+    .b2{
+        float: left;
+        width: 40%;
+        height: 50px;
+        margin-top: 10%;
+        position: relative;
+        font-size: 105%;
+    }
+    img {
+        float:left;
+        width: 5%；
+    }
+    .zhongjian{
+        width: 100%;
+        height: auto;
+        padding: 5% 0% 0 16%;
+        float: left;
+    }
+    .you{
+        float:left;
+        padding-right: 40%;
+        width:100%;
+        position: relative;
+        margin-right: 50%;
+    }
+    .zuozhe{
+        padding-left: 75%;
+        color: silver;
+        font-size: 100%;
+    }
+    .zuozhe img{
+        height: 13%;
+        width: 13%;
+        margin:0 2% -1% 0%;
+        padding: 0;
+        border: none;
+    }
+    .box-vs{
+        width: 120%;
+    }
+}
+@media (min-width: 900px) and (max-width: 1200px) { 
+    img {
+        float:left;
+        width: 15%;
+    }
+    .f{
+        padding-top: 10%;
+        padding-left: 15%;
+    }
+    .f .list{
+        font-size: 150%;
+        float:left;
+        width:20%;
+        margin-left:2%;
+        display:inline;
+        padding-top: 5%;
+        list-style-type: none;
+    }
+    .b{
+        width: 40%;
+        height: 15%;
+        margin-top: 10%;
+        float:left;
+        margin-left: 5%;
+        font-size: 105%;
+    }
+    .b2{
+        float: left;
+        width: 40%;
+        height: 50px;
+        margin-top: 10%;
+        position: relative;
+        font-size: 105%;
+    }
+    .ZZ{
+        margin-right: 10%;
+        width: 35%;
+        float: right;
+        padding-top: 4%;
+        margin-left: 5%;
+        padding-right: 5%;
+    }
+    .caidan img{
+        width: 50px;
+        height: 40px;
+    }  
+    .zuozhe{
+        padding-left: 75%;
+        color: silver;
+        font-size: 100%;
+    }
+    .zuozhe img{
+        height: 13%;
+        width: 13%;
+        margin:0 2% -1% 0%;
+        padding: 0;
+        border: none;
+    }  
+    .box-vs{
+        width: 60%;
+        margin-left: 15%;
+    }
+}
+@media (min-width: 1200px) {
+    .f img{
+        float:left;
+        width: 10%;
+        margin-left: 13%;
+        margin-top: 60px;
+    } 
+    .f .list{
+        float: left;
+        margin-top: 100px;
+        font-size: 150%;
+        font-weight: 500;
+        list-style-type: none;
+    }
+    .ZZ{
+        padding-top: 100px;
+        padding-right: 100px;
+    }
+    .you{
+        float:left;
+        padding: 0 3% 0 2%;
+        width:70%;
+        position: relative;
+    }
+  .zhongjian{
+        width: 70%;
+        height: auto;
+        margin: 5% 15% 0 26%;
+        float: left;
+    }
+    .zuozhe{
+        padding-left: 75%;
+        color: silver;
+        font-size: 100%;
+    }
+    .zuozhe img{
+        height: 13%;
+        width: 13%;
+        margin:0 2% -1% 0%;
+        padding: 0;
+        border: none;
+    }
+    .box-vs{
+        width: 100%;
+    }
+}
+.Both {
+    margin-bottom: 25%;
+}
+/*img {
+    float:left;
+    width: 15%；
+}
+.f{
+    padding-top: 10%;
+    padding-left: 15%;
+}*/
+.b{
+    width: 30%;
+    height: 15%;
+    padding-top: 0%;
+    float:right;
+    padding-right: 10%;
+    font-size: 150%;
+}
+a.t:link {font-size: larger;text-decoration:none;color: black;}
+  a.t:visited {font-size: larger;text-decoration:none;color: black;}
+  a.t:hover {font-size: larger;text-decoration:underline;color: black;}
+  a.t:active {font-size: larger;text-decoration:underline;color: black;}
+  a.z:link {font-size: small;text-decoration:none;color: white;}
+  a.z:visited {font-size: small;text-decoration:none;color: silver;}
+  a.z:hover {font-size: larger;text-decoration:underline;color: white;}
+  a.z:active {font-size: larger;text-decoration:underline;color: white;}
+input {
+    display: none;
+}
+/*.ZZ{
+    margin-right: 10%;
+    width: 35%;
+    float: right;
+    padding-top: 4%;
+    margin-left: 5%;
+    padding-right: 5%;
+}*/
+.icon img{
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    margin-top: -5px;
+}
+.tubiao{
+    vertical-align: middle;
+    margin-left:5%;
+    margin-top: 3%;
+    width: 168px;
+    height: 40px;
+    line-height: 40px;
+    background: url(../img/logo.png) no-repeat ; 
+    display: inline-block;
+}
+/*.zhongjian{
+    width: 70%;
+    height: auto;
+    margin: 5% 15% 0 26%;
+    float: left;
+}*/
+.zuo{
+    float:left;
+    padding: 0 2% 0 3%;
+    width:20%;
+    position: relative;
+}
+/*.you{
+    float:left;
+    padding: 0 3% 0 2%;
+    width:70%;
+    position: relative;
+}*/
+.timu{
+    font-size: larger;
+    font-weight: bolder;
+}
+.zhai{
+    color: silver;
+}
+/*.zuozhe{
+    padding-left: 75%;
+    color: silver;
+    font-size: 100%;
+}*/
+/*.zuozhe img{
+    height: 13%;
+    width: 13%;
+    margin:0 2% -1% 0%;
+    padding: 0;
+    border: none;
+}*/
+dl dt{
+    margin-top: 10%; 
+}
+dl dt img{
+    height: 15%;
+    width: 15%;
+    margin:0 15% -5% 0;
+    padding: 0;
+    border: none;
+}
+.container111{
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+input {
+    display: none;
+}
+.box {
+    width: 100%;
+    height: auto;
+    float: left;
+}
+.box-vs ul{
+    width: 100%;
+    height: auto;
+    float: left;
+}
+.box-vs ul li{
+    margin: 5% 0 0 0;
+    padding: 5% 0 0 0;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: silver;
+    list-style-type: none;
+}
+.box .box-vs {
+    
+    height: 1650px;
+    float: left;
+    overflow: hidden;
+    position: relative;
+}
+.box .v1,
+.box .v2,
+.box .v3,
+.box .v4,
+.box .v5,
+.box .v6,
+.box .v7,
+.box .v8,
+.box .v9,
+.box .v10,
+.box .v11 {
+    width: 100%;
+    height: 150%;
+    float: left;
+    position: relative;
+}
+.btn-p {
+    width: 100%;
+    height: auto;
+    float: left;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    bottom: 0;
+    background-color: #FFF;
+}
+.btn-p ul {
+    width: auto;
+    height: auto;
+}
+.btn-p ul li {
+    width: 40px;
+    height: 30px;
+    float: left;
+    padding: 5px;
+    margin: 0 3px 0 0;
+    border: 0;
+}
+.btn-p ul li:last-child {
+    margin: 0;
+}
+.btn-p ul li label {
+    width: 100%;
+    height: 30px;
+    float: left;
+    text-align: center;
+    line-height: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 0.8em;
+    color: black;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color .25s ease-in-out;
+}
+.btn-p ul li label:hover {
+    background-color: black;
+    color: white;
+}
+#p1:checked ~ .box-vs > ul {
+    transition: transform .7s ease-in-out;
+    transform: translateY(0px);
+}
+#p1:checked ~ .box-vs label[for="p1"] {
+    background-color: black;
+    color: white;
+}
+#p2:checked ~ .box-vs > ul {
+    transition: transform .7s ease-in-out;
+    transform: translateY(-1550px);
+}
+#p2:checked ~ .box-vs label[for="p2"] {
+    background-color: black;
+    color: white;
+}
+#p3:checked ~ .box-vs > ul {
+    transition: transform .7s ease-in-out;
+    transform: translateY(-3100px);
+}
+#p3:checked ~ .box-vs label[for="p3"] {
+    ackground-color: black;
+    color: white;
+}
+#p4:checked ~ .box-vs > ul {
+    transition: transform .7s ease-in-out;
+    transform: translateY(-4640px);
+}
+#p4:checked ~ .box-vs label[for="p4"] {
+    background-color: black;
+    color: white;
+}
+#p5:checked ~ .box-vs > ul {
+    transition: transform .7s ease-in-out;
+    transform: translateY(-6200px);
+}
+#p5:checked ~ .box-vs label[for="p5"] {
+    background-color: black;
+    color: white;
+}
+#p6:checked ~ .box-vs > ul {
+    transition: transform .7s ease-in-out;
+    transform: translateY(-7750px);
+}
+#p6:checked ~ .box-vs label[for="p6"] {
+    background-color: black;
+    color: white;
+}
+#p7:checked ~ .box-vs > ul {
+    transition: transform .7s ease-in-out;
+    transform: translateY(-9295px);
+}
+#p7:checked ~ .box-vs label[for="p7"] {
+    background-color: black;
+    color: white;
+}
+#p8:checked ~ .box-vs > ul {
+    transition: transform .7s ease-in-out;
+    transform: translateY(-10860px);
+}
+#p8:checked ~ .box-vs label[for="p8"] {
+    background-color: black;
+    color: white;
+}
+#p9:checked ~ .box-vs > ul {
+    transition: transform .7s ease-in-out;
+    transform: translateY(-12400px);
+}
+#p9:checked ~ .box-vs label[for="p9"] {
+    background-color: black;
+    color: white;
+}
+#p10:checked ~ .box-vs > ul {
+    transition: transform .7s ease-in-out;
+    transform: translateY(-13960px);
+}
+#p10:checked ~ .box-vs label[for="p10"] {
+    background-color: black;
+    color: white;
+}
+#p11:checked ~ .box-vs > ul {
+    transition: transform .7s ease-in-out;
+    transform: translateY(-15530px);
+}
+#p11:checked ~ .box-vs label[for="p11"] {
+    background-color: black;
+    color: white;
+}
+.bcd img{
+    height: 10%;
+    width: 10%;
+    margin:-2% 8% 0 0;
+    padding: 0;
+    border: none;
+}
+.back{
+    top: 5px;
+    width: 250px;
+    background-color: black;
+    color: white;
+    margin: 0 auto;
+    position: relative;
+}
+.zubie{
+    width: 230px;
+    height: 32px;
+    padding-left: 20px;
+    display: inline-block;
+    background-color: black;
+    color: white;
+}
+.abc, .zuming,.bcd{
+    width: 230px;
+    padding: 5px 0 0 10px;
+}
+.bcd{
+    cursor: pointer;
+}
+.abc ul{
+    background-color: black;
+    display: none;
+    list-style-type: none;
+}
+.bcd:hover{
+    background-color: silver;
+    color: black;
+}
+.abc a{
+    display:inline-block;
+    color: white;
+    width: 150px;
+    height: 25px;
+}
+a.z:link {font-size: small;text-decoration:none;color: white;}
+a.z:visited {font-size: small;text-decoration:none;color: silver;}
+a.z:hover {font-size: larger;text-decoration:underline;color: white;}
+a.z:active {font-size: larger;text-decoration:underline;color: white;}
+.caidan{
+     width: 50px;
+     height: 50px;
+     position: absolute;
+     right: 0;
+     top: 100px;
+     background-color: white;
+     z-index: 10;
+}
+.wai{
+     position: fixed;
+     right: 0;
+     width: 250px;
+     height: 500px;
+     top: 100px;
+     overflow: hidden;
+}
+.demo{
+     width: 250px;
+     height: 500px;
+     position: absolute;
+     right: -300px;
+     background-color: black;
+     opacity: 0.8;
+     border-radius: 5px;
+}
+.return{
+     width: 250px;
+     height: 30px;
+     background-color: black;
+}
+.return img{
+     float: right;
+}
+.ZZ{
+    float: right;
+    margin-top: 10px;
+    margin-right: 15%;
+    width: 300px;
+}
+.b{
+    width: 40%;
+    height: 15%;
+    margin-top: 10%;
+    float:left;
+    margin-left: 15%;
+    font-size: 105%;
+}
+.b2{
+    float: left;
+    width: 40%;
+    height: 50px;
+    margin-top: 10%;
+    position: relative;
+    font-size: 105%;
+}
+
+
+.window{ 
+    width:300px; 
+    height: 250px;
+    background-color:#888; 
+    margin: 200px auto -100px auto;
+    border-radius: 25px; 
+    display:none; 
+    } 
+.content{ 
+    height:150px; 
+    background-color:#FFF; 
+    font-size:14px; 
+    overflow:auto; 
+    } 
+.title{ 
+        padding:5px; 
+        color:#0CF; 
+        font-size:30px; 
+        } 
+.title img{ 
+        padding-right: 5px;
+        float:right; 
+        } 
