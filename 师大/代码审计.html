@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>代码审计</title>
+	<style type="text/css">
+	    * {
+	    	margin: 0;
+	    	padding: 0;
+	    }
+	    html {
+	    	height: 100%;
+	    }
+	    body {
+	    	margin: 0;
+	    	height: 100%;
+	    	background-color: #ddd;
+            opacity: 0.7;
+            position: relative;
+	    }
+	    canvas {
+	    	display: block;
+	    	width: 100%;
+	    	height: 100%;
+        position: fixed;
+	    }
+a{
+  color:#000;
+  text-decoration: none;
+}
+a:link {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+a:active {
+  text-decoration: none;
+}
+		.main {
+      width: 15%;
+        position: fixed;
+        left: 10%;
+        top: 50px;
+            opacity: 0.9;
+    }
+    .main ul li span, .main ul li dl {
+      display: block;
+      width: 100%;
+      font: 40px/40px "";
+      text-align: center;
+      color: #fff;
+      font-family: Avenir;
+      font-weight: lighter;
+    }
+    .main ul li span {
+      text-decoration: none;
+      font-size: 24px;
+      height: 75px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+    }
+    .main ul li span:hover, .main ul li dl dt:hover {
+      color: #999;
+    }
+    .main ul li dl dt {
+      background: rgba(254,254,254,0.1);
+      font-size: 18px;
+      height: 30px;
+            display: flex;
+            color: #fff;
+            justify-content: center;
+            align-items: center;
+            letter-spacing: 1px;
+    }
+        .main ul li dl a {
+            font-weight: bolder;
+            text-decoration: none;
+        }
+    .main ul li {     
+      overflow: hidden;
+      transition: 0.5s;
+            background: #000;
+            border-radius: 5px;
+            height: 75px;
+            color: #fff;
+            opacity: 1;
+            margin-bottom: 50px;
+    }
+    #content{
+      height: 10px;
+      width: 60%;
+      left: 20%;
+      position: relative;
+      overflow: hidden;
+    }
+    .zhengwen{
+      height: auto !important ;
+      min-height: 500px;
+      width: 80%;
+      border-radius: 3px;
+      margin-left: 10%;
+      margin-right: 10%;
+      top:1500px;
+      position: absolute;
+      background: hsla(144,10%,75%,0.8);
+      box-shadow: 0 0 5px #000;
+      box-sizing: border-box;
+      padding: 20px;
+    }
+    #nextd{
+      height: 50px;
+      width: 160px;
+      border-radius: 25px;
+      background: hsla(144,10%,75%,0.8);
+      position: fixed;
+      left: 50%;
+      margin-left: -80px;
+      bottom: 8%;
+      box-shadow: 0 0 5px #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: nx 3s;
+      -webkit-animation-iteration-count: infinite;
+      animation-play-state: running;
+      opacity: 1;
+    }
+    #nextd:hover{
+      opacity: 1 !important;
+      animation-play-state: paused;
+    }
+    @keyframes nx{
+      0%{
+        bottom: 8%;
+        opacity: 1;
+      }
+      50%{
+        bottom: 5%;
+        opacity: 0.3;
+      }
+      100%{
+        bottom: 8%;
+        opacity: 1;
+      }
+    }
+    #last{
+      background: hsla(144,10%,75%,0.8);
+      height: 50px;
+      width: 50px;
+      border-radius: 25px;
+      position: fixed;
+      box-shadow: 0 0 5px #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      right: 100px;
+      bottom: 5%;
+      transition: all 0.3s;
+      text-decoration: none;
+      cursor: auto;
+      pointer-events: all;
+    }
+    #last:hover{
+      width: 150px;
+      background: #DDD;
+      text-decoration: underline;
+    }
+    #tiao {
+            background-color: rgba(144, 144, 144, 1);
+            height: 50px;
+            width: 50px;
+            border-radius: 25px;
+            position: fixed;
+            box-shadow: 0 0 5px #000;
+            display: flex;
+            top:40%;
+            right: -25px;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+            text-decoration: none;
+            transform: rotate(0deg);
+            opacity: 1;
+        }
+        .pd {
+            height: 250px;
+            width: 180px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            opacity: 0.5;
+            display:inline;
+            right: -180px;
+            position: absolute;
+            opacity: 1;
+            border: 2px solid #222;
+            font-size: 24px;
+        }
+        .lj {
+            height: 50px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #222;
+            font-weight: bolder;
+            font-family: KaiTi;
+            font-size: 18px;
+        }
+        .lj:hover {
+            background-color: #444;
+            color: #000;
+        }
+        #tiao:hover {
+            animation-play-state: paused;
+        }
+        #tiao:hover .pd {
+            background: #ccc;
+            right: 5px;
+            display: inline-block;
+            opacity: 0.7;
+            z-index: 100;
+        }
+        #tiao:hover .to {
+          opacity: 1;
+        }
+        #tiao {
+          z-index: 100;
+        }
+        .pd a {
+          text-decoration: none;
+        }
+    .tit{
+      height: 50px;
+      width: 100%;
+      position: relative;
+    }
+    .day{
+      width: 80px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      float: left;
+    }
+    .tim{
+      height: 50px;
+      width: 240px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      left: 50%;
+      margin-left: -120px;
+    }
+    .ctx{
+      height: auto !important ;
+      min-height: 80px;
+      width: 100%;
+      position: relative;
+      box-sizing: border-box;
+      padding-left: 10px;
+    }
+    .obg{
+      height: auto !important ;
+      min-height: 100px;
+      width: 100%;
+    }
+    .tbg{
+      height: auto !important ;
+      min-height: 100px;
+      width: 60%; 
+      float: left;
+    }
+    .trbg{
+      height: auto !important ;
+      min-height: 100px;
+      width: 40%; 
+      float: right;
+    }
+    .code{
+      height: auto !important ;
+      min-height: 100px;
+      width: 100%;
+      background-color: #666;
+      opacity: 0.5;
+      border-radius: 3px;
+      letter-spacing: 1px;
+      box-sizing: border-box;
+      padding-left: 10px;
+    }
+    @keyframes qi{
+      0%{top:1500px;}
+      100%{top: 50px;}
+    }
+    @keyframes san{
+      0%{transform: scale(1);opacity: 1;top:50px;}
+      33%{transform: scale(1.5);opacity: 0;top: 50px;}
+      66%{transform: scale(1);opacity: 0;top: 1500px;}
+      100%{transform: scale(1);opacity: 1;top: 1500px;}
+    }
+    @keyframes luo{
+      0%{top:50px;}
+      100%{top:1500px;}
+    }
+    @keyframes ju{
+      0%{transform: scale(1.5);opacity: 0;top: 50px;}
+      100%{transform: scale(1);opacity: 1;top: 50px;}
+    }
+    .tup{
+      height: 200px;
+      width: 100%
+    }
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+  <div class="main">
+      <ul>
+        <li>
+          <span>代码审计</span>
+          <dl>
+            <a href="#"><dt>Day1</dt></a>
+            <a href="#"><dt>Day2</dt></a>
+            <a href="#"><dt>Day3</dt></a>
+            <a href="#"><dt>Day4</dt></a>
+            <a href="#"><dt>Day5</dt></a>
+            <a href="#"><dt>Day6</dt></a>
+            <a href="#"><dt>Day7</dt></a>
+          </dl>
+        </li>
+      </ul>
+    </div>
+    <div id="content">
+      <script type="text/javascript">
+        document.getElementById('content').style.minHeight=window.innerHeight+"px"
+        //document.getElementById('content').style.height="auto !important;"
+      </script>
+      <div class="zhengwen" style="top:50px;">
+        <div class="tit">
+          <div class="day">
+            <ft>Day-1</ft>
+          </div>
+          <div class="day" style="float: right;width: 120px;">
+            <ft style="color: #000;font-weight: normal;">授课教师:黄老师</ft>
+          </div>
+          <hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+        </div>
+        <div class="obg">
+          <h1 style="text-align: center;">SQL注入审计</h1>
+          <div class="tit">
+            <div class="day" style="float: left;width: 120px;font-weight: normal;position: relative;">
+              <ft style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">SQL注入:</ft>
+            </div>
+          </div>
+          <div class="ctx" style="font-weight: bolder; font-family: KaiTi; text-indent: 2em; font-size: 18px;">
+            <ft>SQL注入指的是通过构建特殊的输入作为参数传入Web应用程序而这些输入大都是SQL语法里的一些组合通过执行SQL 语句进而执行攻击者所要的操作其主要原因是程序没有细致地过滤用户输入的数据致使非法数据侵入系统。</ft>
+          </div>
+        </div>
+        <div class="tbg">
+          <div class="tit">
+            <div class="day" style="float: left;width: 60px;font-weight: normal;position: relative;">
+              <ft style="font-weight: bolder; font-family: KaiTi; font-size: 24px;">Code:</ft>
+            </div>
+          </div>
+          <div class="code" style="margin-bottom: 50px;">
+            <ft style="font-size: 8px;line-height: 10px;opacity: 1;color: #EEE">public boolean findAdmin(Admin admin)<br>
+            {<br>String sql = "select count(*) from admin where username='" + admin.getUsername() + "'and password='" + admin.getPassword() + "'"  //SQL查询语句<br>
+            try {
+                Resultset res = this.conn.creatStatement().executQuery(sql);
+                //执行sql语句<br>
+                if(res.next())
+                {
+                    int i = res.getInt(1);//获取第一列的值<br>
+                    if (i>0)
+                    {return true;} //如果结果大于0，则返回true<br>
+                }
+                } <br>catch (Exception e) {
+                e.printStackTree();//打印异常信息<br>
+                }<br>
+                return false;<br>
+            }</ft>
+          </div>
+          <div class="tup">
+            <img src="img/timg.png" width="100%" height="100%">
+          </div>
+        </div>
+        <div class="trbg">
+          <div class="tit">
+            <div class="day" style="float: left;width: 90px;font-weight: normal;position: relative;">
+              <ft style="font-weight: bolder; font-family: KaiTi; font-size: 24px;">注解:</ft>
+            </div>
+          </div>
+          <div class="ctx">
+            <div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+            </div>
+            <span style="font-weight: bolder; font-family: KaiTi;">这段代码本身没有什么错误。正常情况下，当一个用户 
+                username='test'且password='test'时，执行了sql语句 
+                select count(*) from admin where username = 'test' and password = 'test' <br>
+                <div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+                </div>
+                但是当输入username="'or 1=1--"时，在java程序中String类型变量sql 为 
+                " select count(*) from admin where username = ' 'or 1=1-- ' and password = ' ' " 
+                这句sql语句在执行时，"--" 将"and"及之后的语句都注释掉了，相当于执行了 
+                select count(*) from admin where username = ' 'or 1=1 
+                而1=1是永远为true的，所以该语句的执行结果实际上是admin表的行数，而不是符合输入的username和password的行数，从而顺利通过验证。 <br>
+                <div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+                </div>
+                这个例子中虽然注入的过程非常简单，但可能的危害却很大。如果在用户名处输入 
+                "' or 1=1; drop table admin --" 
+                由于SQL Server支持多语句执行，就可以把admin表drop掉了，后果不堪设想。
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="zhengwen">
+        <div class="tit">
+          <div class="day">
+            <ft>Day-2</ft>
+          </div>
+          <div class="day" style="float: right;width: 120px;">
+            <ft style="color: #000;font-weight: normal;">授课教师:黄老师</ft>
+          </div>
+          <hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+        </div>
+        <div class="obg">
+          <h1 style="text-align: center;">XSS审计</h1>
+          <div class="tit">
+            <div class="day" style="float: left;width: 80px;font-weight: normal;position: relative;">
+              <ft style=" font-weight: bolder; font-family: KaiTil; font-size: 24px;">XSS:</ft>
+            </div>
+          </div>
+          <div class="ctx">
+            <div class="day" style="float: left;width: 80px;font-weight: normal;height: 10px;">
+            </div>
+            <span style="font-weight: bolder; font-family: KaiTi;">XSS，全称Cross Site Scripting，即跨站脚本攻击，某种意义上也是一种注入攻击，是指攻击者在页面中注入恶意的脚本代码，当受害者访问该页面时，恶意代码会在其浏览器上执行，需要强调的是，XSS不仅仅限于JavaScript，还包括flash等其它脚本语言。根据恶意代码是否存储在服务器中，XSS可以分为存储型的XSS与反射型的XSS。DOM型的XSS由于其特殊性，常常被分为第三种，这是一种基于DOM树的XSS。例如服务器端经常使用document.boby.innerHtml等函数动态生成html页面，如果这些函数在引用某些变量时没有进行过滤或检查，就会产生DOM型的XSS。DOM型XSS可能是存储型，也有可能是反射型。</span>
+          </div>
+        </div>
+        <div class="tbg">
+          <div class="tit">
+            <div class="day" style="float: left;width: 90px;position: relative;">
+              <ft style=" font-weight: bolder; font-size: 24px; font-family: KaiTi;">Code:</ft>
+            </div>
+          </div>
+          <div class="code" style="margin-bottom: 50px;">
+            <ft style="font-size: 8px;line-height: 10px;opacity: 1;color: #EEE">初级:<br>&lt;script>alert(/xss/)&lt;/script><br>
+              中级:<br>
+              &lt;sc&lt;script>ript>alert(/xss/)&lt;/script><br>
+              &lt;ScRipt>alert(/xss/)&lt;/script><br>
+              高级:<br>
+              &lt;img src=1 onerror=alert(/xss/)>
+            </ft>
+          </div>
+          <div class="tup" style="height: 400px;">
+            <img src="img/timg-2.png" width="100%" height="100%">
+          </div>
+        </div>
+        <div class="trbg">
+          <div class="tit">
+            <div class="day" style="float: left;width: 90px;font-weight: normal;position: relative;">
+              <ft style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">注解:</ft>
+            </div>
+          </div>
+          <div class="ctx">
+            <div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+            </div>
+            <span style="font-family: KaiTi; font-weight: bolder;">当代码直接引用了name参数，并没有任何的过滤与检查,第一行代码会成功弹框，因此，基于黑名单的思想，使用str_replace函数将输入中的&lt;script>删除，这种防护机制也是可以轻松被第二行代码或第三行代码绕过，因此再次升级--High级别的代码同样使用黑名单过滤输入，preg_replace()函数用于正则表达式的搜索和替换，这使得双写绕过、大小写混淆绕过（正则表达式中i表示不区分大小写）不再有效。但是虽然无法使用&lt;script>标签注入XSS代码，但是可以通过img、body等标签的事件或者iframe等标签的src注入恶意的js代码。第四行代码同样会成功弹框。同样，再次对代码升级--Impossible级别的代码使用htmlspecialchars函数把预定义的字符&、”、 ’、<、>转换为HTML实体，防止浏览器将其作为HTML元素。
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="zhengwen">
+        <div class="tit">
+          <div class="day">
+            <ft>Day-3</ft>
+          </div>
+          <div class="day" style="float: right;width: 120px;">
+            <ft style="color: #000;font-weight: normal;">授课教师:黄老师</ft>
+          </div>
+          <hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+        </div>
+        <div class="obg">
+          <h1 style="text-align: center;">文件上传审计</h1>
+          <div class="tit">
+            <div class="day" style="float: left;width: 200px;font-weight: normal;position: relative;">
+              <ft style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">文件上传攻击:</ft>
+            </div>
+          </div>
+          <div class="ctx">
+            <div class="day" style="float: left;width: 80px;font-weight: normal;height: 10px;">
+            </div>
+            <span style="font-weight: bolder; font-family: KaiTi;">指由于程序员在对用户文件上传部分的控制不足或者处理缺陷，而导致的用户可以越过其本身权限向服务器上上传可执行的动态脚本文件。这里上传的文件可以是木马，病毒，恶意脚本或者WebShell等。这种攻击方式是最为直接和有效的，“文件上传”本身没有问题，有问题的是文件上传后，服务器怎么处理、解释文件。如果服务器的处理逻辑做的不够安全，则会导致严重的后果</span>
+          </div>
+        </div>
+        <div class="tbg">
+          <div class="tit">
+            <div class="day" style="float: left;width: 60px;font-weight: normal;position: relative;">
+              <ft style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">Code:</ft>
+            </div>
+          </div>
+          <div class="code" style="margin-bottom: 50px;overflow: hidden;">
+            <ft style="font-size: 8px;line-height: 10px;opacity: 1;color: #EEE;">黑名单策略:<br>
+              $postfix = end(explode('.','$_POST['filename']);<br>
+
+if($postfix=='php'||$postfix=='asp'||$postfix=='sh'){<br>
+
+  echo "invalid file type";<br>
+
+  return;<br>
+}<br>白名单策略:<br>$postfix=end(explode('.','$_POST['filename']);<br>
+
+if($postfix=='jpg'||$postfix=='png'||$postfix=='gif'){<br>
+
+  //save the file and do something next<br>
+
+} else {<br>
+
+  echo "invalid file type";<br>
+
+  return;<br>
+
+}
+            </ft>
+          </div>
+        </div>
+        <div class="trbg">
+          <div class="tit">
+            <div class="day" style="float: left;width: 60px;font-weight: normal;position: relative;">
+              <ft style=" font-weight: bolder;">注解:</ft>
+            </div>
+          </div>
+          <div class="ctx">
+            <div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+            </div>
+            <span style="font-family: KaiTi; font-weight: bolder;">在文件被上传到服务端的时候，对于文件名的扩展名进行检查，如果不合法，则拒绝这次上传
+在检查扩展名是否合法的时候，有两种策略：
+1.黑名单策略，文件扩展名在黑名单中的为不合法,2.白名单策略，文件扩展名不在白名单中的均为不合法,白名单策略是更加安全的，通过限制上传类型为只有我们接受的类型，可以较好的保证安全，因为黑名单我们可以使用各种方法来进行注入和突破.<br>原理:<br>
+当浏览器将文件提交到服务器端的时候，服务器端会根据设定的黑白名单对浏览器提交上来的文件扩展名进行检测，如果上传的文件扩展名不符合黑白名单的限制，则不予上传，否则上传成功。
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="zhengwen">
+        <div class="tit">
+          <div class="day">
+            <ft>Day-4</ft>
+          </div>
+          <div class="day" style="float: right;width: 120px;">
+            <ft style="color: #000;font-weight: normal;">授课教师:黄老师</ft>
+          </div>
+          <hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+        </div>
+        <div class="obg">
+          <h1 style="text-align: center;">文件包含审计</h1>
+          <div class="tit">
+            <div class="day" style="float: left;width: 200px;font-weight: normal;position: relative;">
+              <ft style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">文件包含漏洞:</ft>
+            </div>
+          </div>
+          <div class="ctx">
+            <div class="day" style="float: left;width: 80px;font-weight: normal;height: 10px;">
+            </div>
+            <span style="font-weight: bolder; font-family: KaiTi;">文件包含漏洞是一种最常见的漏洞类型，它会影响依赖于脚本运行时的web应用程序。当应用程序使用攻击者控制的变量构建可执行代码的路径时，文件包含漏洞会导致攻击者任意控制运行时执行的文件。如果一个文件包含这个漏洞，为了方便起见，经常在开发阶段就实施。由于它经常用于程序开发阶段，所以这就为后来的攻击埋下了伏笔并导致了各种基于文件的攻击</span>
+          </div>
+        </div>
+        <div class="tbg">
+          <div class="tit">
+            <div class="day" style="float: left;width: 60px;font-weight: normal;position: relative;">
+              <ft style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">Code:</ft>
+            </div>
+          </div>
+          <div class="code" style="margin-bottom: 50px;">
+            <ft style="font-size: 8px;line-height: 10px;opacity: 1;color: #EEE">require()<br>
+
+require_once()<br>
+
+include()<br>
+
+include_once()</ft>
+          </div>
+        </div>
+        <div class="trbg">
+          <div class="tit">
+            <div class="day" style="float: left;width: 90px;font-weight: normal;position: relative;">
+              <ft style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">注解:</ft>
+            </div>
+          </div>
+          <div class="ctx">
+            <div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+            </div>
+            <span style="font-weight: bolder; font-family: KaiTi;">include和require区别主要是，include在包含的过程中如果出现错误，会抛出一个警告，程序继续正常运行；而require函数出现错误的时候，会直接报错并退出程序的执行。
+而include_once()，require_once()这两个函数，与前两个的不同之处在于这两个函数只包含一次，适用于在脚本执行期间同一个文件有可能被包括超过一次的情况下，你想确保它只被包括一次以避免函数重定义，变量重新赋值等问题。
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="zhengwen">
+        <div class="tit">
+          <div class="day">
+            <ft>Day-5</ft>
+          </div>
+          <div class="day" style="float: right;width: 120px;">
+            <ft style="color: #000;font-weight: normal;">授课教师:黄老师</ft>
+          </div>
+          <hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+        </div>
+        <div class="obg">
+          <h1 style="text-align: center;">已知的开源漏洞分析</h1>
+          <div class="tit">
+            <div class="day" style="float: left;width: 80px;font-weight: normal;position: relative;">
+              <ft style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">织梦:</ft>
+            </div>
+          </div>
+          <div class="ctx">
+            <div class="day" style="float: left;width: 80px;font-weight: normal;height: 10px;">
+            </div>
+            <span style="font-family: KaiTi; font-weight: bolder;">Dedecms是一款开源的PHP开源网站管理系统。DeDecms(织梦CMS) V5.7.72 正式版20180109 (最新版)
+由于前台resetpassword.php中对接受的safeanswer参数类型比较不够严格，遭受弱类型比较攻击
+导致了远程攻击者可以在前台会员中心绕过验证，进行任意用户密码重置攻击</span>
+          </div>
+        </div>
+        <div class="obg">
+          <div class="tit">
+            <div class="day" style="float: left;width: 80px;font-weight: normal;position: relative;">
+              <ft style=" font-weight: bolder; font-size: 24px; font-family: KaiTi;">帝国:</ft>
+            </div>
+          </div>
+          <div class="ctx">
+            <div class="day" style="float: left;width: 80px;font-weight: normal;height: 10px;">
+            </div>
+            <span style="font-family: KaiTi; font-weight: bolder;">   帝国网站管理英文译为”EmpireCMS”，它是基于B/S结构，安全、稳定、强大、灵活的网站管理系统.帝国CMS 7.5采用了系统模型功能：用户通过此功能可直接在后台扩展与实现各种系统，如产品、房产、供求…等等系统，因此特性，帝国CMS系统又被誉为“万能建站工具”;大容量数据结构设计;高安全严谨设计;采用了模板分离功能：把内容与界面完全分离，灵活的标签+用户自定义标签，使之能实现各式各样的网站页面与风格;栏目无限级分类;前台全部静态：可承受强大的访问量;强大的信息采集功能;超强广告管理功能
+</span>
+          </div>
+        </div>
+        <div class="tbg">
+          <div class="tit">
+            <div class="day" style="float: left;width: 60px;font-weight: normal;position: relative;">
+              <ft style=" font-weight: bolder; font-family: KiaTi;">Code:</ft>
+            </div>
+          </div>
+          <div class="code" style="margin-bottom: 50px;">
+            <ft style="font-size: 8px;line-height: 10px;opacity: 1;color: #EEE">织梦:<br>
+              else if($dopost == "safequestion")<br>
+{<br>
+    $mid = preg_replace("#[^0-9]#", "", $id);<br>
+    $sql = "SELECT safequestion,safeanswer,userid,email FROM #@__member WHERE mid = '$mid'";<br>
+    $row = $db->GetOne($sql);<br>
+    if(empty($safequestion)) $safequestion = '';<br> 
+    if(empty($safeanswer)) $safeanswer = '';<br>
+    if($row['safequestion'] == $safequestion && $row['safeanswer'] == $safeanswer)<br>
+    {
+        sn($mid, $row['userid'], $row['email'], 'N');<br>
+        exit();<br>
+    }<br>
+    else<br>
+    {<br>
+        ShowMsg("对不起，您的安全问题或答案回答错误","-1");<br>
+        exit();<br>
+    }<br> 
+}<br>
+
+</ft>
+          </div>
+          
+        </div>
+        <div class="trbg">
+          <div class="tit">
+            <div class="day" style="float: left;width: 60px;font-weight: normal;position: relative;">
+              <ft style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">注解:</ft>
+            </div>
+          </div>
+          <div class="ctx">
+            <div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+            </div>
+            <span style="font-weight: bolder; font-family: KaiTi;">织梦此处选取的部分的漏洞就是因为这里的判断出现了问题，因为使用了不够严谨的 == 进行了比较，导致if语句的条件为真，就会进入分支，进入sn函数
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="zhengwen">
+        <div class="tit">
+          <div class="day">
+            <ft>Day-6</ft>
+          </div>
+          <div class="day" style="float: right;width: 120px;">
+            <ft style="color: #000;font-weight: normal;">授课教师:黄老师</ft>
+          </div>
+          <hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+        </div>
+        <div class="obg">
+          <h1 style="text-align: center;">已知的开源漏洞分析</h1>
+          <div class="tit">
+            <div class="day" style="float: left;width: 100px;font-weight: normal;position: relative;">
+              <ft style=" font-weight: bolder; font-family: KaiTi; font-size: 24px; margin-left: 50px;">wordpress:</ft>
+            </div>
+          </div>
+          <div class="ctx">
+            <div class="day" style="float: left;width: 80px;font-weight: normal;height: 10px;">
+            </div>
+            <span style="font-family: KaiTi; font-weight: bolder;">WordPress国内外知名的建站系统，开源化，尤其在搜索引擎上代码写的很
+友好，整体的开发架构是基于PHP+MySQL数据库组合的博客系统。WordPress的模板以
+及插件开发完善的比较多，深受互联网用户的喜欢，尤其第三方api各方接口，都兼容</span>
+          </div>
+        </div>
+        <div class="obg">
+          <div class="tit">
+            <div class="day" style="float: left;width: 110px;font-weight: normal;position: relative;">
+              <ft style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">phpcms:</ft>
+            </div>
+          </div>
+          <div class="ctx">
+            <div class="day" style="float: left;width: 80px;font-weight: normal;height: 10px;">
+            </div>
+            <span style="font-weight: bolder; font-family: KaiTi;">PHPCMS是一款网站管理软件。该软件采用模块化开发，支持多种分类方式，使用它可方便实现个性化网站的设计、开发与维护。它支持众多的程序组合，可轻松实现网站平台迁移，并可广泛满足各种规模的网站需求，可靠性高，是一款具备文章、下载、图片、分类信息、影视、商城、采集、财务等众多功能的强大、易用、可扩展的优秀网站管理软件</span>
+          </div>
+        </div>
+        <div class="obg">
+          <div class="tit">
+            <div class="day" style="float: left;width: 80px;font-weight: normal;position: relative;">
+              <ft style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">教学目的:</ft>
+            </div>
+          </div>
+          <div class="ctx">
+            <div class="day" style="float: left;width: 80px;font-weight: normal;height: 10px;">
+            </div>
+            <span style="font-family: KaiTi; font-weight: bolder;">通过对知名建站网站的漏洞复现与攻击练习，来加强web攻防能力与代码审计能力</span>
+          </div>
+        </div>
+      </div>
+      <div class="zhengwen">
+        <div class="tit">
+          <div class="day">
+            <ft>Day-7</ft>
+          </div>
+          <div class="day" style="float: right;width: 120px;">
+            <ft style="color: #000;font-weight: normal;">授课教师:黄老师</ft>
+          </div>
+          <hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+        </div>
+        <div class="obg">
+          <h1 style="text-align: center;">命令执行审计</h1>
+          <div class="tit">
+            <div class="day" style="float: left;width: 160px;font-weight: normal;position: relative;">
+              <ft style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">命令执行漏洞:</ft>
+            </div>
+          </div>
+          <div class="ctx">
+            <div class="day" style="float: left;width: 80px;font-weight: normal;height: 10px;">
+            </div>
+            <span style="font-family: KaiTi; font-weight: bolder;">应用有时需要调用一些执行系统命令的函数，如PHP中的system、exec、shell_exec、
+passthru、popen、proc_popen等，当用户能控制这些函数中的参数时，就可以将恶意系统命令
+拼接到正常命令中，从而造成命令执行攻击，这就是命令执行漏洞</span>
+          </div>
+        </div>
+        <div class="obg">
+          <div class="tit">
+            <div class="day" style="float: left;width: 120px;font-weight: normal;position: relative;">
+              <ft style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">漏洞危害:</ft>
+            </div>
+          </div>
+          <div class="ctx">
+            <span style="font-family: KiaTi; font-weight: bold;">1.继承Web服务程序的权限去执行系统命令或读写文件<br>
+2.反弹shell<br>
+3.控制整个网站甚至控制服务器<br>
+4.进一步内网渗透<br>
+5.等等</span>
+          </div>
+        </div>
+        <div class="tbg" style="width: 100%;">
+          <div class="tit">
+            <div class="day" style="float: left;width: 90px;font-weight: normal;position: relative;">
+              <ft style=" font-weight: bolder; font-size: 24px; font-family: KaiTi;">Code:</ft>
+            </div>
+          </div>
+          <div class="code" style="margin-bottom: 50px;">
+            <ft style="font-size: 8px;line-height: 10px;opacity: 1;color: #EEE">漏洞可能代码:<br>
+              1. system("$arg");  //直接输入即可<br>
+2. system("/bin/prog $arg");  //直接输入;ls<br>
+3. system("/bin/prog -p $arg");  //和2一样<br>
+4. system("/bin/prog --p=\"$arg\"");  //可以输入";ls;"<br>
+5. system("/bin/prog --p='$arg'");  //可以输入';ls;'<br>
+
+在Linux上，上面的;也可以用|、||代替<br>
+    ;前面的执行完执行后面的<br>
+    |是管道符，显示后面的执行结果<br>
+    ||当前面的执行出错时执行后面的<br>
+
+在Windows上，不能用;可以用&、&&、|、||代替<br>
+    &前面的语句为假则直接执行后面的<br>
+    &&前面的语句为假则直接出错，后面的也不执行<br>
+    |直接执行后面的语句<br>
+    ||前面出错执行后面的<br>漏洞利用:<br>示例一:<br>
+    <?php<br>
+$arg = $_GET['cmd'];<br>
+if ($arg) {<br>
+system("$arg");<br>
+}<br>
+?><br>示例二:<br>
+<?php<br>
+    $arg = $_GET['cmd'];<br>
+    if ($arg) {<br>
+        system("ping -c 3 $arg");<br>
+    }<br>
+    ?><br>示例三:<br>
+    <?php<br>
+$arg = $_GET['cmd'];<br>
+if ($arg) {<br>
+system("ls -al "$arg"");<br>
+}<br>
+?><br>示例四:<br>
+<?php<br>
+    $arg = $_GET['cmd'];<br>
+    if ($arg) {<br>
+        system("ls -al '$arg'");<br>
+    }<br>
+    ?>
+            </ft>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="nextd" onclick="ne()"><ft>Next Day</ft>
+    </div>
+    <div id="last" onclick="cb()"><ft>Back</ft></div>
+    <div id="tiao"><ft><<<<</ft>
+      <div class="pd">
+        <a href="index.html"><div class="lj"><ft style="font-weight: normal;">首页</ft></div></a>
+        <a href="系统安全.html"><div class="lj"><ft style="font-weight: normal;">系统安全</ft></div></a>
+        <a href="web渗透测试.html"><div class="lj"><ft style="font-weight: normal;">Web渗透测试</ft></div></a>
+        <a href="编程基础.html"><div class="lj"><ft style="font-weight: normal;">编程基础</ft></div></a>
+        <a href="CTF.html"><div class="lj"><ft style="font-weight: normal;">CTF攻防夺旗赛</ft></div></a>
+      </div>
+    </div>
+</body>
+<script type="text/javascript">
+  // 侧栏动画
+    var oA = document.querySelectorAll(".main ul li span");
+    var oLi = document.querySelectorAll(".main ul li");
+
+    for(var i = 0; i < oA.length; i++)
+    {
+        oA[i].index = i;
+        oA[i].onclick = function () {
+            for(var j = 0; j < oA.length; j++)
+            {
+                oLi[j].style.height = "80px";
+            }
+            oLi[this.index].style.height = "282px";
+        }
+    }
+
+var zw=document.getElementsByClassName('zhengwen')   //获取卡片对象
+var dt=document.getElementsByTagName('dt')           //获取侧边栏对象
+var lo=0     //计数器
+var go=0     //计数器
+var last=document.getElementById('last')        //获取last按钮对象
+if(document.getElementsByClassName('zhengwen')[0].offsetHeight+100>window.innerHeight)     //在卡片高度大于屏幕高度时，通过设置将页面设置为可以滚动
+{
+  document.getElementById('content').style.height=document.getElementsByClassName('zhengwen')[0].offsetHeight+100+"px"
+}
+for(var i=0;i<dt.length;i++)
+{
+  (function(i){
+    dt[i].onclick=function(){                 //这个函数用来动态设置点击侧栏对应位置对应卡片出来，原本卡片消失
+      zw[lo].setAttribute('style',"animation:san 2.4s;top:1500px;")     //设置点击出现下一个卡片之前--当前卡片的消失动画
+      dt[lo].setAttribute('style',"background-color:#666;")        //将要消失的卡片对应在侧栏上的栏目背景颜色调回原样
+      zw[i].setAttribute('style',"animation:qi 0.8s;top:50px;")      //设置要新出现的卡片的出场动画
+      dt[i].setAttribute('style',"background-color:#444;")     //设置将要新出现的卡片的侧栏对应位置的背景颜色
+      go=lo     //go计数器跟保持是lo的前一个的状态
+      lo=i      //lo更新为当前卡片在数组里的下标
+      if(document.getElementsByClassName('zhengwen')[i].offsetHeight+100>window.innerHeight)    //这个判断目的是切换卡片后根据卡片高度实时调整页面可否滚动
+      {
+        document.getElementById('content').style.height=document.getElementsByClassName('zhengwen')[i].offsetHeight+100+"px"
+      }
+      else
+      {
+        document.getElementById('content').style.height=window.innerHeight+"px"
+      }
+    }
+  })(i)
+}
+function ne(){               //这个函数是个快捷按钮，点击后直接跳转下一天的卡片，如没有该功能可不加
+      zw[lo].setAttribute('style',"animation:san 2.4s;top:1500px;")
+      dt[lo].setAttribute('style',"background-color:#666;")
+      go=lo
+      lo+=1
+      if(lo>=7)
+        {lo=0}
+      zw[lo].setAttribute('style',"animation:qi 0.8s;top:50px;")
+      dt[lo].setAttribute('style',"background-color:#444;")
+      if(document.getElementsByClassName('zhengwen')[lo].offsetHeight+100>window.innerHeight)
+      {
+        document.getElementById('content').style.height=document.getElementsByClassName('zhengwen')[lo].offsetHeight+100+"px"
+      }
+      else
+      {
+        document.getElementById('content').style.height=window.innerHeight+"px"
+      }
+     }
+function cb(){          //这个函数是last按钮倒退回上一次浏览位置，如没有该功能可不加
+  zw[go].setAttribute('style',"animation:ju 0.8s;top:50px;")
+  dt[go].setAttribute('style',"background-color:#444;")
+  zw[lo].setAttribute('style',"animation:luo 0.8s;top:1500px;")
+  dt[lo].setAttribute('style',"background-color:#666;")
+  lo=go
+  if(document.getElementsByClassName('zhengwen')[lo].offsetHeight+100>window.innerHeight)
+      {
+        document.getElementById('content').style.height=document.getElementsByClassName('zhengwen')[lo].offsetHeight+100+"px"
+      }
+      else
+      {
+        document.getElementById('content').style.height=window.innerHeight+"px"
+      }
+}
+setInterval(function(){if(lo==go){last.setAttribute('style',"cursor: not-allowed;pointer-events: none;")}     //实时设置last按钮是否可以跳转回上次浏览位置，没有last按钮可不加
+else{last.setAttribute('style',"cursor: auto;pointer-events: all;")}},300)     
+	// 参考资料：https://github.com/sunshine940326/canvas-nest
+
+    class Circle {
+    //创建对象
+    //以一个圆为对象
+    //设置随机的 x，y坐标，r半径，_mx，_my移动的距离
+    //this.r是创建圆的半径，参数越大半径越大
+    //this._mx,this._my是移动的距离，参数越大移动
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.r = Math.random() * 1;
+        this._mx = Math.random();
+        this._my = Math.random();
+    }
+
+    //canvas 画圆和画直线
+    //画圆就是正常的用canvas画一个圆
+    //画直线是两个圆连线，为了避免直线过多，给圆圈距离设置了一个值，距离很远的圆圈，就不做连线处理
+    drawCircle(ctx) {
+        ctx.beginPath();
+        //arc() 方法使用一个中心点和半径，为一个画布的当前子路径添加一条弧。
+        ctx.arc(this.x, this.y, this.r, 0, 360)
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(150, 150, 150, 0.3)';
+        ctx.fill();
+    }
+
+    drawLine(ctx, _circle) {
+        let dx = this.x - _circle.x;
+        let dy = this.y - _circle.y;
+        let d = Math.sqrt(dx * dx + dy * dy)
+        if (d < 150) {
+            ctx.beginPath();
+            //开始一条路径，移动到位置 this.x,this.y。创建到达位置 _circle.x,_circle.y 的一条线：
+            ctx.moveTo(this.x, this.y); //起始点
+            ctx.lineTo(_circle.x, _circle.y); //终点
+            ctx.closePath();
+            ctx.strokeStyle = 'rgba(150, 150, 150, 0.3)';
+            ctx.stroke();
+        }
+    }
+
+    // 圆圈移动
+    // 圆圈移动的距离必须在屏幕范围内
+    move(w, h) {
+        this._mx = (this.x < w && this.x > 0) ? this._mx : (-this._mx);
+        this._my = (this.y < h && this.y > 0) ? this._my : (-this._my);
+        this.x += this._mx / 2;
+        this.y += this._my / 2;
+        }
+    }
+
+    //鼠标点画圆闪烁变动
+    class currentCirle extends Circle {
+        constructor(x, y) {
+            super(x, y)
+        }
+
+    drawCircle(ctx) {
+        ctx.beginPath();
+        //注释内容为鼠标焦点的地方圆圈半径变化
+        //this.r = (this.r < 14 && this.r > 1) ? this.r + (Math.random() * 2 - 1) : 2;
+        this.r = 8;
+        ctx.arc(this.x, this.y, this.r, 0, 360);
+        ctx.closePath();
+        //ctx.fillStyle = 'rgba(0,0,0,' + (parseInt(Math.random() * 100) / 100) + ')'
+        ctx.fillStyle = 'rgba(255, 77, 54, 0.6)'
+        ctx.fill();
+        }
+    }
+
+    //更新页面用requestAnimationFrame替代setTimeout
+    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let w = canvas.width = canvas.offsetWidth;
+    let h = canvas.height = canvas.offsetHeight;
+    let circles = [];
+    let current_circle = new currentCirle(0, 0)
+
+    let draw = function() {
+        ctx.clearRect(0, 0, w, h);
+        for (let i = 0; i < circles.length; i++) {
+            circles[i].move(w, h);
+            circles[i].drawCircle(ctx);
+            for (j = i + 1; j < circles.length; j++) {
+                circles[i].drawLine(ctx, circles[j])
+            }
+        }
+        if (current_circle.x) {
+            current_circle.drawCircle(ctx);
+            for (var k = 1; k < circles.length; k++) {
+                current_circle.drawLine(ctx, circles[k])
+            }
+        }  
+        requestAnimationFrame(draw)
+    }
+
+    let init = function(num) {
+        for (var i = 0; i < num; i++) {
+            circles.push(new Circle(Math.random() * w, Math.random() * h));
+        }
+        draw();
+    }
+
+    window.addEventListener('load', init(180));
+
+    window.onmousemove = function(e) {
+        e = e || window.event;
+        current_circle.x = e.clientX;
+        current_circle.y = e.clientY;
+    }
+
+    window.onmouseout = function() {
+        current_circle.x = null;
+        current_circle.y = null;
+    }
+
+
+
+</script>
+
+</html>

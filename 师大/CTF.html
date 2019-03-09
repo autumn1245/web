@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<title>CTF比赛</title>
+	<style type="text/css">
+	    * {
+	    	margin: 0;
+	    	padding: 0;
+	    }
+	    html {
+	    	height: 100%;
+	    }
+	    body {
+	    	margin: 0;
+	    	height: 100%;
+	    	background-color: #ddd;
+            opacity: 0.7;
+            position: relative;
+	    }
+	    canvas {
+	    	display: block;
+	    	width: 100%;
+	    	height: 100%;
+            position: fixed;
+	    }
+		.main {
+			width: 15%;
+		    position: fixed;
+		    left: 10%;
+		    top: 50px;
+            opacity: 0.9;
+		}
+		.main ul li span, .main ul li dl {
+			display: block;
+			width: 100%;
+			font: 40px/40px "";
+			text-align: center;
+			color: #fff;
+			font-family: Avenir;
+			font-weight: lighter;
+		}
+		.main ul li span {
+			text-decoration: none;
+			font-size: 24px;
+			height: 75px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+		}
+		.main ul li span:hover, .main ul li dl dt:hover {
+			color: #999;
+		}
+		.main ul li dl dt {
+			background: rgba(254,254,254,0.1);
+			font-size: 18px;
+			height: 30px;
+            display: flex;
+            color: #fff;
+            justify-content: center;
+            align-items: center;
+            letter-spacing: 1px;
+		}
+        .main ul li dl a {
+            font-weight: bolder;
+            text-decoration: none;
+        }
+		.main ul li {			
+			overflow: hidden;
+			transition: 0.5s;
+            background: #000;
+            border-radius: 5px;
+            height: 75px;
+            color: #fff;
+            opacity: 1;
+            margin-bottom: 50px;
+		}
+        #content {
+            height: 10px;
+            width: 65%;
+            left: 20%;
+            position: relative;
+            overflow: hidden;
+        }
+        .zhengwen {
+            width: 65%;
+            border-radius: 3px;
+            padding: 30px;
+            background: hsla(144,10%,75%,0.8);
+            box-shadow: 0 0 5px #000;
+            z-index: 12;
+            top:2500px;
+            margin-left: 18%;
+            margin-right: 17%;
+            position: absolute;
+        }
+        p {
+        	text-indent: 2em;
+        }
+        #tiao {
+            background-color: rgba(144, 144, 144, 1);
+            height: 50px;
+            width: 50px;
+            border-radius: 25px;
+            position: fixed;
+            box-shadow: 0 0 5px #000;
+            display: flex;
+            top:40%;
+            right: -25px;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+            text-decoration: none;
+            transform: rotate(0deg);
+            opacity: 1;
+        }
+        .pd {
+            height: 250px;
+            width: 180px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            opacity: 0.5;
+            display:inline;
+            color: #000;
+            right: -180px;
+            position: absolute;
+            opacity: 1;
+            border: 2px solid #222;
+            font-size: 24px;
+        }
+        .lj {
+            height: 50px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #222;
+            font-weight: bolder;
+            font-family: KaiTi;
+            font-size: 18px;
+        }
+        .lj:hover {
+            background-color: #444;
+            color: #000;
+        }
+        #tiao:hover {
+            animation-play-state: paused;
+        }
+        #tiao:hover .pd {
+            background: #ccc;
+            right: 5px;
+            display: inline-block;
+            opacity: 0.7;
+            z-index: 100;
+        }
+        #tiao:hover .to {
+        	opacity: 1;
+        }
+        #tiao {
+        	z-index: 100;
+        }
+        .pd a {
+        	text-decoration: none;
+        }
+        .shang {
+            height: 45px;
+            width: 100%;
+        }
+        .zuo {
+            width: 200px;
+            float: left;
+        }
+        .you {
+            width: 200px;
+            float: right;
+        }
+        .wen a {
+            text-decoration: none;
+            font-size: 24px;
+            color: #b8860b;
+            font-family: KaiTi;
+            margin-left: 50px;
+        }
+        .wen p {
+            font-weight: bolder;
+            font-family: KaiTi;
+            font-size: 20px;
+        }
+        #next {
+            width: 130px;
+            height: 40px;
+            position: absolute;
+            border-radius: 20px;
+            background: hsla(144, 10%, 70%,0.9);
+            position: fixed;
+            left: 50%;
+            margin-left: -60px;
+            bottom:7%;
+            box-shadow: 0 0 5px #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: huan 4s ;
+            animation-iteration-count: infinite;
+            animation-play-state: running;
+            opacity: 1;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        #next:hover {
+            opacity: 1 !important;
+            animation-play-state: paused;
+        }
+        @keyframes huan {
+            0%{
+                bottom: 8%;
+                opacity: 1;
+            }
+            50%{
+                bottom: 5%;
+                opacity: 0.3;
+            }
+            100%{
+                bottom: 8%;
+                opacity: 1;
+            }
+        }
+        #last {
+            background: hsla(144,10%,75%,0.7);
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            position: fixed;
+            box-shadow: 0 0 5px #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            right: 100px;
+            bottom: 5%;
+            transition: all 0.3s;
+            text-decoration: none;
+            cursor: auto;
+            pointer-events: all;
+        }
+        #last:hover {
+            width: 150px;
+            background:hsla(133, 10%, 75%, 0.7);
+            text-decoration: underline;
+        }
+        @keyframes qi {
+            0% { top:2500px; }
+            100% { top: 50px; }
+        }
+        @keyframes san {
+            0% { 
+                transform: scale(1);
+                opacity: 1;
+                top:50px; 
+            }
+            33% { 
+                transform: scale(1.5);
+                opacity: 0;
+                top: 50px; 
+            }
+            66%{ 
+                transform: scale(1);
+                opacity: 0;
+                top: 2500px; 
+            }
+            100%{ 
+                transform: scale(1);
+                opacity: 1;
+                top: 2500px; 
+            }
+        }
+        @keyframes luo {
+            0% { top:50px; }
+            100% { top:2500px; }
+        }
+        @keyframes ju{
+            0%{ 
+                transform: scale(1.5);
+                opacity: 0;
+                top: 50px; 
+            }
+            100%{ 
+                transform: scale(1);
+                opacity: 1;
+                top: 50px; 
+            }
+        }
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+    <div class="main">
+    	<ul>
+    		<li>
+    			<span>CTF比赛</span>
+    			<dl>
+    				<a href="#"><dt>Day1</dt></a>
+    				<a href="#"><dt>Day2</dt></a>
+    				<a href="#"><dt>Day3</dt></a>
+    				<a href="#"><dt>Day4</dt></a>
+    				<a href="#"><dt>Day5</dt></a>
+    			</dl>
+    		</li>
+    		<li>
+    			<span>复习与考试</span>
+    			<dl>
+    				<a href="#"><dt>Day1~5</dt></a>
+    			</dl>
+    		</li>
+    	</ul>
+    </div>
+    <div id="tiao">
+    	<span class="to"><<<<</span>
+        <div class="pd">
+            <a href="index.html"><div class="lj">首页</div></a>
+            <a href="系统安全.html"><div class="lj">系统安全</div></a>
+            <a href="web渗透测试.html"><div class="lj">Web渗透测试</div></a>
+            <a href="编程基础.html"><div class="lj">编程基础</div></a>
+            <a href="代码审计.html"><div class="lj">代码审计</div></a>
+        </div>
+    </div>
+    <div id="content">
+    <script type="text/javascript">
+        document.getElementById('content').style.minHeight=window.innerHeight+"px"
+    </script>
+    <div class="zhengwen" style="top:50px;">
+        <div class="shang">
+            <div class="zuo">
+                <p>Day-1</p>
+            </div>
+            <div class="you">
+                <p>授课教师：杨老师</p>
+            </div>
+        </div>
+        
+        <hr width="100%" size ="1px" color="#888">  
+        <div class="jieshao">
+            <div class="wen"> 
+                <h1>CTF介绍，CTF竞赛模式</h1>
+                <br>
+                <h2>CTF介绍</h2>
+                <br>
+                <p>CTF（Capture The Flag）中文一般译作夺旗赛，在网络安全领域中指的是网络安全技术人员之间进行技术竞技的一种比赛形式。CTF起源于1996年DEFCON全球黑客大会，以代替之前黑客们通过互相发起真实攻击进行技术比拼的方式。发展至今，已经成为全球范围网络安全圈流行的竞赛形式，2013年全球举办了超过五十场国际性CTF赛事。而DEFCON作为CTF赛制的发源地，DEFCON CTF也成为了目前全球最高技术水平和影响力的CTF竞赛，类似于CTF赛场中的“世界杯” 。</p>
+                <br>
+                <h2>CTF竞赛模式</h2>
+                <br>
+                <h3>CTF竞赛模式具体分为以下三类：</h3>
+                <br>
+                <h4>一、解题模式（Jeopardy）</h4>
+                <h4>二、攻防模式（Attack-Defense）</h4>
+                <h4>三、混合模式（Mix）</h4>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="zhengwen">
+        <div class="shang">
+            <div class="zuo">
+                <p>Day-2</p>
+            </div>
+            <div class="you">
+                <p>授课教师：杨老师</p>
+            </div>
+        </div>
+        
+        <hr width="100%" size ="1px" color="#888">  
+        <div class="jieshao">
+            <div class="wen"> 
+                <h1>CTF竞赛模式</h1>
+                <br>
+                <h3>1. 解题模式</h3>
+                <br>
+                <p>在解题模式CTF赛制中，参赛队伍可以通过互联网或者现场网络参与，这种模式的CTF竞赛与ACM编程竞赛、信息学奥赛比较类似，以解决网络安全技术挑战题目的分值和时间来排名，通常用于在线选拔赛。题目主要包含逆向、漏洞挖掘与利用、Web渗透、密码、取证、隐写、安全编程等类别。</p>
+                <br>
+                <h3>2. 攻防模式</h3>
+                <br>
+                <p>在攻防模式CTF赛制中，参赛队伍在网络空间互相进行攻击和防守，挖掘网络服务漏洞并攻击对手服务来得分，修补自身服务漏洞进行防御来避免丢分。攻防模式CTF赛制可以实时通过得分反映出比赛情况，最终也以得分直接分出胜负，是一种竞争激烈，具有很强观赏性和高度透明性的网络安全赛制。在这种赛制中，不仅仅是比参赛队员的智力和技术，也比体力（因为比赛一般都会持续48小时及以上），同时也比团队之间的分工配合与合作。</p>
+                <br>
+                <h3>3. 混合模式</h3>
+                <br>
+                <p>结合了解题模式与攻防模式的CTF赛制，比如参赛队伍通过解题可以获取一些初始分数，然后通过攻防对抗进行得分增减的零和游戏，最终以得分高低分出胜负。采用混合模式CTF赛制的典型代表如iCTF国际CTF竞赛。</p>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="zhengwen">
+        <div class="shang">
+            <div class="zuo">
+                <p>Day-3</p>
+            </div>
+            <div class="you">
+                <p>授课教师：杨老师</p>
+            </div>
+        </div>
+        
+        <hr width="100%" size ="1px" color="#888">  
+        <div class="jieshao">
+            <div class="wen"> 
+                <br>
+                <h1>分析赛题情况及常规做法</h1>
+                <br>
+                <h3>A方向： PWN+Reserver+Crypto 随机搭配</h3>
+                <p></p>
+                <br>
+                <h3>B方向： Web+Misc 组合</h3>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="zhengwen">
+        <div class="shang">
+            <div class="zuo">
+                <p>Day-4</p>
+            </div>
+            <div class="you">
+                <p>授课教师：杨老师</p>
+            </div>
+        </div>
+        
+        <hr width="100%" size ="1px" color="#888">  
+        <div class="jieshao">
+            <div class="wen"> 
+                <br>
+                <h1>CTF各大题型介绍</h1>
+                <br>
+                <h3>1. WEB(网络安全)</h3>
+                <br>
+                <p>网络安全防护是一种网络安全技术，指致力于解决诸如如何有效进行介入控制，以及如何保证数据传输的安全性的技术手段，主要包括物理安全分析技术，网络结构安全分析技术，系统安全分析技术，管理安全分析技术，及其它的安全服务和安全机制策略。</p>
+                <br>
+                <h3>2. MISC(安全杂项)</h3> 
+                <br>
+                <p>Misc 是英文 Miscellaneous 的前四个字母，杂项、混合体、大杂烩的意思。Misc 在国外的比赛中其实又被具体划分为各个小块，有Recon，Forensic，Stego，Misc……。在国内的比赛中，被统一划分入 Misc 领域，有时 Crypto（尤其是古典密码）也被划入其中。Misc 是切入 CTF 竞赛领域、培养兴趣的最佳入口。Misc 考察基本知识，对安全技能的各个层面都有不同程度的涉及，可以在很大程度上启发思维。</p>
+                <br>
+                <h3>3. Crypto(密码学)</h3> 
+                <br>
+                <p>密码学（在西欧语文中，源于希腊语kryptós“隐藏的”，和gráphein“书写”）是研究如何隐密地传递信息的学科。在。密码是通信双方按约定的法则进行信息特殊变换的一种重要保密手段。依照这些法则，变明文为密文，称为加密变换；变密文为明文，称为脱密变换。密码在早期仅对文字或数码进行加、脱密变换，随着通信技术的发展，对语音、图像、数据等都可实施加、脱密变换。</p>
+                <br>
+                <h3>4. Reverse(逆向工程)</h3>
+                <br>
+                <p>软件代码逆向主要指对软件的结构，流程，算法，代码等进行逆向拆解和分析。主要应用于软件维护，软件破解，漏洞挖掘，恶意代码分析。涉及 Windows、Linux、Android 平台的多种编程技术，要求利用常用工具对源代码及二进制文件进行逆向分析，掌握 Android 移动应用 APK 文件的逆向分析，掌握加解密、内核编程、算法、反调试和代码混淆技术。</p>
+                <br>
+                <h3>5. PPC(编程类题目)</h3>
+                <br>
+                <p>PPC即编程类题目，题目涉及到程序编写、编程算法实现，当然PPC相比ACM来说，还是较为容易的。至于编程语言嘛，推荐使用Python或Ruby来尝试。 </p>
+                <br>
+                <h3>6. PWN(溢出)</h3>
+                <br>
+                <p>PWN是一个黑客语法的俚语词，自"own"这个字引申出来的，这个词的含意在于，玩家在整个游戏对战中处在胜利的优势，或是说明竞争对手处在完全惨败的 情形下，这个词习惯上在网络游戏文化主要用于嘲笑竞争对手在整个游戏对战中已经完全被击败（例如："You just got pwned!"）。有一个非常著名的国际赛事叫做Pwn2Own，相信你现在已经能够理解这个名字的含义了，即通过打败对手来达到拥有的目的。</p>
+                <br>
+                <h3>7. STEGA(隐写)</h3>
+                <br>
+                <p>近几年来,隐写领域已经成为了信息安全的焦点。因为每个Web站点都依赖多媒体,如音频、视频和图像。隐写这项技术可以将秘密信息嵌入到数字媒介中而不损坏它的载体的质量。第三方既觉察不到秘密信息的存在,也不知道存在秘密信息。因此密钥、数字签名和私密信息都可以在开放的环境(如Internet,或者内联网)中安全的传送。主要介绍隐写的基本原理以及各方面的应用</p>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="zhengwen">
+        <div class="shang">
+            <div class="zuo">
+                <p>Day-5</p>
+            </div>
+            <div class="you">
+                <p>授课教师：杨老师</p>
+            </div>
+        </div>
+        
+        <hr width="100%" size ="1px" color="#888">  
+        <div class="jieshao">
+            <div class="wen"> 
+                <br>
+                <h1>国内外CTF平台(day5)</h1>
+                <br>
+                <h3><a href="http://www.ichunqiu.com/"  target="_blank">i春秋</a></h3>
+                <h3><a href="http://www.hetianlab.com/" target="_blank">合天智汇</a></h3>
+                <h3><a href="http://www.shiyanbar.com/" target="_blank">实验吧</a></h3>
+                <h3><a href="https://pwnhub.cn/index" target="_blank">胖哈勃</a></h3>
+                <h3><a href="http://bobao.360.cn/ctf/index" target="_blank">安全客CTF训练营</a></h3>
+                <h3><a href="http://oj.xctf.org.cn/" target="_blank">XCTF实训平台</a></h3>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="zhengwen">
+        <div class="shang">
+            <div class="zuo">
+                <p>Day-(1~5)</p>
+            </div>
+            <div class="you">
+                <p>授课教师：杨老师</p>
+            </div>
+        </div>
+        
+        <hr width="100%" size ="1px" color="#888">  
+        <div class="jieshao">
+            <div class="wen"> 
+                <h3>windows 运维考核(day1)</h3>
+                <h3>Linux 运维考核(day2)</h3>
+                <h3>渗透考核(day3)</h3>
+                <h3>CTF考核(day4)</h3>
+                <h3>毕业考试(day5)</h3>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="next" onclick="ne()">
+        <sapn>Next Day</sapn>
+    </div>
+    <div id="last" onclick="cb()">
+        <span>Back</span>
+    </div>
+</body>
+<script type="text/javascript">
+    // 侧栏动画
+    var oA = document.querySelectorAll(".main ul li span");
+    var oLi = document.querySelectorAll(".main ul li");
+
+    for(var i = 0; i < oA.length; i++)
+    {
+        oA[i].index = i;
+        oA[i].onclick = function () {
+            for(var j = 0; j < oA.length; j++)
+            {
+                oLi[j].style.height = "75px";
+            }
+            switch(this.index)
+            {
+                case 0: oLi[this.index].style.height = "225px"; break;
+                case 1: oLi[this.index].style.height = "103px"; break; 
+            }
+        }
+    }
+
+    var zw=document.getElementsByClassName('zhengwen')   //获取卡片对象
+    var dt=document.getElementsByTagName('dt')           //获取侧边栏对象
+    var lo=0     //计数器
+    var go=0     //计数器
+    var last=document.getElementById('last')        //获取last按钮对象
+    if(document.getElementsByClassName('zhengwen')[0].offsetHeight+100>window.innerHeight)     //在卡片高度大于屏幕高度时，通过设置将页面设置为可以滚动
+    {
+        document.getElementById('content').style.height=document.getElementsByClassName('zhengwen')[0].offsetHeight+100+"px"
+        console.log(document.getElementById('content').style.height+"----"+document.getElementsByClassName('zhengwen')[0].offsetHeight+100+"px")
+    }
+
+    for(var r=0;r<dt.length;r++)
+    {
+        console.log(r);
+        (function(r) {
+            dt[r].onclick=function() {                 //这个函数用来动态设置点击侧栏对应位置对应卡片出来，原本卡片消失
+                zw[lo].setAttribute('style',"animation:san 2.4s;top:2500px;")     //设置点击出现下一个卡片之前--当前卡片的消失动画
+                dt[lo].setAttribute('style',"background-color: #666;")        //将要消失的卡片对应在侧栏上的栏目背景颜色调回原样
+                zw[r].setAttribute('style',"animation:qi 0.8s;top:50px;")      //设置要新出现的卡片的出场动画
+                dt[r].setAttribute('style',"background-color:#444;")     //设置将要新出现的卡片的侧栏对应位置的背景颜色
+                go=lo     //go计数器跟保持是lo的前一个的状态
+                lo=r     //lo更新为当前卡片在数组里的下标
+                if(document.getElementsByClassName('zhengwen')[r].offsetHeight+100>window.innerHeight)    //这个判断目的是切换卡片后根据卡片高度实时调整页面可否滚动
+                {
+                    document.getElementById('content').style.height=document.getElementsByClassName('zhengwen')[r].offsetHeight+100+"px"
+                } else {
+                document.getElementById('content').style.height=window.innerHeight+"px"
+                }
+            }
+        })(r)
+    }
+
+    function ne(){               //这个函数是个快捷按钮，点击后直接跳转下一天的卡片，如没有该功能可不加
+        zw[lo].setAttribute('style',"animation:san 2.4s;top:2500px;")
+        dt[lo].setAttribute('style',"background:rgba(254,254,254,0.1);")
+        go=lo
+        lo+=1
+        if(lo>=6)
+        {lo=0}
+        zw[lo].setAttribute('style',"animation:qi 0.8s;top:50px;")
+        dt[lo].setAttribute('style',"background-color:#444;")
+        if(document.getElementsByClassName('zhengwen')[lo].offsetHeight+100>window.innerHeight)
+        {
+            document.getElementById('content').style.height=document.getElementsByClassName('zhengwen')[lo].offsetHeight+100+"px"
+        } else {
+            document.getElementById('content').style.height=window.innerHeight+"px"
+        }
+    }
+
+    function cb(){          //这个函数是last按钮倒退回上一次浏览位置，如没有该功能可不加
+        zw[go].setAttribute('style',"animation:ju 0.8s;top:50px;")
+        dt[go].setAttribute('style',"background-color:#444;")
+        zw[lo].setAttribute('style',"animation:luo 0.8s;top:2500px;")
+        dt[lo].setAttribute('style',"background-color:rgba(254,254,254,0.1);")
+        lo=go
+        if(document.getElementsByClassName('zhengwen')[lo].offsetHeight+100>window.innerHeight)
+        {
+            document.getElementById('content').style.height=document.getElementsByClassName('zhengwen')[lo].offsetHeight+100+"px"
+        } else {
+            document.getElementById('content').style.height=window.innerHeight+"px"
+        }
+    }
+
+    setInterval(function(){if(lo==go){last.setAttribute('style',"cursor: not-allowed;pointer-events: none;")}     //实时设置last按钮是否可以跳转回上次浏览位置，没有last按钮可不加
+    else{last.setAttribute('style',"cursor: auto;pointer-events: all;")}},300)
+
+	// 参考资料：https://github.com/sunshine940326/canvas-nest
+
+    class Circle {
+    //创建对象
+    //以一个圆为对象
+    //设置随机的 x，y坐标，r半径，_mx，_my移动的距离
+    //this.r是创建圆的半径，参数越大半径越大
+    //this._mx,this._my是移动的距离，参数越大移动
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.r = Math.random() * 1;
+        this._mx = Math.random();
+        this._my = Math.random();
+    }
+
+    //canvas 画圆和画直线
+    //画圆就是正常的用canvas画一个圆
+    //画直线是两个圆连线，为了避免直线过多，给圆圈距离设置了一个值，距离很远的圆圈，就不做连线处理
+    drawCircle(ctx) {
+        ctx.beginPath();
+        //arc() 方法使用一个中心点和半径，为一个画布的当前子路径添加一条弧。
+        ctx.arc(this.x, this.y, this.r, 0, 360)
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(150, 150, 150, 0.3)';
+        ctx.fill();
+    }
+
+    drawLine(ctx, _circle) {
+        let dx = this.x - _circle.x;
+        let dy = this.y - _circle.y;
+        let d = Math.sqrt(dx * dx + dy * dy)
+        if (d < 150) {
+            ctx.beginPath();
+            //开始一条路径，移动到位置 this.x,this.y。创建到达位置 _circle.x,_circle.y 的一条线：
+            ctx.moveTo(this.x, this.y); //起始点
+            ctx.lineTo(_circle.x, _circle.y); //终点
+            ctx.closePath();
+            ctx.strokeStyle = 'rgba(150, 150, 150, 0.3)';
+            ctx.stroke();
+        }
+    }
+
+    // 圆圈移动
+    // 圆圈移动的距离必须在屏幕范围内
+    move(w, h) {
+        this._mx = (this.x < w && this.x > 0) ? this._mx : (-this._mx);
+        this._my = (this.y < h && this.y > 0) ? this._my : (-this._my);
+        this.x += this._mx / 2;
+        this.y += this._my / 2;
+        }
+    }
+
+    //鼠标点画圆闪烁变动
+    class currentCirle extends Circle {
+        constructor(x, y) {
+            super(x, y)
+        }
+
+    drawCircle(ctx) {
+        ctx.beginPath();
+        //注释内容为鼠标焦点的地方圆圈半径变化
+        //this.r = (this.r < 14 && this.r > 1) ? this.r + (Math.random() * 2 - 1) : 2;
+        this.r = 8;
+        ctx.arc(this.x, this.y, this.r, 0, 360);
+        ctx.closePath();
+        //ctx.fillStyle = 'rgba(0,0,0,' + (parseInt(Math.random() * 100) / 100) + ')'
+        ctx.fillStyle = 'rgba(255, 77, 54, 0.6)'
+        ctx.fill();
+        }
+    }
+
+    //更新页面用requestAnimationFrame替代setTimeout
+    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let w = canvas.width = canvas.offsetWidth;
+    let h = canvas.height = canvas.offsetHeight;
+    let circles = [];
+    let current_circle = new currentCirle(0, 0)
+
+    let draw = function() {
+        ctx.clearRect(0, 0, w, h);
+        for (let i = 0; i < circles.length; i++) {
+            circles[i].move(w, h);
+            circles[i].drawCircle(ctx);
+            for (j = i + 1; j < circles.length; j++) {
+                circles[i].drawLine(ctx, circles[j])
+            }
+        }
+        if (current_circle.x) {
+            current_circle.drawCircle(ctx);
+            for (var k = 1; k < circles.length; k++) {
+                current_circle.drawLine(ctx, circles[k])
+            }
+        }  
+        requestAnimationFrame(draw)
+    }
+
+    let init = function(num) {
+        for (var i = 0; i < num; i++) {
+            circles.push(new Circle(Math.random() * w, Math.random() * h));
+        }
+        draw();
+    }
+
+    window.addEventListener('load', init(180));
+
+    window.onmousemove = function(e) {
+        e = e || window.event;
+        current_circle.x = e.clientX;
+        current_circle.y = e.clientY;
+    }
+
+    window.onmouseout = function() {
+        current_circle.x = null;
+        current_circle.y = null;
+    }
+</script>
+
+</html>

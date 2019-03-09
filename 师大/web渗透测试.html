@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>web渗透测试</title>
+	<style type="text/css">
+	    * {
+	    	margin: 0;
+	    	padding: 0;
+	    }
+	    html {
+	    	height: 100%;
+	    }
+	    body {
+	    	margin: 0;
+	    	height: 100%;
+	    	background-color: #ddd;
+	    	opacity: 0.7;
+	    }
+	    canvas {
+	    	display: block;
+	    	width: 100%;
+	    	height: 100%;
+	    }
+		.main {
+			width: 15%;
+		    position: fixed;
+		    left: 10%;
+		    top: 50px;
+            opacity: 0.9;
+		}
+		.main ul li span, .main ul li dl {
+			display: block;
+			width: 100%;
+			font: 40px/40px "";
+			text-align: center;
+			color: #fff;
+			font-family: Avenir;
+			font-weight: lighter;
+		}
+		.main ul li span {
+			text-decoration: none;
+			font-size: 24px;
+			height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+		}
+		.main ul li span:hover, .main ul li dl dt:hover {
+			color: #999;
+		}
+		.main ul li dl dt {
+			background: rgba(254,254,254,0.1);
+			font-size: 18px;
+			height: 25px;
+            display: flex;
+            color: #fff;
+            justify-content: center;
+            align-items: center;
+            letter-spacing: 1px;
+		}
+        .main ul li dl a {
+            font-weight: bolder;
+            text-decoration: none;
+        }
+		.main ul li {			
+			overflow: hidden;
+			transition: 0.5s;
+            background: #000;
+            border-radius: 5px;
+            height: 70px;
+            color: #fff;
+            opacity: 1;
+            margin-bottom: 20px;
+            overflow: hidden;
+		}
+        #tiao {
+            background-color: rgba(144, 144, 144, 1);
+            height: 50px;
+            width: 50px;
+            border-radius: 25px;
+            position: fixed;
+            box-shadow: 0 0 5px #000;
+            display: flex;
+            top:40%;
+            right: -25px;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+            text-decoration: none;
+            transform: rotate(0deg);
+            opacity: 1;
+        }
+        .pd {
+            height: 250px;
+            width: 180px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            opacity: 0.5;
+            display:inline;
+            right: -180px;
+            position: absolute;
+            opacity: 1;
+            border: 2px solid #222;
+            font-size: 24px;
+        }
+        .lj {
+            height: 50px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #222;
+            font-weight: bolder;
+            font-family: KaiTi;
+            font-size: 18px;
+        }
+        .lj:hover {
+            background-color: #444;
+            color: #000;
+        }
+        #tiao:hover {
+            animation-play-state: paused;
+        }
+        #tiao:hover .pd {
+            background: #ccc;
+            right: 5px;
+            display: inline-block;
+            opacity: 0.7;
+            z-index: 100;
+        }
+        #tiao:hover .to {
+        	opacity: 1;
+        }
+        #tiao {
+        	z-index: 100;
+        }
+        .pd a {
+        	text-decoration: none;
+        }
+		.div1{ 
+			position: absolute;
+			text-align: center;
+			margin-left: 22%;
+			height: 80%;
+			width: 50%;
+			opacity: 12;
+		    position: fixed;
+		    left: 50px;
+		    top: 80px;
+			background: hsla(144,10%,75%,0.8);
+		}
+
+		.tit{
+      height: 50px;
+      width: 100%;
+      position: relative;
+    }
+
+		.div2{
+			padding-top: 5%;
+			width:15%;
+			float: left;
+		}
+
+		.div3{
+			padding-top: 5%;
+			width:25%;
+			float: left;
+			margin-left: 22%;
+			text-align: center;
+		}
+
+		.div4{
+			padding-top: 5%;
+			width:15%;
+			float: right;
+		}
+
+		.div5{
+			border-top-style: groove;
+			margin-top: 5%;
+			width:90%;
+			margin-left: 5%;
+		}
+
+		#content{
+      overflow: hidden;
+	  	height: 98%;
+			width: 63%;
+		  position: absolute;
+		  left: 350px;
+		  top: 10px;
+    }
+
+    .zhengwen{
+      height: auto !important ;
+      min-height: 500px;
+      width: 80%;
+      border-radius: 3px;
+      margin-left: 10%;
+      margin-right: 10%;
+      top:1500px;
+      position: absolute;
+      background: hsla(144,10%,75%,0.8);
+      box-shadow: 0 0 5px #000;
+      box-sizing: border-box;
+      padding: 20px;
+    }
+
+    #nextd{
+      height: 50px;
+      width: 160px;
+      border-radius: 25px;
+      background: hsla(144,10%,75%,0.8);
+      position: fixed;
+      left: 50%;
+      margin-left: -80px;
+      bottom: 8%;
+      box-shadow: 0 0 5px #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: nx 3s;
+      -webkit-animation-iteration-count: infinite;
+      animation-play-state: running;
+      opacity: 1;
+    }
+
+    #nextd:hover{
+      opacity: 1 !important;
+      animation-play-state: paused;
+    }
+
+    @keyframes nx{
+      0%{
+        bottom: 8%;
+        opacity: 1;
+      }
+      50%{
+        bottom: 5%;
+        opacity: 0.3;
+      }
+      100%{
+        bottom: 8%;
+        opacity: 1;
+      }
+    }
+
+    #last{
+      background: hsla(144,10%,75%,0.8);
+      height: 50px;
+      width: 50px;
+      border-radius: 25px;
+      position: fixed;
+      box-shadow: 0 0 5px #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      right: 100px;
+      bottom: 5%;
+      transition: all 0.3s;
+      text-decoration: none;
+      cursor: auto;
+      pointer-events: all;
+    }
+
+    #last:hover{
+      width: 150px;
+      background: #DDD;
+      text-decoration: underline;
+    }
+
+    .tit{
+      height: 50px;
+      width: 100%;
+      position: relative;
+    }
+
+    .day{
+      width: 200px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      float: left;
+      margin-left: 35px;
+    }
+
+    .tim{
+      height: 50px;
+      width: 245px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      left: 49%;
+      margin-left: -120px;
+    }
+
+    .ctx{
+      height: auto !important ;
+      min-height: 80px;
+      width: 100%;
+      position: relative;
+      box-sizing: border-box;
+      padding-left: 10px;
+    }
+
+    .obg{
+      height: auto !important ;
+      min-height: 100px;
+      width: 100%;
+    }
+
+    .tbg{
+      height: auto !important ;
+      min-height: 100px;
+      width: 60%; 
+      float: left;
+    }
+
+    .trbg{
+      height: auto !important ;
+      min-height: 100px;
+      width: 40%; 
+      float: right;
+    }
+
+    .code{
+      height: auto !important ;
+      min-height: 100px;
+      width: 100%;
+      background-color: #666;
+      opacity: 0.5;
+      border-radius: 3px;
+      letter-spacing: 1px;
+      box-sizing: border-box;
+      padding-left: 10px;
+    }
+
+    @keyframes qi{
+      0%{top:1500px;}
+      100%{top: 50px;}
+    }
+
+    @keyframes san{
+      0%{transform: scale(1);opacity: 1;top:50px;}
+      33%{transform: scale(1.5);opacity: 0;top: 50px;}
+      66%{transform: scale(1);opacity: 0;top: 1500px;}
+      100%{transform: scale(1);opacity: 1;top: 1500px;}
+    }
+
+    @keyframes luo{
+      0%{top:50px;}
+      100%{top:1500px;}
+    }
+
+    @keyframes ju{
+      0%{transform: scale(1.5);opacity: 0;top: 50px;}
+      100%{transform: scale(1);opacity: 1;top: 50px;}
+    }
+
+    .tup{
+      height: 200px;
+      width: 50%
+    }
+	
+	::-webkit-scrollbar { 
+    width: 10px; 
+    background-color:#000; 
+	} 
+   
+	::-webkit-scrollbar-track { 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    background-color: rgb(99, 95, 95); 
+	} 
+
+	::-webkit-scrollbar-thumb { 
+    border-radius: 10px; 
+    -webkit-box-shadow: inset 0 0 6px #fff; 
+    background-color::#000; 
+	}
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+
+	<div class="main">
+    	<ul>
+    		<li>
+    			<span>WEB基础渗透课程</span>
+    			<dl>
+    				<a href="#"><dt>Day1</dt></a>
+    				<a href="#"><dt>Day2</dt></a>
+    				<a href="#"><dt>Day3~4</dt></a>
+    				<a href="#"><dt>Day5</dt></a>
+    				<a href="#"><dt>Day6</dt></a>
+    				<a href="#"><dt>Day7</dt></a>
+    				<a href="#"><dt>Day8</dt></a>
+    				<a href="#"><dt>Day9</dt></a>
+    				<a href="#"><dt>Day10</dt></a>
+    				<a href="#"><dt>Day11</dt></a>
+    				<a href="#"><dt>Day12~13</dt></a>
+    				<a href="#"><dt>Day14</dt></a>
+    				<a href="#"><dt>Day15~16</dt></a>
+    				<a href="#"><dt>Day17~18</dt></a>
+    				<a href="#"><dt>Day19~20</dt></a>
+    			</dl>
+    		</li>
+    		<li>
+    			<span>中级渗透</span>
+    			<dl>
+    				<a href="#"><dt>Day21~22</dt></a>
+    				<a href="#"><dt>Day23~24</dt></a>
+    				<a href="#"><dt>Day25~26</dt></a>
+    				<a href="#"><dt>Day27~28</dt></a>
+    			</dl>
+    		</li>
+    		<li>
+    			<span>内层渗透</span>
+    			<dl>
+    				<a href="#"><dt>Day29~30</dt></a>
+    			</dl>
+    		</li>
+    		<li>
+    			<span>APT攻击</span>
+    			<dl>
+    				<a href="#"><dt>Day31</dt></a>
+    				<a href="#"><dt>Day32</dt></a>
+    				<a href="#"><dt>Day33</dt></a>
+    			</dl>
+    		</li>
+    	</ul>
+    </div>
+
+	<div id="content">
+		<script type="text/javascript">
+		  document.getElementById('content').style.minHeight=window.innerHeight+"px"
+		</script>
+		<div class="zhengwen" style="top:50px;">
+		  <div class="tit">
+			<div class="day">
+			  <ft>Day 1</ft>
+			</div>
+			<div class="day" style="float: right;width: 120px;">
+			  <ft style="color: #000;font-weight: normal;">教师: 彭老师</ft>
+			</div>
+			<hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+		  </div>
+		  <div class="obg" >
+		  	<h1 style="text-align: center;">网络安全法/渗透测试</h1>
+				<div class="tit">
+			  	<div class="day" style="float: left;width: 20%;font-weight: normal;position: relative;">
+					<span style="font-weight: bolder; font-family: KaiTi; font-size: 24px;">网络安全法:</span>
+			  	</div>
+				</div>
+				<div class="ctx" >
+			  	<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+			  	</div>
+			  	<span style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">《中华人民共和国网络安全法》是为了保障网络安全，维护网络空间主权和国家安全、社会公共利益，保护公民、法人和其他组织的合法权益，
+						促进经济社会信息化健康发展，制定的法律。</span>
+				</div>
+				<div class="tit">
+					<div class="day" style="float: left;width: 20%;font-weight: normal;position: relative;">
+					<ft style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">渗透测试:</ft>
+					</div>
+				</div>
+				<div class="ctx">
+						<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+						</div>
+						<span style="line-height: 27px; font-family: KaiTi; font-weight: bolder;">渗透测试，是为了证明网络防御按照预期计划正常运行而提供的一种机制。
+							不妨假设，你的公司定期更新安全策略和<br>程序，时时给系统打补丁，并采用了漏洞扫描器等工具，
+							以确保所有补丁都已打上。如果你早已做到了这些，为什么还要请<br>外方进行审查或渗透测试呢？
+							因为，渗透测试能够独立地检查你的网络策略，换句话说，就是给你的系统安了一双眼睛。而且，
+							进行这类测试的，都是寻找网络系统安全漏洞的专业人士。
+							</span>
+					</div>
+
+		  </div>
+		</div>
+
+		<div class="zhengwen">
+		  <div class="tit">
+			<div class="day">
+			  <ft>Day 2</ft>
+			</div>
+			<div class="day" style="float: right;width: 120px;">
+			  <ft style="color: #000;">教师: 彭老师</ft>
+			</div>
+			<hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+		</div>
+			<div class="obg" style="font-size:95%;">
+                <h1 style="text-align: center;">环境工具</h1>
+					<div class="tit">
+						<div class="day" style="float: left;font-weight: normal;position: relative;">
+						<ft style=" font-weight: bolder; font-size: 24px; font-family: KaiTi;">虚拟机安装:</ft>
+						</div>
+					</div>
+					<div class="ctx">
+						<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+						</div>
+						<ft style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+							<strong>虚拟机：</strong>虚拟机（Virtual Machine）指通过软件模拟的具有完整硬件系统功能的、运行在一个完全隔离环境中的完整计算机系统。
+								虚拟系统通过生成现有操作系统的全新虚拟镜像，它具有真实windows系统完全一样的功能，进入虚拟系统后，
+								所有操作都是在这个全新的独立的虚拟系统里面进行，可以独立安装运行软件，保存数据，拥有自己的独立桌面，
+								不会对真正的系统产生任何影响 ，而且具有能够在现有系统与虚拟镜像之间灵活切换的一类操作系统。<br>
+								
+						</ft>
+						<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+							</div>
+							<ft style="line-height: 30px;">
+								<a href="https://www.vmware.com/cn.html" target="view_window" style="text-decoration: none; color: #b8860b;">VMware下载</a><br>
+							</ft>
+						<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+							</div>
+							<ft style="line-height: 30px;">
+								<a href="https://blog.csdn.net/qq_35206244/article/details/79339453" target="view_window" style="text-decoration: none; color: #b8860b;">虚拟机安装教程</a>
+							</ft>
+					</div>
+					<div style="width: 40%;float: left;">
+						<img src="img/GSX2WNXOG01KF4N@2C{(A32.png" width="100%;" style="padding-left:15%;padding-top: 5%;">
+					</div>
+						<div class="trbg">
+							
+								<div class="ctx">
+									<div class="day" style="float: left;width: 10%;font-weight: normal;height: 10px;">
+									</div>
+									<span style="font-family: KaiTi; font-weight: bolder;"><strong style="font-size: 24px;">Python：</strong>：Python是一种计算机程序设计语言。
+										是一种动态的、面向对象的脚本语言，最初被设计用于编写自动化脚本(shell)，
+										随着版本的不断更新和语言新功能的添加，越来越多被用于独立的、大型项目的开发。
+											<br>
+									</span>
+									<div class="day" style="float: left;width: 10%;font-weight: normal;height: 10px;">
+										</div>
+										<ft><a href="http://www.runoob.com/python/python-install.html" target="view_window" style="text-decoration: none; color: #b8860b;">Pyhon环境安装</a><br><br>
+										</ft>
+									<div class="day" style="float: left;width: 10%;font-weight: normal;height: 10px;">
+										</div>
+									<span style="font-family: KaiTi; font-weight: bolder;"><strong style="font-size: 24px;">JAVA：</strong>Java是一门面向对象编程语言，不仅吸收了C++语言的各种优点，
+										还摒弃了C++里难以理解的多继承、指针等概念，因此Java语言具有功能强大和简单易用两个特征。
+										<br>
+									</span>
+									<div class="day" style="float: left;width: 10%;font-weight: normal;height: 10px;">
+										</div>
+										<ft><a href="https://www.runoob.com/java/java-environment-setup.html" target="view_window" style="text-decoration: none; color: #b8860b;">JAVA环境安装</a><br><br>
+										</ft>
+								</div>
+							</div>
+				</div>
+		</div>
+
+		<div class="zhengwen">
+		  <div class="tit">
+			<div class="day">
+			  <ft>Day 3-4</ft>
+			</div>
+			<div class="day" style="float: right;width: 120px;">
+			  <ft style="color: #000;">教师: 彭老师</ft>
+			</div>
+			<hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+			</div>
+			<div class="obg">
+				<h1 style="text-align: center;">工具介绍</h1>
+				<div class="tit">
+					<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+						<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+							WEB漏洞扫描器：
+						</span>
+					</div>
+				</div>
+				<div class="ctx">
+					<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+						</div>
+							<span style="line-height: 30px; font-weight: bolder; font-family: KaiTi;">
+								<strong>awvs：</strong>AWVS是一个自动化的Web安全测试工具，它可以扫描Web站点和Web应用。
+								AWVS可以**快速扫描**SQL注入，XSS攻击，目录遍历，文件入侵，PHP代码注入、代码执行等等。
+							</span>
+						</div>
+
+				<div class="tit">
+					<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+						<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+							系统扫描器：
+						</span>
+					</div>
+				</div>
+				<div class="ctx">
+					<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+					</div>
+					<span style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+						<strong>Nessus：</strong>Nessus是著名信息安全服务公司tenable推出的一款漏洞扫描与分析软件，
+						号称是“世界上最流行的漏洞扫描程序,全世界超过75,000个组织在使用它”。<br>
+						<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+						</div>
+						Nessus目前分为四个版本：Nessus Home、Nessus Professional、Nessus Manager、Nessus Cloud。
+					</span>
+				</div>
+
+				<div class="tit">
+					<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+						<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+							抓包分析工具：
+						</span>
+					</div>
+				</div>
+				<div class="ctx">
+					<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+					</div>
+					<span style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+						<strong>wireshark：</strong>wireshark是非常流行的网络封包分析软件，功能十分强大。
+						可以截取各种网络封包，显示网络封包的详细信息。使用wireshark的人必须了解网络协议，否则就看不懂wireshark了。<br>
+						<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+						</div>
+						<strong>burp：</strong>用于攻击web 应用程序的集成平台，
+						包含了许多工具。Burp Suite为这些工具设计了许多接口，以加快攻击应用程序的过程。所有工具都共享一个请求，
+						并能处理对应的HTTP 消息、持久性、认证、代理、日志、警报。<br>
+					</span>
+				</div>
+
+				<div class="tit">
+					<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+					<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+						漏洞利用工具：
+					</span>
+					</div>
+				</div> 	
+				<div class="ctx">
+					<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+					</div>
+					<span style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+						漏洞利用指的是利用程序中的某些漏洞，
+						来得到计算机的控制权（使自己编写的代码越过具有漏洞的程序的限制，从而获得运行权限）。<br>
+						<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+						</div>
+						<strong>常用的漏洞利用工具：</strong>御剑扫描器、sqlmap、菜刀等。<br>
+					</span>
+				</div>
+
+				<div class="tit">
+					<div class="day" style="float: left;width: 20%;font-weight: normal;position: relative;">
+						<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+							综合类：
+						</span>
+					</div>
+				</div>
+				<div class="ctx">
+					<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+					</div>
+					<span style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+					<strong>Metasploit：</strong>是一款开源的安全漏洞检测工具，可以帮助安全和IT专业人士识别安全性问题，
+					验证漏洞的缓解措施，并管理专家驱动的安全性进行评估，提供真正的安全风险情报。<br>
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="zhengwen">
+		  <div class="tit">
+			<div class="day">
+			  <ft>Day 5</ft>
+			</div>
+			<div class="day" style="float: right;width: 120px;">
+			  <ft style="color: #000;">教师: 彭老师</ft>
+			</div>
+			<hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+			</div>
+			<h1 style="text-align: center;">渗透测试思路科普</h1>
+			<div class="tit">
+					<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+						<span style=" font-weight: bolder; font-size: 24px; font-family: KaiTi;">
+							信息收集：
+						</span>
+					</div>
+				</div>
+				<div class="ctx">
+					<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+					</div>
+					<span style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+							确定目标、收集网站信息、google黑客、端口探测、爬虫爬网站、web框架漏洞、暴力破解、撞库、弱口令、中间件配置不当、
+							操作系统或中间件解析漏洞、php的那些老毛病。
+					</span>
+				</div>
+
+				<div class="tit">
+					<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+						<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+							cdn绕过思路：
+						</span>
+					</div>
+				</div>
+				<div class="ctx">
+					<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+					</div>
+					<span style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+						采用多地ping、ping xxx.com、ping二级域名，甚至三级域名扫描爆破、找国外冷门DNS、查看域名历史解析记录、让服务器主动连接我们、
+						拿CDN服务器 找出真实IP。</span>
+				</div>
+
+				<div class="tit">
+					<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+					<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+						谷歌黑客：
+					</span>
+					</div>
+				</div> 	
+				<div class="ctx">
+          <div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+          </div>
+          <span style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+              Google Hacking的含义原指利用Google Google搜索引擎搜索信息来进行入侵的技术和行为。
+              现指利用各种搜索引擎搜索信息来进行入侵的技术和行为。
+          </span>
+        </div>
+
+				<div class="tit">
+					<div class="day" style="float: left;width: 20%;font-weight: normal;position: relative;">
+						<span style=" font-weight: bolder; font-size: 24px; font-family: KaiTi;">
+							后台查找：
+						</span>
+					</div>
+				</div>
+        <div class="ctx">
+          <div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+          </div>
+          <span style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+              由于谷歌被大陆屏蔽,大家可以使用谷歌翻墙搜索 http://soso.myhack58.com<br>
+              <div style="padding-left: 86px;">
+              site:www.myhack58.com intext:管理  无利用<br>
+              site:www.myhack58.com inurl:login(登陆的页面)<br>
+              site:www.myhack58.com intitle:后台 (很容易的就找到了网站的后台登陆口)<br>
+              site:myhack58.com intext:管理|后台|登陆|用户名|密码|验证码|系统|帐号|manage|admin|login|system<br>
+              site:myhack58.com inurl:login|admin|manage|manager|admin_login|login_admin|system<br>
+              site:myhack58.com intitle:管理|后台|登陆|<br>
+              site:heimian.com intext:验证码
+            </div>
+          </span>
+        </div>
+			
+
+				<div class="tit">
+						<div class="day" style="float: left;width: 20%;font-weight: normal;position: relative;">
+							<span style=" font-weight: bolder; font-size: 24px; font-family: KaiTi;">
+								网站脱库：
+							</span>
+						</div>
+					</div>
+          <div class="ctx">
+          <div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+          </div>
+          <span style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+              在黑客术语里面，”脱库“是指黑客入侵有价值的网络站点，把注册用户的资料数据库全部盗走的行为，因为谐音，也经常被称作“脱裤”。
+          </span>
+        </div>
+				
+		</div>
+		
+		<div class="zhengwen">
+		  <div class="tit">
+			<div class="day">
+			  <ft>Day 6</ft>
+			</div>
+			<div class="day" style="float: right;width: 120px;">
+			  <ft style="color: #000;">教师: 彭老师</ft>
+			</div>
+			<hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+			</div>
+			<div style="width: 50%;float: left;">
+					<img src="img/OWASP-Top-10-2017.jpg" width="100%;" style="padding-left:15%;padding-top: 5%;">
+				</div>
+					<div class="trbg">
+						<h1 style="text-align: center;">owasp top 10科普</h1>
+							<div class="ctx">
+								<div class="day" style="float: left;width: 10%;font-weight: normal;height: 10px;">
+								</div>
+								<span style="font-family: KaiTi; font-weight: bolder;"><br><br>
+									TOP1-注入
+									TOP2-失效的身份认证和会话管理<br>
+									TOP3-跨站XSS<br>
+									TOP4-不安全的对象直接引用<br>
+									TOP5-伪造跨站请求（CSRF）<br>
+									TOP6-安全误配置<br>
+									TOP7-限制URL访问失败<br>
+									TOP8-未验证的重定向和转发<br>
+									TOP9-应用已知脆弱性的组件<br>
+									TOP10-敏感信息暴露<br>
+								</span>
+							</div>
+						</div>
+		</div>
+
+		<div class="zhengwen">
+		  <div class="tit">
+			<div class="day">
+			  <ft>Day 7</ft>
+			</div>
+			<div class="day" style="float: right;width: 120px;">
+			  <ft style="color: #000;">教师: 彭老师</ft>
+			</div>
+			<hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+			</div>
+			<div class="tit">
+				<h1 style="text-align: center;">SQL注入</h1>
+					<div class="day" style="float: left;width: 100%;font-weight: normal;position: relative;">
+						<ft style=" font-weight: normal; font-family: KaiTi; font-weight: bolder; font-size: 24px;">
+							sql注入：
+						</ft>
+					</div>
+				</div>
+				<div class="ctx">
+					<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+					</div>
+					<span style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+							所所谓SQL注入，就是通过把SQL命令插入到Web表单提交或输入域名或页面请求的查询字符串，
+							最终达到欺骗服务器执行恶意的SQL命令。具体来说，它是利用现有应用程序，将（恶意的）SQL命令注入到后台数据库引擎执行的能力，
+							它可以通过在Web表单中输入（恶意）SQL语句得到一个存在安全漏洞的网站上的数据库，而不是按照设计者意图去执行SQL语句。
+							比如先前的很多影视网站泄露VIP会员密码大多就是通过WEB表单递交查询字符暴出的，这类表单特别容易受到SQL注入式攻击．<br>
+							<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+							</div>
+							<strong>注入方法有：</strong>	access注入、cookie注入、mysql注入、报错注入、宽字节注入。
+					</span>		
+				</div>
+		</div>
+
+		<div class="zhengwen">
+			<div class="tit">
+			  <div class="day">
+				<ft>Day 8</ft>
+			  </div>
+			  <div class="day" style="float: right;width: 120px;">
+				<ft style="color: #000;">教师: 彭老师</ft>
+			  </div>
+			  <hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+			</div>
+			<h1 style="text-align: center;">上传漏洞/解析漏洞/编译器漏洞</h1>
+			<div class="tit">
+				<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+					<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+						上传漏洞：
+					</span>
+				</div>
+			</div>
+			<div class="ctx">
+				<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+				</div>
+				<span style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+					这个漏洞在DVBBS6.0时代被黑客们利用的最为猖獗，利用上传漏洞可以直接得到WEBSHELL，危害等级超级高，
+					现在的入侵中上传漏洞也是常见的漏洞。
+					导致该漏洞的原因在于代码作者没有对访客提交的数据进行检验或者过滤不严，可以直接提交修改过的数据绕过扩展名的检验。
+				</span>
+			</div>
+
+			<div class="tit">
+				<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+					<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+						解析漏洞：
+					</span>
+				</div>
+			</div>
+			<div class="ctx">
+				<div class="day" style="float: left;width: 50px; height: 10px;">
+				</div>
+				<span style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+					简单的说，解析漏洞就是web容器将其他格式的文件解析为可执行脚本语言，攻击者可以利用这个特征去执行一些攻击行为。
+					通常会出现解析漏洞的web容器有IIS 6.0、Nginx、Apache。
+					使用IIS6.0的服务器，一般是Windows server 2003，解析语言是asp，不能解析aspx语言。
+				</span>	
+			</div>
+
+			<div class="tit">
+				<div class="day" style="float: left;width: 30%; position: relative;">
+					<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+						编辑器漏洞：
+					</span>
+				</div>
+			</div>
+			<div class="ctx">
+				<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+				</div>
+				<ft style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+					比如常见的编辑器漏洞有:
+						ewebeditor、
+						ewebeditornet、    
+						fckeditor、
+						editor、
+						southidceditor、 
+						SouthidcEditor、
+						bigcneditor、<br>
+						<img src="img/u=2610742275,716772982&fm=11&gp=0.jpg" style="margin-left:20%;">
+			</div>
+			</div>
+
+			<div class="zhengwen">
+				<div class="tit">
+					<div class="day">
+					<ft>Day 9</ft>
+					</div>
+					<div class="day" style="float: right;width: 120px;">
+					<ft style="color: #000;">教师: 彭老师</ft>
+					</div>
+					<hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+				</div>
+				<h1 style="text-align: center;">XSS/CSRF</h1>
+				<div class="tit">
+					<div class="day" style="float: left;width: 30%;position: relative;">
+						<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+							XSS：
+						</span>
+					</div>
+				</div>
+				<div class="ctx">
+					<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+					</div>
+					<ft style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+						XSS 全称(Cross Site Scripting) 跨站脚本攻击， 是Web程序中最常见的漏洞。
+							指攻击者在网页中嵌入客户端脚本(例如JavaScript), 当用户浏览此网页时，脚本就会在用户的浏览器上执行，从而达到攻击者的目的. 
+							 比如获取用户的Cookie，导航到恶意网站,携带木马等。<br>
+							 <div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+							</div>
+							<strong>XSS分类：</strong>1. 反射型XSS、2.存储型XSS、DOM型。
+				</div>
+	
+				<div class="tit">
+					<div class="day" style="float: left;width: 20%;position: relative;">
+						<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+							CSRF：
+						</span>
+					</div>
+				</div>
+				<div class="ctx">
+					<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+					</div>
+					<ft style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+						CSRF（Cross-site request forgery），中文名称：跨站请求伪造，也被称为：one click attack/session riding，缩写为：CSRF/XSRF。
+						你这可以这么理解CSRF攻击：攻击者盗用了你的身份，以你的名义发送恶意请求。CSRF能够做的事情包括：以你名义发送邮件，
+						发消息，盗取你的账号，甚至于购买商品，虚拟货币转账......造成的问题包括：个人隐私泄露以及财产安全。<br>
+						<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+						</div>
+						<strong>CSRF漏洞现状：</strong>CSRF这种攻击方式在2000年已经被国外的安全人员提出，但在国内，直到06年才开始被关注，
+						08年，国内外的多个大型社区和交互网站分别爆出CSRF漏洞，如：NYTimes.com（纽约时报）、Metafilter（一个大型BLOG网站），
+						YouTube和百度HI......而现在，互联网上的许多站点仍对此毫无防备，以至于安全业界称CSRF为“沉睡的巨人”。<br>
+						<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+						</div>
+						<strong>常见的几种攻击类型：</strong>1.GET类型的CSRF、2.POST类型的CSRF。
+				</div>
+			</div>
+
+		  <div class="zhengwen">
+			<div class="tit">
+			  <div class="day">
+				<ft>Day 10</ft>
+			  </div>
+			  <div class="day" style="float: right;width: 120px;">
+				<ft style="color: #000;">教师: 彭老师</ft>
+			  </div>
+			  <hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+			</div>
+			<h1 style="text-align: center;">文件包含漏洞</h1>
+			<div class="tit">
+				<div class="day" style="float: left;width: 25%;position: relative;">
+					<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+						文件包含漏洞的成因：
+					</span>
+				</div>
+			</div>
+			<div class="ctx">
+				<div class="day" style="float: left;width: 50px;height: 10px;">
+				</div>
+				<span style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+					随着网站业务的需求，程序开发人员一般希望代码更灵活，所以将被包 
+					含的文件设置为变量，用来进行动态调用，但是正是这种灵活性通过动态变 
+					量的方式引入需要包含的文件时，用户对这个变量可控而且服务端又没有做 
+					合理的校验或者校验被绕过就造成了文件包含漏洞。
+				</span>	
+			</div>
+
+			<div class="tit">
+				<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+					<span style=" font-weight: bolder; font-size: 24px; font-family: KaiTi;">
+						本地包含：
+					</span>
+				</div>
+			</div>
+			<div class="code" style="margin-bottom: 50px;">
+				<ft style="font-size: 85%;line-height: 10px;opacity: 1;color: #EEE">
+					&lt;?php<br>
+					$file = $_GET['file'];<br>
+					if(isset($file)){<br>
+						include("$file");<br>
+					}else{<br>
+						echo "file fail";<br>
+						
+				}</ft>
+			</div>
+
+			<div class="tit">
+				<div class="day" style="float: left;width: 30%;position: relative;">
+					<span style=" font-weight: bolder; font-size: 24px; font-family: KaiTi;">
+						远程包含：
+					</span>
+				</div>
+			</div>
+			<div class="ctx">
+				<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+				</div>
+				<span style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+					远程的文件名不能为php可解析的扩展名(php、php5..)，而且php.ini中allow_url_fopen和allow_url_include为On才可以。
+				</span>	
+			</div>
+			</div>
+
+		  <div class="zhengwen">
+			<div class="tit">
+			  <div class="day">
+				<ft>Day 11</ft>
+			  </div>
+			  <div class="day" style="float: right;width: 120px;">
+				<ft style="color: #000;">教师: 彭老师</ft>
+			  </div>
+			  <hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+			</div>
+			<h1 style="text-align: center;">命令执行</h1>
+			<div class="tit">
+				<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+					<span style=" font-weight: bolder; font-size: 24px; font-family: KaiTi;">
+						命令执行漏洞：
+					</span>
+				</div>
+			</div>
+			<div class="ctx">
+				<div class="day" style="float: left;width: 50px;height: 10px;">
+				</div>
+				<ft style="line-height: 30px;">
+					<strong>low级别：</strong>
+					<div class="code" style="margin-bottom: 50px;">
+						<ft style="font-size: 85%;line-height: 10px;opacity: 1;color: #EEE">
+							&lt;?php<br>
+							if(isset($_POST['submit'])){<br>
+							$target = $_REQUEST['ip'];<br>
+							if( stristr( php_ uname( 's' ), 'Windows NT" ) ) {<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$cmd = shell_ exec( ' ping i  . starget ):<br>
+							}<br>
+							else {<br>
+							$cmd = shell_ .exec(' ping  -c4'.starget):<br>
+							}<br>
+							echo " &lt;pre&gt; {$cmd}&lt;/pre&gt;" :<br>
+							}<br>
+							?&gt;
+						</ft>
+					</div>
+					<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+					</div>
+					<strong>medium级别：</strong>
+					<div class="code" style="margin-bottom: 50px;">
+						<ft style="font-size: 85%;line-height: 10px;opacity: 1;color: #EEE">
+							&lt;?php<br>
+							if( isset( $_ _POST[ ' Submit ]) ){<br>
+								$target  =  $_ REQUEST[ . ip ]:<br>
+								$substitutions  = array{<br>
+							'&&' => '',<br>
+							':'	=> '',<br>
+						);
+					</ft>
+					</div>
+					<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+					</div>
+					<strong>high级别：</strong>
+					<div class="code" style="margin-bottom: 50px;">
+						<ft style="font-size: 85%;line-height: 10px;opacity: 1;color: #EEE">
+							if(isset($_POST['submit'])){<br>
+							$target = $_REQUEST['ip'];<br>
+							$substitutions =array(<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&' => '',<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';' => ''<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|' => ''<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'-' => ''<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'$' => ''<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'(' => ''<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')' => ''<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'`' => ''<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'||' => ''<br>
+							);<br>
+						</ft>
+					</div>
+			</div>
+			</div>
+
+		  <div class="zhengwen">
+			<div class="tit">
+			  <div class="day">
+				<ft>Day 12-13</ft>
+			  </div>
+			  <div class="day" style="float: right;width: 120px;">
+				<ft style="color: #000;">教师: 彭老师</ft>
+			  </div>
+			  <hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+			</div>
+			<h1 style="text-align: center;">逻辑漏洞</h1>
+			<div class="tit">
+				<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+					<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+						逻辑漏洞：
+					</span>
+				</div>
+			</div>
+			<div class="ctx">
+				<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+				</div>
+				<ft style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+					逻辑漏洞是指由于程序逻辑不严或逻辑太复杂，导致一些逻辑分支不能够正常处理或处理错误，
+					一般出现在任意密码修改（没有旧密码验证）、越权访问、密码找回、交易支付金额等。<br>
+					<strong>越权</strong>&nbsp;&nbsp;&nbsp;&nbsp;本质：某账户拥有了超出它应有权限范围外的操作许可权。<br>
+															&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分类：（1）水平越权、（2）垂直越权<br>
+					<strong>爆破</strong>&nbsp;&nbsp;&nbsp;&nbsp;1、验证码、2、频率试错控制。<br>
+					<strong>撞库</strong>&nbsp;&nbsp;&nbsp;&nbsp;撞库是黑客通过收集互联网已泄露的用户和密码信息，生成对应的字典表，尝试批量登陆其他网站后，
+					得到一系列可以登录的用户。很多用户在不同网站使用的是相同的帐号密码，因此黑客可以通过获取用户在A网站的账户从而尝试登录B网址，这就可以理解为撞库攻击。
+					如果撞库攻击成功，那么库中的大量用户就会面临账号被盗取、信息泄露等严重问题。<br>
+					<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+					</div>
+					除此之外，还有<strong>数据修改。</strong>
+					</ft>
+			</div>
+		  </div>
+
+		  <div class="zhengwen">
+			<div class="tit">
+			  <div class="day">
+				<ft>Day 14</ft>
+			  </div>
+			  <div class="day" style="float: right;width: 120px;">
+				<ft style="color: #000;">教师: 彭老师</ft>
+			  </div>
+			  <hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+			</div>
+			<h1 style="text-align: center;">弱口令与万能密码</h1>
+			<div class="tit">
+				<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+					<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+						弱口令：
+					</span>
+				</div>
+			</div>
+			<div class="ctx">
+				<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+				</div>
+				<ft style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+					弱口令(weak password) 没有严格和准确的定义，
+					通常认为容易被别人（他们有可能对你很了解）猜测到或被破解工具破解的口令均为弱口令。弱口令指的是仅包含简单数字和字母的口令，
+					例如“123”、“abc”等，因为这样的口令很容易被别人破解，从而使用户的计算机面临风险，因此不推荐用户使用。
+					</ft>
+			</div>
+
+			<div class="tit">
+				<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+					<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+						万能密码：
+					</span>
+				</div>
+			</div>
+			<div class="ctx">
+				<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+				</div>
+				<ft style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+					 在登陆后台时，接收用户输入的Userid和Password数据，并分别赋值给user和pwd，
+					然后再用  sql="select * from admin where username="&user&" and password="&pwd&"" 这句来对用户名和密码加以验证。<br>
+					      以常理来考虑的话，这是个很完整的程序了，而在实际的使用过程中，整套程序也的确可能正常使用。但是如果Userid的值和password的值被赋于：
+					safer’ or’1’=’1’ 这时，sql="select * from admin where username="&user&" and password="&pwd&"" 
+					就成了：sql="select * from reg where user=safer’ or’1’=’1’ and pass=safer’ or’1’=’1’这样的问题。<br>
+					     我们应当注意这样一件事情，那就是无论查询语句怎么写我们所输入的内容都是要被单引号引起来的，
+					那么我们现在尝试利用这样的特点来构造新的“万能密码”登录<br>
+					<img src="img/6609c93d70cf3bc718f2caefd600baa1cc112ac6.jpg">
+				</ft>
+			</div>
+
+		  </div>
+
+		  <div class="zhengwen">
+			<div class="tit">
+			  <div class="day">
+				<ft>Day 15-16</ft>
+			  </div>
+			  <div class="day" style="float: right;width: 120px;">
+				<ft style="color: #000;">教师: 彭老师</ft>
+			  </div>
+			  <hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+			</div>
+			<h1 style="text-align: center;">敏感信息泄露</h1>
+			<div class="tit">
+				<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+					<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+						分类：
+					</span>
+				</div>
+			</div>
+			<div class="ctx">
+				<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+				</div>
+				<span style="line-height: 30px; font-weight: bolder; font-family: KaiTi;">
+					数据库备份、网站备份、后天路径、
+						数据库地址泄露、心脏滴血泄露、组件版本信息泄露、报错页面信息泄露（中间件、网站路径）文本文件。
+					那么我们现在尝试利用这样的特点来构造新的“万能密码”登录<br>
+				</span>
+			</div>
+			<div class="tit">
+				<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+					<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+						敏感信息泄露：
+					</span>
+				</div>
+			</div>
+			<div class="ctx">
+				<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+				</div>
+				<ft style="line-height: 30px;">
+					<p style="font-family: KaiTi; font-weight: bolder;">一些网站的业务需求，可能提供文件下载和查看的功能，如果对用户查看或者下载的文件不做限制，
+					就可以查看或者下载任意的文件，可以是源代码、敏感文件等。</p><br>
+					<div class="code" style="margin-bottom: 50px;width: 45%;float: left">
+						<p style="font-size:100%;color: #EEE" >文件下载代码原理</p>
+						<ft style="font-size: 85%;line-height: 10px;opacity: 1;color: #EEE">
+							&lt;?php<br>
+							$filename = $_GET['filename'];<br>
+							echo '&lt;h1>讲开始下载文件！&lt;/h1>&lt;br />&lt;br />'; <br> 
+							echo file_get_contents($filename);  <br>
+							header('Content-Type: imgage/jpeg');  <br>
+							header('Content-Disposition: attachment; <br>
+							filename='.$filename); <br>
+							header('Content-Lengh: '.filesize($filename));<br>
+						？>
+					</ft>
+					</div>
+					<div class="code" style="margin-bottom: 50px;width: 50%;float: right">
+						<p style="font-size:100%;color: #EEE" >文件读取代码原理</p>
+						<ft style="font-size: 85%;line-height: 10px;opacity: 1;color: #EEE">
+							&lt;?php<br>
+							@$filename = $_GET['filename’];<br>
+							$message = file_get_contents('./data/'.$filename);<br>
+							$title = basename($filename, '.md'); <br>
+							echo "&lt;h1>{$title}&lt;/h1>";  <br>
+							echo "{$message}";<br>
+					</div>
+					</ft>
+			</div>
+		  </div>
+
+		  <div class="zhengwen">
+			<div class="tit">
+			  <div class="day">
+				<ft>Day 17-18</ft>
+			  </div>
+			  <div class="day" style="float: right;width: 120px;">
+				<ft style="color: #000;">教师: 彭老师</ft>
+			  </div>
+			  <hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+			</div>
+			<h1 style="text-align: center;">权限控制</h1>
+			<div class="tit">
+				<div class="day" style="float: left;width: 30%;position: relative;">
+					<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+						垂直越权：
+					</span>
+				</div>
+			</div>
+			<div class="ctx">
+				<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+				</div>
+				<ft style="line-height: 30px; font-weight: bolder; font-family: KaiTi;">
+					指的是攻击者尝试访问与他拥有相同权限的用户的资源。攻击者可以根据接口参数中的id加1等操作，来获取其他用户的权限或数据。<br>
+					垂直权限漏洞是指Web应用没有做权限控制，或仅仅在菜单上做了权限控制，导致恶意用户只要猜到了其他页面的URL，就可以访问或控制其他角色拥有的数据或页面，
+					达到权限提升的目的。<br>
+					<strong>修复方案：</strong>只需要对url资源进行权限验证即可。
+				</ft>
+			</div>
+
+			<div class="tit">
+				<div class="day" style="float: left;width: 30%;position: relative;">
+					<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+						越权访问：
+					</span>
+				</div>
+			</div>
+			<div class="ctx">
+				<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+				</div>
+				<ft style="line-height: 30px; font-weight: bolder; font-family: KaiTi;">
+					<strong>主要有两种情况：</strong>1. 没有用户登录，就可以直接访问系统页面；<br>
+					<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+					</div>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					2. 用户登录成功，但对于没有权限的页面或action；也可以直接访问。
+					<br>
+				</ft>
+			</div>
+
+			<div class="tit">
+				<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+					<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+						执行权限：
+					</span>
+				</div>
+			</div>
+			<div class="ctx">
+				<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+				</div>
+				<ft style="line-height: 30px; font-weight: bolder; font-family: KaiTi;">
+					<p>对文件而言，具有执行文件的权限；对目录了来说该用户具有进入目录的权限。目录的只读访问不允许使用cd进入目录，必须要有执行的权限才能进入。只有执行权限只能进入目录，不能看到目录下的内容，要想看到目录下的文件名和目录名，需要可读权限。</p>				
+				</ft>
+			</div>
+
+	
+			<div class="tit">
+				<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+					<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+						配置不当：
+					</span>
+				</div>
+			</div>
+			<div class="ctx">
+				<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+				</div>
+				<ft style="line-height: 30px; font-weight: bolder; font-family: KaiTi;">
+					<p>11月4日，国外安全研究人员@antirez 公布Redis服务一例高危安全风险。其发现，Redis服务如果配置不当，结合SSH服务，可以直接获取服务器的ROOT权限。</p>
+					<strong>服务器配置不当包括三部分：</strong>
+					<p style="margin-left: 50px;">Redis服务使用ROOT账户启动。</p>				
+					<p style="margin-left: 50px;">Redis服务无密码认证或者弱密码认证。</p>				
+					<p style="margin-left: 50px;">服务器开放SSH服务，允许密钥登录。</p>				
+				</ft>
+			</div>
+		
+
+		  </div>
+
+		  <div class="zhengwen">
+			<div class="tit">
+			  <div class="day">
+				<ft>Day 19-20</ft>
+			  </div>
+			  <div class="day" style="float: right;width: 120px;">
+				<ft style="color: #000;">教师: 彭老师</ft>
+			  </div>
+			  <hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+			</div>
+			<h1 style="text-align: center;">组件漏洞</h1>
+			<div class="tit">
+				<div class="day" style="float: left;width: 30%;position: relative;">
+					<span style=" font-weight: bolder; font-size: 24px; font-family: KaiTi">
+						预防：
+					</span>
+				</div>
+			</div>
+			<div class="ctx">
+
+				<ft style="line-height: 30px; font-weight: bolder; font-family: KaiTi;">
+					<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+					</div>
+					<strong>组件漏洞包括：</strong>缓冲区溢出（远程、本地）、低版本的开源CMS、PHP CGI远程代码执行、PHPmyadmin、
+									IIS短文件名遍历、开源系统漏洞、stust2远程代码执行漏洞（S2-019/S2-037/S2-003/S2-045/S2-052）HTTPS未验证。
+					<br><br>
+					软件项目应该遵循下面的流程：<br>
+					1，移除不使用的依赖，不需要的功能、组件和文档；<br>
+					2，利用工具如 versions、DependencyCheck、retire.js等来持续的记录客户端和服务器以及它们的依赖库的版本信息；<br>
+					3，对使用的组件持续监控如CVE和NVD等漏洞中心，可以使用自动化工具来完成此功能；<br>
+					4，仅从官网渠道获取组件并且在有条件的情况下尽可能采用单一包来避免被恶意篡改的风险；<br>
+					5，很多老的不再支持的库和组件并没有安全升级，这种情况下，可以考虑使用虚拟补丁技术去检测或保护。<br>
+				</ft>
+			</div>
+		  </div>
+
+		  <div class="zhengwen">
+			<div class="tit">
+			  <div class="day">
+				<ft>Day 21-22</ft>
+			  </div>
+			  <div class="day" style="float: right;width: 120px;">
+				<ft style="color: #000;">教师: 彭老师</ft>
+			  </div>
+			  <hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+			</div>
+			<h1 style="text-align: center;">源代码安全</h1>
+			<div class="tit">
+				<div class="day" style="float: left;width: 30%;position: relative;">
+					<span style=" font-weight: bolder; font-size: 24px; font-family: KaiTi;">
+						代码安全：
+					</span>
+				</div>
+			</div>
+			<div class="ctx">
+				<ft style="line-height: 30px; font-weight: bolder; font-family: KaiTi;">
+					<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+					</div>
+					随着互联网深入到各行各业，越来越多的应用系统、网站等被人类通过网络连接、访问。如何保障系统、
+					网站不会因黑客的恶意攻击而导致系统崩溃、数据泄露等安全问题，解决此问题的最根本的手段还是要回归到代码上面，只有写出的代码是安全的、
+					是无懈可击的、没有任何逻辑漏洞，才能杜绝一切安全问题。本文从以下几个方面讲述系统漏洞产生的原理及如何预防这些漏洞，做到代码安全。
+					内容比较浅显，不做深入阐释。			
+				</ft>
+			</div>
+
+			<div class="tit">
+				<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+					<span style=" font-weight: bolder; font-size: 24px; font-family: KaiTi;">
+						源代码反编译：
+					</span>
+				</div>
+			</div>
+			<div class="ctx">
+				<ft style="line-height: 30px; font-weight: bolder; font-family: KaiTi;">
+					<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+					</div>
+					是指通过对他人软件的目标程序（比如可执行程序）进行“逆向分析、研究”工作，以推导出他人的软件产品所使用的思路、原理、结构、算法、处理过程、
+					运行方法等设计要素，某些特定情况下可能推导出源代码。反编译作为自己开发软件时的参考，或者直接用于自己的软件产品中。		<br>
+				</ft>
+			</div>
+
+			<div class="tit">
+				<div class="day" style="float: left;width: 45%;position: relative;">
+					<span style=" font-weight: bolder; font-size: 24px; font-family: KaiTi;">
+						<br>
+						漏洞挖掘中常见的原码泄露：
+					</span>
+				</div>
+			</div>
+			<div class="ctx">
+				<ft style="line-height: 30px; font-weight: bolder; font-family: KaiTi;">
+					<div class="day" style="float: left;width: 50px;height: 10px;">
+					</div>
+					一，svn 源码泄露<br>
+					<div class="day" style="float: left;width: 50px;height: 10px;">
+					</div>
+					二， 网站源码压缩备份泄露<br>
+					<div class="day" style="float: left;width: 50px;height: 10px;">
+					</div>
+					三， .git 源码泄露<br>
+					<div class="day" style="float: left;width: 50px;height: 10px;">
+					</div>
+					四，GitHub 项目源码泄露		<br>
+				</ft>
+			</div>
+
+		  </div>
+
+		  <div class="zhengwen">
+			<div class="tit">
+			  <div class="day">
+				<ft>Day 23-24</ft>
+			  </div>
+			  <div class="day" style="float: right;width: 120px;">
+				<ft style="color: #000;">教师: 彭老师</ft>
+			  </div>
+			  <hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+			</div>
+			<h1 style="text-align: center;">网站权限获取</h1>
+			<div class="tit">
+				<div class="day" style="float: left;width: 45%;position: relative;">
+					<span style=" font-weight: bolder; font-size: 24px; font-family: KaiTi;">
+						<br>
+						如何获取网站后台权限：
+					</span>
+				</div>
+			</div>
+			<div class="ctx">
+				<ft style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+					<div class="day" style="float: left;width: 50px;height: 10px;">
+					</div>
+					1.所有语言都没有权限<br>
+					<div class="day" style="float: left;width: 50px;height: 10px;">
+					</div>
+					2.登录数据库管理平台，进入phpMyadmin管理数据库平台<br>
+					<div class="day" style="float: left;width: 50px;height: 10px;">
+					</div>
+					3.选定数据库=》点击***_admin_table表（表前缀根据安装时候设置，会有所不同）
+					=》浏览当前数据就是管理员与会员信息列表。、admin_id列就是用户名，选定一个用户点编辑<br>
+					<div class="day" style="float: left;width: 50px;height: 10px;">
+					</div>
+					4.编辑admin_type。		<br>
+				</ft>
+			</div>
+
+			<div style="width: 40%;float: left;">
+				<img src="img/timg.jpg" width="110%;" style="padding-left:15%;padding-top: 5%;">
+			</div>
+				<div class="trbg">
+						<div class="ctx" style="font-weight: bolder; font-family: KaiTi;">
+							<div class="day" style="float: left;width: 10%;height: 10px;">
+							</div>
+							<ft>
+								<br>
+								<strong>webshell：</strong>webshell就是以asp、php、jsp或者cgi等网页文件形式存在的一种命令执行环境，
+								也可以将其称做为一种网页后门。黑客在入侵了一个网站后，通常会将asp或php后门文件与网站服务器WEB目录下正常的网页文件混在一起，
+								然后就可以使用浏览器来访问asp或者php后门，得到一个命令执行环境，以达到控制网站服务器的目的。<br>
+								顾名思义，“web”的含义是显然需要服务器开放web服务，“shell”的含义是取得对服务器某种程度上操作权限。
+								webshell常常被称为入侵者通过网站端口对网站服务器的某种程度上操作的权限。由于webshell其大多是以动态脚本的形式出现，
+								也有人称之为网站的后门工具。<br><br>
+								<strong>获取网站权限的方法有：</strong>大马、小马、shell。<br>
+							</ft>
+						</div>		
+					</div>
+			</div>
+
+
+
+		  <div class="zhengwen">
+			<div class="tit">
+			  <div class="day">
+				<ft>Day 25-26</ft>
+			  </div>
+			  <div class="day" style="float: right;width: 120px;">
+				<ft style="color: #000;">教师: 彭老师</ft>
+			  </div>
+			  <hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+			</div>
+			<h1 style="text-align: center;">提权</h1>
+			<div class="tit">
+					<div class="day" style="float: left;width: 30%;position: relative;">
+						<span style=" font-weight: bolder; font-size: 24px; font-family: KaiTi;">
+							<br>
+							提权：
+						</span>
+					</div>
+				</div>
+				<div class="ctx">
+						<span style="line-height: 30px; font-weight: bolder; font-family: KaiTi;">
+							<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+							</div>
+							提高自己在服务器中的权限，就比如在windows中你本身登录的用户是guest，然后通过提权后就变成超级管理员，
+							拥有了管理Windows的所有权限。提权是黑客的专业名词，一般用于网站入侵和系统入侵中。<br>
+						</span>
+					</div>
+
+					<div class="tit">
+							<div class="day" style="float: left;width: 50%;font-weight: normal;position: relative;">
+								<span style=" font-weight: bolder; font-size: 24px; font-family: KaiTi;">
+									<br>
+									windows环境下提升进程的权限：
+								</span>
+							</div>
+						</div>
+						<div class="ctx">
+								<ft style="line-height: 30px; font-weight: bolder; font-family: KaiTi;">									
+									提升进程权限的流程如下：<br>
+									<div class="day" style="float: left;width: 50px;height: 10px;">
+										</div>
+										1.使用OpenProcessToken获取需要提升权限的进程的“令牌”。<br>
+										<div class="day" style="float: left;width: 50px;height: 10px;">
+											</div>
+										2.使用LookupPrivilegeValue函数，根据权限的“名称字符串”查找到权限在对应系统上的LUID。同一个权限在不同
+										<div class="day" style="float: left;width: 50px;height: 10px;">
+										</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;系统上的LUID不同。<br>
+										<div class="day" style="float: left;width: 50px;height: 10px;">
+											</div>
+										3.使用AdjustTokenPrivileges函数，向指定进程的“令牌”添加或删除权限。<br>
+								</ft>
+							</div>
+
+							<div class="tit">
+									<div class="day" style="float: left;width: 50%;position: relative;">
+										<span style=" font-weight: bolder; font-size: 24px; font-family: KaiTi;">
+											<br>
+											使用Sudo权限Linux权限提升：
+										</span>
+									</div>
+								</div>
+								<div class="ctx">
+										<ft style="line-height: 30px; font-weight: bolder; font-family: KaiTi;">
+												<div class="day" style="float: left;width: 50px;height: 10px;">
+												</div>
+												当你与sudo一起运行任何命令时，它需要执行root权限，Linux会在sudoers文件中检查特定的用户名。
+												它的结论是，特定的用户名是否在sudoers文件列表中，如果不是，那么你不能使用sudo命令运行命令或程序。
+												根据sudo权限，root用户可以从所有终端执行，充当所有用户：ALL组，并运行ALL命令。<br>
+												<div class="day" style="float: left;width: 50px;height: 10px;">
+													</div>
+														如果你（root用户）希望授予sudo权限给任何特定的用户，那么输入visudo命令将打开sudoers文件进行编辑。
+														在“用户权限规范”，你会看到默认root权限“ 根ALL =（ALL：ALL） ”，但在实际的，有标签的选项也可以是可选的。<br>
+												</div>
+										</ft>
+									</div>
+
+
+		  <div class="zhengwen">
+			<div class="tit">
+			  <div class="day">
+				<ft>Day 27-28</ft>
+			  </div>
+			  <div class="day" style="float: right;width: 120px;">
+				<ft style="color: #000;">教师: 彭老师</ft>
+			  </div>
+			  <hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+			</div>
+            <h1 style="text-align: center;">权限维持</h1>
+			<div class="tit">
+					<div class="day" style="float: left;width: 80%;position: relative;">
+						<span style=" font-weight: bolder; font-size: 24px; font-family: KaiTi;">
+							<br>
+							【web端权限维持】利用ADS隐藏webshell：
+						</span>
+					</div>
+				</div>
+				<div class="ctx">
+						<ft style="line-height: 30px; font-weight: bolder; font-family: KaiTi;">
+								<div class="day" style="float: left;width: 50px;height: 10px;">
+								</div>
+								<strong>ADS</strong>
+								ADS（Advanced Design System）即先进设计系统，它为设备之间的通讯提供路由。
+								在TwinCAT PC 和Beckhoff 的CX、BX、BC 系列控制器中都包含TwinCAT 信息路由器。因此各个ADS 设备之间都能够交换数据和信息。<br>
+								<div class="day" style="float: left;width: 50px;height: 10px;">
+								</div>
+								<strong>步骤：<br></strong>
+								<div class="day" style="float: left;width: 50px;height: 10px;">
+								</div>
+								制作步骤一：创建ADS隐藏文件<br>
+								<div class="day" style="float: left;width: 50px;height: 10px;">
+								</div>
+								制作步骤二：文件包含<br>
+								<div class="day" style="float: left;width: 50px;height: 10px;">
+								</div>
+								制作步骤三：绕过检测<br>
+							</ft>
+					</div>
+					<div style="width: 40%;float: left;">
+							<img src="img/b90e7bec54e736d13086e18591504fc2d46269a1.jpg" width="110%;" style="padding-left:15%;padding-top: 5%;">
+						</div>
+							<div class="trbg">
+									<div class="ctx">
+										<div class="day" style="float: left;width: 10%;height: 10px;">
+										</div>
+										<span style="font-weight: bolder; font-family: KaiTi;">
+											<br>
+											<strong>除此之外，权限维持还包括系统权限维持以及隐藏后门。</strong>
+										</span>
+									</div>		
+								</div>
+					</div>
+
+			<div class="zhengwen">
+				<div class="tit">
+					<div class="day">
+					<ft>Day 29-30</ft>
+					</div>
+					<div class="day" style="float: right;width: 120px;">
+					<ft style="color: #000;">教师: 彭老师</ft>
+					</div>
+					<hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+				</div>
+                <h1 style="text-align: center;">内网安全</h1>
+				<div class="tit">
+						<div class="day" style="float: left;width: 50%;position: relative;">
+							<span style=" font-weight: bolder; font-size: 24px; font-family: KaiTi;">
+								<br>
+								内网安全：
+							</span>
+						</div>
+					</div>
+					<div class="ctx">
+							<span style="line-height: 30px; font-weight: bolder; font-family: KaiTi;">
+									<div class="day" style="float: left;width: 50px;height: 10px;">
+									</div>
+									提起网络安全，人们自然就会想到病毒破坏和黑客攻击，
+									其实不然。常规安全防御理念往往局限在网关级别、网络边界（防火墙、漏洞扫描、防病毒、IDS）等方面的防御，
+									重要的安全设施大致集中于机房或网络入口处，在这些设备的严密监控下，来自网络外部的安全威胁大大减小。
+									相反，来自网络内部的计算机客户端的安全威胁却是众多安全管理人员所普遍反映的问题。
+                            </span>
+						</div>
+
+						<div class="tit">
+								<div class="day" style="float: left;width: 55%; position: relative;">
+									<span style="font-weight: bolder; font-size: 24px; font-family: KaiTi;">
+										<br>
+										内网信息收集：
+									</span>
+								</div>
+							</div>
+							<div class="ctx">
+									<ft style="line-height: 30px; font-weight: bolder; font-family: KaiTi;">
+											<div class="day" style="float: left;width: 50px;height: 10px;">
+											</div>
+											1、信息收集<br>
+											<div class="day" style="float: left;width: 50px;height: 10px;">
+											</div>
+											2、定位域控<br>	
+							</div>
+
+							<div class="tit">
+									<div class="day" style="float: left;width: 50%;font-weight: normal;position: relative;">
+										<span style=" font-weight: bolder; font-family: KaiTi; font-weight: bolder;">
+											<br>
+											arp攻击：
+										</span>
+									</div>
+								</div>
+								<div class="ctx">
+										<span style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+												<div class="day" style="float: left;width: 50px;height: 10px;">
+												</div>
+												<strong>ARP</strong>（Address Resolution Protocol，地址解析协议）是一个位于TCP/IP协议栈中的网络层，负责将某个IP地址解析成对应的MAC地址。<br>
+												<div class="day" style="float: left;width: 50px;height: 10px;">
+												</div>
+												<strong>基本功能：</strong>基本功能：ARP协议的基本功能就是通过目标设备的IP地址，查询目标设备的MAC地址，以保证通信的进行。<br>
+												<div class="day" style="float: left;width: 50px;height: 10px;">
+												</div>
+												<strong>ARP攻击的局限性:</strong>
+												ARP攻击仅能在以太网（局域网如：机房、内网、公司网络等）进行。
+												无法对外网（互联网、非本区域内的局域网）进行攻击。
+										</span>		
+								</div>
+
+								<div class="tit">
+										<div class="day" style="float: left;width: 55%;position: relative;">
+											<span style=" font-weight: bolder; font-family: KaiTi; font-weight: bolder;">
+												<br>
+												嗅探与劫持
+											</span>
+										</div>
+									</div>
+
+			</div>
+			
+			<div class="zhengwen">
+				<div class="tit">
+					<div class="day">
+					<ft>Day 31</ft>
+					</div>
+					<div class="day" style="float: right;width: 120px;">
+					<ft style="color: #000;">教师: 彭老师</ft>
+					</div>
+					<hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+				</div>
+                <h1 style="text-align: center;">APT攻击</h1>
+				<div class="tit">
+						<div class="day" style="float: left;width: 55%;position: relative;">
+							<span style=" font-weight: bolder; font-family: KaiTi; font-size: 24px;">
+								<br>
+								APT是什么？：
+							</span>
+						</div>
+					</div>
+					<div class="ctx">
+							<ft style="line-height: 30px; font-weight: bolder; font-family: KaiTi;">
+									<div class="day" style="float: left;width: 50px;height: 10px;">
+									</div>
+									APT（AdvancedPersistent Threat）高级持续性威胁。是指组织(特别是政府)或者小团体利用先进的攻击
+									手段对特定目标进行长期持续性网络攻击的攻击形式。APT是黑客以窃取核心资料为目的，针对客户所发动的网络攻击和侵袭行为。
+					</div>
+
+					<div class="tit">
+							<div class="day" style="float: left;width: 55%;position: relative;">
+								<ft style=" font-weight: bolder; font-size: 24px; font-family: KaiTi;">
+									<br>
+									APT手法？：
+								</ft>
+							</div>
+						</div>
+						<div class="ctx">
+								<ft style="line-height: 30px; font-family: KaiTi; font-weight: bolder;">
+										<div class="day" style="float: left;width: 50px;height: 10px;">
+										</div>
+										APT的攻击手法，在于隐匿自己，针对特定对象，长期、有计划性和组织性地窃取数据，
+										此类攻击行为是传统安全检测系统无法有效检测发现，前沿防御方法是利用非商业化虚拟机分析技术，对各种邮件附件、
+										文件进行深度的动态行为分析，发现利用系统漏洞等高级技术专门构造的恶意文件，从而发现和确认APT攻击行为。由于APT的特性，
+										导致难发现、潜在威胁大，一旦被攻击将导致企业、政府、医疗组织等等的大量数据被窃取，公司重要财务、机密被盗窃。<br><br>
+										<div class="day" style="float: left;width: 50px;height: 10px;">
+										</div>
+											<strong>攻击者对内网信息比较感兴趣的点为：</strong><br>
+											<div class="day" style="float: left;width: 50px;height: 10px;">
+												</div>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1） 内网使用的浏览器信息，针对IE浏览器漏洞进行挂马攻击，水坑攻击。<br>
+											<div class="day" style="float: left;width: 50px;height: 10px;">
+												</div>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2） 内网FLASH版本信息，主要进行挂马攻击，发送带有网马的链接攻击。<br>
+											<div class="day" style="float: left;width: 50px;height: 10px;">
+												</div>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3） 内网使用的Java版本信息，进行网马攻击。<br>
+											<div class="day" style="float: left;width: 50px;height: 10px;">
+												</div>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4） 内网使用的杀毒软件信息，对木马针对性的进行免杀。<br>
+											<div class="day" style="float: left;width: 50px;height: 10px;">
+												</div>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5） 内网使用的Office版本信息，针对特定的office版本，制作相应的攻击样本。<br>
+											<div class="day" style="float: left;width: 50px;height: 10px;">
+												</div>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6） 内网使用的Adobe Reader版本信息，主要用来在PDF中嵌入木马进行攻击。<br>
+											<div class="day" style="float: left;width: 50px;height: 10px;">
+												</div>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7） 内网安装的常用软件信息，结合相应的软件漏洞进行相应漏洞攻击。<br>
+											<div class="day" style="float: left;width: 50px;height: 10px;">
+												</div>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8） 内网IP地址信息以及内网的外网出口。
+						</div>
+</div>
+		<div class="zhengwen">
+		  <div class="tit">
+			<div class="day">
+			  <ft>Day 32</ft>
+			</div>
+			<div class="day" style="float: right;width: 120px;">
+			  <ft style="color: #000;font-weight: normal;">教师: 彭老师</ft>
+			</div>
+			<hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+		  </div>
+		  <div class="obg" >
+		  	<h1 style="text-align: center;">免杀科普</h1>
+				<div class="tit">
+			  	<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+					<span style="font-weight: bolder; font-family: KaiTi; font-size: 24px;">常见免杀手法介绍:</span>
+			  	</div>
+				</div>
+				<div class="ctx">
+						<div class="day" style="float: left;width: 50px;font-weight: normal;height: 10px;">
+						</div>
+						<div style="line-height: 27px; font-family: KaiTi; font-weight: bolder; padding-left: 50px;">
+							<br>
+                            <h2>加冷门壳</h2>
+                            <p style="text-indent: 2em;">举例来说，如果说程序是一张烙饼，那壳就是包装袋，可以让你发现不了包装袋里的东西是什么。比较常见的壳一般容易被杀毒软件识别，所以加壳有时候会使用到生僻壳，就是不常用的壳。去买口香糖你会发现至少有两层包装，所以壳也可以加多重壳，让杀毒软件看不懂。如果你看到一个袋子上面写着干燥剂、有毒之类的字你也许就不会对他感兴趣了吧，这就是伪装壳，把一种壳伪装成其他壳，干扰杀毒软件正常的检测。</p>
+                            <h2>加壳改壳</h2>
+                            <p style="text-indent: 2em;">加壳改壳是病毒免杀常用的手段之一，加壳改壳原理是将一个木马文件加上upx壳或者其它壳后用lordpe将文件入口点加1，然后将区段字符全部去掉，然后用od打开免杀的木马在入口上下100字符内修改一些代码让杀毒软件查不出来是什么壳就不知道怎么脱就可以实现免杀的目的，但这种技术只有熟悉汇编语言的人才会，这种免杀方法高效可以一口气过众多杀软也是免杀爱好者应该学会的一种技术。</p>
+                            <h2>加花指令</h2>
+                            <p style="text-indent: 2em;">加花是病毒免杀常用的手段，加花的原理就是通过添加加花指令（一些垃圾指令，类型加1减1之类的无用语句）让杀毒软件检测不到特征码，干扰杀毒软件正常的检测。加花以后，一些杀毒软件就检测不出来了，但是有些比较强的杀毒软件，病毒还是会被杀的。这可以算是“免杀”技术中最初级的阶段。</p>
+                            <h2>改程序入口点</h2>
+                            <p style="text-indent: 2em;">修改程序入口点。</p>
+						</div>
+					</div>
+
+		  </div>
+		</div>
+		<div class="zhengwen">
+		  <div class="tit">
+			<div class="day">
+			  <ft>Day 33</ft>
+			</div>
+			<div class="day" style="float: right;width: 120px;">
+			  <ft style="color: #000;font-weight: normal;">教师: 彭老师</ft>
+			</div>
+			<hr align="left" color="#888888" width="100%" size="1px" / noshade="noshade">
+		  </div>
+		  <div class="obg" >
+		  	<h1 style="text-align: center;">DDOS和CC</h1>
+				<div class="tit">
+			  	<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+					<span style="font-weight: bolder; font-family: KaiTi; font-size: 24px;">DDOS攻击:</span>
+			  	</div>
+				</div>
+				<div class="ctx" style="font-weight: bolder; font-family: KaiTi; padding-left: 50px;">
+                    <br>
+                    <p style="text-indent: 2em;">DDoS的攻击原理是：利用网络过载进行干扰或是阻碍正常的网络通讯，然后向香港服务器申请大量的请求，导致香港服务器超负荷运行。从而达到，阻断正常数据请求，也就是阻碍正常访客对香港服务器发出的正常请求。几种比较常见的DDoS攻击有ICMP flood，SYN flood，UDP flood，而SYN flood又是最常见的攻击方式，它是利用TCP协议设计中得缺陷（3次握手）进行的，在它攻击的时候会制造很多的伪ip源地址，然后向香港服务器发送大量的SYN包，之后香港服务器会返回ACK/SYN包，但是IP是伪造的，所以香港服务器是不会受到应答的，会重试3-5次，并且等待一个SYN time（一般是39秒到2分钟），如果超时则丢弃这个连接。</p><br>
+                    <p style="text-indent: 2em;">攻击者发送大量的这种伪造源地址的SYN请求，服务端会消耗很多的资源（CPU和内存）来处理这种半连接，同时还要对这些请求进行SYN/ACK重试，最后的结果就是香港服务器无暇理睬正常的连接请求，导致拒绝服务。这就是DDoS的攻击原理。</p>
+		        </div>
+		        <div class="tit">
+			  	<div class="day" style="float: left;width: 30%;font-weight: normal;position: relative;">
+					<span style="font-weight: bolder; font-family: KaiTi; font-size: 24px;">CC攻击:</span>
+			  	</div>
+				</div>
+				<div class="ctx" style="font-weight: bolder; font-family: KaiTi; padding-left: 50px;">
+                    <br>
+                    <p style="text-indent: 2em;">CC的前世是一个攻击程序，叫做fatboy，这是黑客为了挑战绿盟的一款防DDoS设备开发的，它应该算是一个应用层的DDoS，是发生在TCP3次握手完成之后，它发送的ip其实都是真的。但是应用层的DDoS比网络层的DDoS更厉害，而且现在的大部分商业anti-DDOS设备，在防御网络层的DDoS的效果较好，应对应用层的DDoS攻击目前是还没有有效的手段。其实CC的攻击原理也比较简单，就是对一些那些比较耗费资源应用页面不停的发出请求，从而达到消耗资香港服务器资源的目的，在web应用中，查询数据库，读写硬盘文件的等操作都是比较消耗资源的。</p>
+		        </div>
+		    </div>
+		</div>
+</div>
+
+			<div id="nextd" onclick="ne()"><ft>Next Day</ft>
+			</div>
+			<div id="last" onclick="cb()"><ft>Last</ft></div>
+
+	  </div>
+	  <div id="tiao"><ft><<<<</ft>
+		<div class="pd">
+		  <a href="index.html"><div class="lj"><ft style="font-weight: normal;">首页</ft></div></a>
+		  <a href="系统安全.html"><div class="lj"><ft style="font-weight: normal;">系统安全</ft></div></a>
+		  <a href="编程基础.html"><div class="lj"><ft style="font-weight: normal;">编程基础</ft></div></a>
+		  <a href="代码审计.html"><div class="lj"><ft style="font-weight: normal;">代码审计</ft></div></a>
+		  <a href="CTF.html"><div class="lj"><ft style="font-weight: normal;">CTF攻防夺旗赛</ft></div></a>
+		</div>
+	  </div>
+  
+</body>
+
+<script type="text/javascript">
+	// 侧栏动画
+    var oA = document.querySelectorAll(".main ul li span");
+    var oLi = document.querySelectorAll(".main ul li");
+
+    console.log(oA);
+    console.log(oLi);
+    for(var i = 0; i < oA.length; i++)
+    {
+        oA[i].index = i;
+        oA[i].onclick = function () {
+        	console.log('52');
+            for(var j = 0; j < oA.length; j++)
+            {
+                oLi[j].style.height = "70px";
+            }
+            switch(this.index)
+            {
+            	case 0: oLi[this.index].style.height = "446px"; break;
+            	case 1: oLi[this.index].style.height = "167px"; break;
+                case 2: oLi[this.index].style.height = "93px"; break;
+            	case 3: oLi[this.index].style.height = "145px"; 
+            }
+        }
+    }
+
+var zw=document.getElementsByClassName('zhengwen')
+var dt=document.getElementsByTagName('dt')
+var lo=0
+var go=0 
+var last=document.getElementById('last')
+if(document.getElementsByClassName('zhengwen')[0].offsetHeight+100>window.innerHeight)
+{
+  document.getElementById('content').style.height=document.getElementsByClassName('zhengwen')[0].offsetHeight+100+"px"
+}
+for(var i=0;i<dt.length;i++)
+{
+  (function(i){
+    dt[i].onclick=function(){
+      zw[lo].setAttribute('style',"animation:san 2.4s;top:1500px;")
+      dt[lo].setAttribute('style',"background-color:#666;")
+      zw[i].setAttribute('style',"animation:qi 0.8s;top:50px;")
+      dt[i].setAttribute('style',"background-color:#444;")
+      go=lo
+      lo=i
+      if(document.getElementsByClassName('zhengwen')[i].offsetHeight+100>window.innerHeight)
+      {
+        document.getElementById('content').style.height=document.getElementsByClassName('zhengwen')[i].offsetHeight+100+"px"
+      }
+      else
+      {
+        document.getElementById('content').style.height=window.innerHeight+"px"
+      }
+    }
+  })(i)
+}
+function ne(){
+      zw[lo].setAttribute('style',"animation:san 2.4s;top:1500px;")
+      dt[lo].setAttribute('style',"background-color:#666;")
+      go=lo
+      lo+=1
+      if(lo>=23)
+        {lo=0}
+      zw[lo].setAttribute('style',"animation:qi 0.8s;top:50px;")
+      dt[lo].setAttribute('style',"background-color:#444;")
+      if(document.getElementsByClassName('zhengwen')[lo].offsetHeight+100>window.innerHeight)
+      {
+        document.getElementById('content').style.height=document.getElementsByClassName('zhengwen')[lo].offsetHeight+100+"px"
+      }
+      else
+      {
+        document.getElementById('content').style.height=window.innerHeight+"px"
+      }
+     }
+function cb(){
+  zw[go].setAttribute('style',"animation:ju 0.8s;top:50px;")
+  dt[go].setAttribute('style',"background-color:#444;")
+  zw[lo].setAttribute('style',"animation:luo 0.8s;top:1500px;")
+  dt[lo].setAttribute('style',"background-color:#666;")
+  lo=go
+  if(document.getElementsByClassName('zhengwen')[lo].offsetHeight+100>window.innerHeight)
+      {
+        document.getElementById('content').style.height=document.getElementsByClassName('zhengwen')[lo].offsetHeight+100+"px"
+      }
+      else
+      {
+        document.getElementById('content').style.height=window.innerHeight+"px"
+      }
+}
+
+
+
+	// function showOtherDiv(){
+    //         //获取要显示的div对象
+    //         var  otherDiv=document.getElementById('div2');
+    //         //显示
+    //         otherDiv.style.display="block";
+	// }
+
+	// 参考资料：https://github.com/sunshine940326/canvas-nest
+
+    class Circle {
+    //创建对象
+    //以一个圆为对象
+    //设置随机的 x，y坐标，r半径，_mx，_my移动的距离
+    //this.r是创建圆的半径，参数越大半径越大
+    //this._mx,this._my是移动的距离，参数越大移动
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.r = Math.random() * 1;
+        this._mx = Math.random();
+        this._my = Math.random();
+    }
+
+    //canvas 画圆和画直线
+    //画圆就是正常的用canvas画一个圆
+    //画直线是两个圆连线，为了避免直线过多，给圆圈距离设置了一个值，距离很远的圆圈，就不做连线处理
+    drawCircle(ctx) {
+        ctx.beginPath();
+        //arc() 方法使用一个中心点和半径，为一个画布的当前子路径添加一条弧。
+        ctx.arc(this.x, this.y, this.r, 0, 360)
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(150, 150, 150, 0.3)';
+        ctx.fill();
+    }
+
+    drawLine(ctx, _circle) {
+        let dx = this.x - _circle.x;
+        let dy = this.y - _circle.y;
+        let d = Math.sqrt(dx * dx + dy * dy)
+        if (d < 150) {
+            ctx.beginPath();
+            //开始一条路径，移动到位置 this.x,this.y。创建到达位置 _circle.x,_circle.y 的一条线：
+            ctx.moveTo(this.x, this.y); //起始点
+            ctx.lineTo(_circle.x, _circle.y); //终点
+            ctx.closePath();
+            ctx.strokeStyle = 'rgba(150, 150, 150, 0.3)';
+            ctx.stroke();
+        }
+    }
+
+    // 圆圈移动
+    // 圆圈移动的距离必须在屏幕范围内
+    move(w, h) {
+        this._mx = (this.x < w && this.x > 0) ? this._mx : (-this._mx);
+        this._my = (this.y < h && this.y > 0) ? this._my : (-this._my);
+        this.x += this._mx / 2;
+        this.y += this._my / 2;
+        }
+    }
+
+    //鼠标点画圆闪烁变动
+    class currentCirle extends Circle {
+        constructor(x, y) {
+            super(x, y)
+        }
+
+    drawCircle(ctx) {
+        ctx.beginPath();
+        //注释内容为鼠标焦点的地方圆圈半径变化
+        //this.r = (this.r < 14 && this.r > 1) ? this.r + (Math.random() * 2 - 1) : 2;
+        this.r = 8;
+        ctx.arc(this.x, this.y, this.r, 0, 360);
+        ctx.closePath();
+        //ctx.fillStyle = 'rgba(0,0,0,' + (parseInt(Math.random() * 100) / 100) + ')'
+        ctx.fillStyle = 'rgba(255, 77, 54, 0.6)'
+        ctx.fill();
+        }
+    }
+
+    //更新页面用requestAnimationFrame替代setTimeout
+    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let w = canvas.width = canvas.offsetWidth;
+    let h = canvas.height = canvas.offsetHeight;
+    let circles = [];
+    let current_circle = new currentCirle(0, 0)
+
+    let draw = function() {
+        ctx.clearRect(0, 0, w, h);
+        for (let i = 0; i < circles.length; i++) {
+            circles[i].move(w, h);
+            circles[i].drawCircle(ctx);
+            for (j = i + 1; j < circles.length; j++) {
+                circles[i].drawLine(ctx, circles[j])
+            }
+        }
+        if (current_circle.x) {
+            current_circle.drawCircle(ctx);
+            for (var k = 1; k < circles.length; k++) {
+                current_circle.drawLine(ctx, circles[k])
+            }
+        }  
+        requestAnimationFrame(draw)
+    }
+
+    let init = function(num) {
+        for (var i = 0; i < num; i++) {
+            circles.push(new Circle(Math.random() * w, Math.random() * h));
+        }
+        draw();
+    }
+
+    window.addEventListener('load', init(180));
+
+    window.onmousemove = function(e) {
+        e = e || window.event;
+        current_circle.x = e.clientX;
+        current_circle.y = e.clientY;
+    }
+
+    window.onmouseout = function() {
+        current_circle.x = null;
+        current_circle.y = null;
+    }
+</script>
+</html>

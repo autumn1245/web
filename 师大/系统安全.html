@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>系统安全</title>
+	<style type="text/css">
+	    * {
+	    	margin: 0;
+	    	padding: 0;
+	    }
+	    html {
+	    	height: 100%;
+	    }
+	    body {
+	    	margin: 0;
+	    	height: 100%;
+	    	background-color: #ddd;
+	    	opacity: 0.7;
+			position: relative;
+	    }
+	    canvas {
+	    	display: block;
+	    	width: 100%;
+	    	height: 100%;
+	    }
+		.main {
+			width: 15%;
+		    position: fixed;
+		    left: 10%;
+		    top: 50px;
+            opacity: 0.9;
+		}
+		.main ul li span, .main ul li dl {
+			display: block;
+			width: 100%;
+			font: 40px/40px "";
+			text-align: center;
+			color: #fff;
+			font-family: Avenir;
+			font-weight: lighter;
+		}
+		.main ul li span {
+			text-decoration: none;
+			font-size: 24px;
+			height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+		}
+		.main ul li span:hover, .main ul li dl dt:hover {
+			color: #999;
+		}
+		.main ul li dl dt {
+			background: rgba(254,254,254,0.1);
+			font-size: 18px;
+			height: 30px;
+            display: flex;
+            color: #fff;
+            justify-content: center;
+            align-items: center;
+            letter-spacing: 1px;
+		}
+        .main ul li dl a {
+            font-weight: bolder;
+            text-decoration: none;
+        }
+		.main ul li {			
+			overflow: hidden;
+            background: #000;
+            border-radius: 5px;
+            transition: 0.5s;
+            height: 100px;
+            color: #fff;
+            opacity: 1;
+            margin-bottom: 50px;
+		}
+		wy {
+            font-family: Avenir;
+            font-weight: lighter;
+        }
+		#content {
+			height: 10px;
+            width: 60%;
+            left: 20%;
+            top: 0px;
+            position: absolute;
+            overflow: hidden;
+		}
+	    .zhengwen {
+	        height: auto !important ;
+            min-height: 500px;
+            width: 80%;
+            border-radius: 3px;
+            margin-left: 15%;
+            top:1500px;
+            position: absolute;
+            background: hsla(144,10%,75%,0.8);
+            box-shadow: 0 0 5px #000;
+            box-sizing: border-box;
+            padding: 20px;
+		}
+	    .shang {
+			width:100%;
+			height: 50px;
+			position: relative;
+		}
+	    .zuo{
+			width: 80px;
+			height: 50px;
+			display: flex;
+			justify-content: center;
+			align-content: center;
+			float: left;
+		}
+        
+		ft {
+            font-family: Avenir;
+            font-weight: lighter;
+        }
+        
+		#next {
+			width: 130px;
+			height: 40px;
+			position: absolute;
+			border-radius: 20px;
+			background: hsla(144, 10%, 70%,0.9);
+			position: fixed;
+			left: 50%;
+			margin-left: -60px;
+			bottom:7%;
+			box-shadow: 0 0 5px #000;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			animation: huan 4s ;
+			animation-iteration-count: infinite;
+			animation-play-state: running;
+			opacity: 1;
+			cursor: pointer;
+		}
+		#next:hover {
+			opacity: 1 !important;
+			animation-play-state: paused;
+		}
+		@keyframes huan {
+			0%{
+				bottom: 8%;
+				opacity: 1;
+			}
+			50%{
+				bottom: 5%;
+				opacity: 0.3;
+			}
+			100%{
+				bottom: 8%;
+				opacity: 1;
+			}
+		}
+		#last {
+			background: hsla(144,10%,75%,0.7);
+			width: 50px;
+			height: 50px;
+			border-radius: 25px;
+			position: fixed;
+      		box-shadow: 0 0 5px #000;
+      		display: flex;
+      		justify-content: center;
+      		align-items: center;
+      		right: 100px;
+      		bottom: 5%;
+      		transition: all 0.3s;
+      		text-decoration: none;
+      		cursor: auto;
+      		pointer-events: all;
+		}
+		#last:hover {
+			width: 150px;
+			background:hsla(133, 10%, 75%, 0.7);
+			text-decoration: underline;
+		}
+	    #tiao {
+            background-color: rgba(144, 144, 144, 1);
+            height: 50px;
+            width: 50px;
+            border-radius: 25px;
+            position: fixed;
+            box-shadow: 0 0 5px #000;
+            display: flex;
+            top:40%;
+            right: -25px;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+            text-decoration: none;
+            transform: rotate(0deg);
+            opacity: 1;
+        }
+        .pd {
+            height: 250px;
+            width: 180px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            opacity: 0.5;
+            display:inline;
+            right: -180px;
+            position: absolute;
+            opacity: 1;
+            font-size: 24px;
+            border: 2px solid #222;
+        }
+        .lj {
+            height: 50px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #222;
+            font-weight: bolder;
+            font-family: KaiTi;
+            font-size: 18px;
+        }
+        .lj:hover {
+            background-color: #444;
+            color: #000;
+        }
+        #tiao:hover {
+            animation-play-state: paused;
+        }
+        #tiao:hover .pd {
+            background: #ccc;
+            right: 5px;
+            display: inline-block;
+            opacity: 0.7;
+            z-index: 100;
+        }
+        #tiao:hover .to {
+        	opacity: 1;
+        }
+        #tiao {
+        	z-index: 100;
+        }
+        .pd a {
+        	text-decoration: none;
+        }
+	    @keyframes qi {
+            0%{ top:1500px; }
+            100%{ top: 50px; }
+        }
+        @keyframes san {
+            0%{ transform: scale(1); opacity: 1;top:50px; }
+            33%{ transform: scale(1.5); opacity: 0;top: 50px; }
+            66%{ transform: scale(1); opacity: 0;top: 1500px; }
+            100%{ transform: scale(1); opacity: 1;top: 1500px; }
+        }
+        @keyframes luo {
+            0%{ top: 50px; }
+            100%{ top: 1500px; }
+        }
+        @keyframes ju {
+            0%{ transform: scale(1.5); opacity: 0;top: 50px; }
+            100%{ transform: scale(1); opacity: 1;top: 50px; }
+        }
+	    @keyframes nx {
+		    0% {
+				bottom: 8%;
+				opacity: 1;
+		    }
+		    50% {
+				bottom: 5%;
+				opacity: 0.3;
+		    }
+		    100% {
+				bottom: 8%;
+				opacity: 1;
+		    }
+		}
+        @keyframes neir {
+	        from {   
+	        	height: 0px;
+                min-height: 0px;
+                visibility: hidden;
+            }
+		    to {
+                height: auto !important;
+                min-height: 300px;
+                visibility: visible;
+		    }
+        }
+        @keyframes rien {
+            from {
+                height: auto !important;
+                min-height: 300px;
+                visibility: visible;
+            }
+            to {
+                height: 0px;
+                min-height: 0px;
+                visibility: hidden;
+            }
+        }	
+		.jieshao {
+			width: 96%;
+			height: 86%;
+			padding: 10px;
+			border-radius: 10%;
+			position: relative;
+			top: 10px;
+		}
+		.biaoti {
+			font-size: 26px;
+			display: flex;
+			justify-content: center;	
+			font-weight: bold;	
+		}
+		.yewei {
+			font-family: 'Courier New', Courier, monospace;
+			font-size: 15px;
+			position: relative;		
+			font-weight: bolder;
+		}
+		.yewei a {
+			text-decoration: none;
+			color: #b8860b;
+			font-size: 18px;
+		}
+		.wen a {
+			text-decoration: none;
+			color: #222;
+			font-size: 18px;
+			color: #b8860b;
+		}
+		.wen {
+			font-weight: bolder;
+			font-family: KaiTi;
+			font-size: 20px;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+ 
+    <div class="main">
+    	<ul>
+    		<li>
+    			<span>Windows系统安全运维与管理</span>
+    			<dl>
+    				<a href="#"><dt>Day1</dt></a>
+    				<a href="#"><dt>Day2</dt></a>
+    				<a href="#"><dt>Day3</dt></a>
+    				<a href="#"><dt>Day4</dt></a>
+    				<a href="#"><dt>Day5</dt></a>
+    				<a href="#"><dt>Day6</dt></a>
+    				<a href="#"><dt>Day7</dt></a>
+    				<a href="#"><dt>Day8</dt></a>
+    				<a href="#"><dt>Day9</dt></a>
+    				<a href="#"><dt>Day10</dt></a>
+    			</dl>
+    		</li>
+    		<li>
+    			<span>Linux系统安全运维与管理</span>
+    			<dl>
+    				<a href="#"><dt>Day1</dt></a>
+    				<a href="#"><dt>Day2</dt></a>
+    				<a href="#"><dt>Day3</dt></a>
+    				<a href="#"><dt>Day4</dt></a>
+    				<a href="#"><dt>Day5</dt></a>
+    				<a href="#"><dt>Day6</dt></a>
+    				<a href="#"><dt>Day7</dt></a>
+    				<a href="#"><dt>Day8</dt></a>
+    				<a href="#"><dt>Day9</dt></a>
+    				<a href="#"><dt>Day10</dt></a>
+    			</dl>
+    		</li>
+    	</ul>
+    </div> 
+	<div id="content">
+    <script type="text/javascript">
+        document.getElementById('content').style.minHeight=window.innerHeight+"px"
+    </script>
+	<div class="zhengwen" style="top: 50px;opacity: 1;">
+		<div class="shang">
+			<div class="zuo">
+				<p>Day-1 </p>
+			</div>
+			<div class="zuo" style="float:right;width: 150px;">
+				<p>授课教师：彭老师</p>
+			</div>
+		</div>
+		
+		<hr width="100%" size ="1px" color="#888">	
+		<div class="jieshao">
+				<div class="biaoti">域名网站介绍</div>
+				<br>
+				<div class="wen"> 
+					<div>&nbsp;&nbsp; 1.<a href="https://baike.baidu.com/item/域名/86062?fr=aladdin" target="_blank" >域名</a>(英语：Domain Name)，简称域名、网域，是由一串用点分隔的名字组成的Internet上某一台计算机或计算机组的名称，用于在数据传输时标识计算机的电子方位（有时也指地理位置）。下面是几种与域名相关的名词:
+						<br>
+						<div style="margin-left: 70px;">
+							&nbsp;&nbsp;A (Address) 记录是用来指定主机名（或域名）对应的IP地址记录。用户可以将该域名下的网站服务器指向到自己的web server上。同时也可 以设置您域名的子域名。 <br>
+							&nbsp;&nbsp;URL指向是当您已经有了现成的网页，并希望将新注册的域名指到已经有的网页去，以省去了重新设立网页的烦恼。您做一个url转发即可，需要说明的是，在这一点上面，是完全免费的，而且是用户自己控制。另外，可以选择隐藏或者不隐藏原地址。 
+					    </div>
+					    <br>
+					</div>
+					&nbsp;&nbsp; 2.<a href="https://baike.baidu.com/item/网站/155722" target="_blank" >网站</a>(Website)是指在因特网上根据一定的规则，使用HTML（标准通用标记语言下的一个应用）等工具制作的用于展示特定内容相关网页的集合。简单地说，网站是一种沟通工具，人们可以通过网站来发布自己想要公开的资讯，或者利用网站来提供相关的网络服务。人们可以通过网页浏览器来访问网站，获取自己需要的资讯或者享受网络服务。<br>
+
+				</div>
+				<div class="yewei">
+					&nbsp;&nbsp;&nbsp; 关于想了解更多关于域名的知识请点击<a href="https://blog.csdn.net/u014558480/article/details/45583449/" target="_blank" >此处</a>获取更多详细内容！
+				</div>
+		   </div>
+	</div>
+	<div class="zhengwen">
+		<div class="shang">
+			<div class="zuo">
+				<p>Day-2 </p>
+			</div>
+			<div class="zuo" style="float:right;width: 150px;">
+				<p>授课教师：彭老师</p>
+			</div>
+		</div>
+		<hr width="100%" size ="1px" color="#888">
+		<div class="jieshao">
+				<div class="biaoti">windows各个版本的介绍</div>
+				<br>
+				<div class="wen"> 
+					&nbsp;&nbsp;&nbsp;&nbsp;首先我们要了解什么是服务器-----Windows服务器是WSS的核心，Windows 的服务器操作系统。每个Windows服务器都与其家用（工作站）版对应（2003 R2除外）。<br>
+					<div style="padding: 40px;">
+					&nbsp;&nbsp;&nbsp;&nbsp;1.<a href="https://baike.baidu.com/item/Windows%20Server%202003/761146?fr=aladdin" target="_blank">Windows Server 2003</a>是微软基于Windows XP/NT5.1开发的服务器操作系统，于2003年3月28日发布，并在同年四月底上市。相对于Windows 2000 Server做了很多改进。Windows Server 2003的官方支持即已在2015年7月14日结束，Windows Server 2003的安全性不再获得保障。这意味着在 2015 年 7 月 14 日之后，运行此操作系统的所有数据中心将无法获得更新和修补程序，同时将无法满足合规性要求。<br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;2.<a href="https://baike.baidu.com/item/Windows%20Server%202008/4291457?fr=aladdin" target="_blank">Windows Server 2008</a>发行了多种版本，以支持各种规模的企业对服务器不断变化的需求。Windows Server 2008 有 5 种不同版本，另外还有三个不支持 Windows Server Hyper-V 技术的版本，因此总共有 8 种版本。<br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;3.<a href="https://baike.baidu.com/item/Windows%20Server%202012" target="_blank">Windows Server 2012</a>有四个版本：Foundation，Essentials， Standard和Datacenter,新增了一系列功能，例如图形界面等。<br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;4.<a href="https://baike.baidu.com/item/Windows%20Server%202016" target="_blank">Windows Server 2016</a>是微软于2016年10月13日正式发布的最新服务器操作系统。它在整体的设计风格与功能上更加靠近了Windows 10。<br><br>
+					<div class="yewei">
+					****各个版本的性能适用性都有很大的差别，可以点击<a href="https://jingyan.baidu.com/article/20095761edb86ecb0721b4c4.html" target="_blank">这里</a>进行具体的了解****
+				    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div class="zhengwen">
+		<div class="shang">
+			<div class="zuo">
+				<p>Day-3 </p>
+			</div>
+			<div class="zuo" style="float:right;width: 150px;">
+
+				<p>授课教师：彭老师</p>
+			</div>
+		</div>
+		<hr width="100%" size ="1px" color="#888">
+		<div class="jieshao">
+				
+				<div class="biaoti">Apache/nginx介绍以及搭建一键部署系统</div>
+				<br>
+			<div class="wen"> 
+				&nbsp;&nbsp;&nbsp;<h3>1.关于nginx，iis，apache，tomcat：</h3><br>
+				<div style="padding: 40px;">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1)<a href="https://baike.baidu.com/item/nginx/3817705?fr=aladdin" target="_blank" >nginx</a> 
+				ngnix是反向代理服务器，它是代理，本身并不执行，是个传话筒，把用户提交的请求转发给web服务器，再把web服务器的结果转发给用户。为了提高性能，启用反向代理，实际的web服务器可以有很多台，而ngnix放在前面，可以把这些web服务器整合成一个虚拟的更强大的服务器。<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2)<a href="https://baike.baidu.com/item/iis/99720" target="_blank" >IIs</a>iis是微软开发的web服务器，需要收费，主要用来跑asp.net asp php，只能在windows下运行。<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(3)<a href="">Apache </a>apache是apache基金会的web服务器，免费，只支持静态页面，是html容器，应用范围广泛。<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(4)<a href="https://baike.baidu.com/item/tomcat"target="_blank" >Tomcat </a>tomcat是apache基金会的java服务器，主要用来跑jsp php python等。
+				<br>
+			    </div>
+				&nbsp;&nbsp;&nbsp;<h3>2.一键部署系统：</h3><br>
+				<div style="padding: 20px;">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1)<a href="https://baike.baidu.com/item/phpStudy" target="_blank" >phpStudy</a>的安装<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 下载地址：<a href="http://www.phpstudy.net/download.html"  target="_blank">http://www.phpstudy.net/download.html</a> <br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 安装phpstudy<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 启动服务器<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4 配置本地服务器域名<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2)<a href="https://www.huweishen.com/soft/php/" target="_blank" >php守护神的安装</a><br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(3)<a href="http://www.laozuo.org/11660.html" target="_blank" >php宝塔的安装</a><br>
+                </div>
+			</div>
+	   </div>
+	</div>
+	<div class="zhengwen">
+		<div class="shang">
+			<div class="zuo">
+				<p>Day-4 </p>
+			</div>
+			<div class="zuo" style="float:right;width: 150px;">
+				<p>授课教师：彭老师</p>
+			</div>
+		</div>
+		<hr width="100%" size ="1px" color="#888">
+		<div class="jieshao">
+				<div class="biaoti">服务器的数据库介绍</div>
+				<br>
+				<div class="wen"> 
+					&nbsp;&nbsp;&nbsp;&nbsp;首先我们要先了解数据库---数据库可视为电子化的文件柜——存储电子文件的处所，用户可以对文件中的数据进行新增、截取、更新、删除等操作。
+					所谓“数据库”是以一定方式储存在一起、能与多个用户共享、具有尽可能小的冗余度、与应用程序彼此独立的数据集合。<br>
+					<div style="padding: 30px;">
+					&nbsp;&nbsp;&nbsp;&nbsp;1.<a href="https://baike.baidu.com/item/Microsoft%20SQL%20Server/2947866" target="_blank">SQL Serv</a>
+					仅能用于Windows环境下，是企业级数据库，具备完全Web支持的数据库产品，提供了对可扩展标识语言（XML）的核心支持，结合了分析、报表、集成和通知功能，以及具备在Internet上和防火墙外进行查询的能力。<br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;2.<a href="https://baike.baidu.com/item/Microsoft%20Office%20Access/7748166?fr=aladdin" target="_blank">Access</a>数据库是微软把数据库引擎的图形用户界面和软件开发工具结合在一起的一个数据库管理系统。具有界面友好、操作简单、简单易学、功能强大等特点，适用日常管理工作需要。
+						用途：
+						1） 用来进行数据分析： access有强大的数据处理、统计分析能力，利用access的查询功能，可以方便地进行各类汇总、平均等统计；
+						2） 用来开发软件： access用来开发软件，比如生产管理、销售管理、库存管理等各类企业管理软件，简单易学，即使用户不懂编程也可以使用。<br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;3.<a href="https://baike.baidu.com/item/mySQL/471251?fr=aladdin" target="_blank">MySQL</a>是一种开放源代码的关系型数据库管理系统，现在UNIX或Linux类服务器上都广泛使用的Web数据库系统，也可以运行于Windows平台。它是一个多用户、多线程、跨平台的SQL数据库系统，同时是具有客户/服务器体系结构的分布式数据库管理系统。<br><br>
+					<div class="yewei">
+					&nbsp&nbsp上述为主要的几种数据库，还有<a href="https://baike.baidu.com/item/Oracle数据库/3710800?fr=aladdin" target="_blank">Oracle</a>&nbsp;&nbsp;<a href="https://baike.baidu.com/item/Redis/6549233?fr=aladdin" target="_blank">Redis</a>了解更多。
+				    </div>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="zhengwen">
+		<div class="shang">
+			<div class="zuo">
+				<p>Day-5 </p>
+			</div>
+			<div class="zuo" style="float:right;width: 150px;">
+
+				<p>授课教师：彭老师</p>
+			</div>
+		</div>
+		<hr width="100%" size ="1px" color="#888">
+		<br>
+		<div class="jieshao">
+                <div class="biaoti">常见网络传输协议</div>
+                <br>
+                <div class="wen"> 
+                    &nbsp;&nbsp;&nbsp;&nbsp;首先我们要了解什么是协议----计算机网络各节点之间要不断交换数据和控制信息，要保证数据交换的顺利进行，每个节点都必须 遵守一些事先规定的通信规则、标准。这些规则和标准规定了网络节点同层对等实体之间交换数据以及 控制信息的格式和时序。这些规则和标准的集合称为协议。<br><br>
+                    下面列举几种常见的协议：<br><br>
+                    <div style="padding: 0 30px;">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.<a href="https://blog.csdn.net/china_jeffery/article/details/79495744"  target="_blank">Http</a>是Hyper Text Transfer Protocol（超文本传输协议）的缩写。HTTP协议位于TCP/IP协议栈的应用层。
+                                HTTP是一个客户端和服务器端请求和应答的标准，主要用于从万维网服务器传输超文本到本地浏览器之间的请求数据和响应数据的协议。客户端通过使用网页浏览器或者其它的工具发起一个HTTP请求到服务器上指定端口，服务器在收到请求之后，返回响应内容。
+                                HTTP协议是基于TCP协议来进行数据传输的。<br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.只有TCP/IP允许与Internet完全的连接。TCP/IP同时具备了可扩展性和可靠性的需求。<br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.<a href="https://baike.baidu.com/item/https/285356?fr=aladdin"  target="_blank">Https</a>安全超文本传输协议,是以安全为目标的HTTP通道，就是HTTP的安全版。Https = Http + SSL。SSL 包含如下动作：
+                                ①验证服务器端；
+                                ②允许客户端和服务器端选择加密算法和密码，确保双方都支持；
+                                ③验证客户端；
+                                ④使用公钥加密技术来生成共享加密数据；
+                                ⑤创建一个加密的 SSL 连接；
+                                ⑥基于该 SSL 连接传递HTTP 请求；
+                    </div>    
+                </div>
+           </div>
+	</div>
+	<div class="zhengwen">
+		<div class="shang">
+			<div class="zuo">
+				<p>Day-6 </p>
+			</div>
+			<div class="zuo" style="float:right;width: 150px;">
+				<p>授课教师：彭老师</p>
+			</div>
+		</div>
+		<hr width="100%" size ="1px" color="#888">
+		<div class="jieshao">
+                <div class="biaoti">常见网络端口协议</div>
+                <br>
+                <div class="wen" style="padding: 0 30px;">                     
+						&nbsp;&nbsp;&nbsp;&nbsp;80 端口：80 端口是为HTTP（HyperText Transport Protocol，超文本传输协议）开放的，这是上网冲浪使用最多的协议主要用于在WWW（World Wide Web，万维网）服务上传输信息的协议。<br><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;3389端口：远程桌面 (3389入侵就是用的这个口) <br><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;443 端口：443 端口即网页浏览端口，主要是用于HTTPS 服务，是提供加密和通过安全端口传输的另一种HTTP。<br><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;21 端口：21 端口主要用于FTP（File Transfer Protocol，文件传输协议）服务。<br><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;1080 端口：1080 端口是Socks 代理服务使用的端口，大家平时上网使用的WWW 服务使用的是HTTP 协议的代理服务。<br><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;53 端口：53 端口为DNS（Domain Name Server，域名服务器）服务器所开放，主要用于域名解析，DNS 服务在NT 系统中使用的最为广泛。                
+                    <div class="yewei">
+                    &nbsp;&nbsp;上述为常见的几种端口，想要了解更多请<a href="https://wenku.baidu.com/view/ec89c38b5ff7ba0d4a7302768e9951e79b89692f.html" target="_blank">点击</a>了解详情！
+                    </div>
+                </div>
+           </div>
+	</div>
+	<div class="zhengwen">
+		<div class="shang">
+			<div class="zuo">
+				<p>Day-7 </p>
+			</div>
+			<div class="zuo" style="float:right;width: 150px;">
+				<p>授课教师：彭老师</p>
+			</div>
+		</div>
+		<hr width="100%" size ="1px" color="#888">
+		<div class="jieshao">
+                <div class="biaoti">常见语言介绍</div>
+                <br>
+                <div class="wen" style="padding: 0 30px;">                    
+                        &nbsp;&nbsp;&nbsp;&nbsp;1.<a href="https://baike.baidu.com/item/asp/128906"  target="_blank">ASP</a>是Active Server Page的缩写，意为“动态服务器页面”。ASP是微软公司开发的代替CGI脚本程序的一种应用，它可以与数据库和其它程序进行交互，是一种简单、方便的编程工具。ASP的网页文件的格式是.asp，现在常用于各种动态网站中。<br><br>
+                        
+						&nbsp;&nbsp;&nbsp;&nbsp;2.<a href="https://baike.baidu.com/item/PHP/9337?fromtitle=%EF%BC%B0%EF%BC%A8%EF%BC%B0&fromid=6717846"  target="_blank">PHP</a>是英文超级文本预处理语言Hypertext Preprocessor的缩写。PHP 是一种 HTML 内嵌式的语言，是一种在服务器端执行的嵌入HTML文档的脚本语言，语言的风格有类似于C语言，被广泛的运用。<br><br>
+                        
+						&nbsp;&nbsp;&nbsp;&nbsp;3.<a href="https://baike.baidu.com/item/JSP/141543"  target="_blank">JSP</a>是由Sun Microsystems公司倡导、许多公司参与一起建立的一种动态网页技术标准。JSP技术有点类似ASP技术，它是在传统的网页HTML文件(*.htm,*.html)中插入Java程序段(Scriptlet)和JSP标记(tag)，从而形成JSP文件(*.jsp)。 用JSP开发的Web应用是跨平台的，既能在Linux下运行，也能在其他操作系统上运行。<br><br>
+                        
+						&nbsp;&nbsp;&nbsp;&nbsp;4.<a href="https://baike.baidu.com/item/shtml/594921?fr=aladdin"  target="_blank">shtml</a> 关于shtml，shtml是一种基于SSI技术的文件，也就是Server Side Include--SSI 服务器端包含指令，一些Web Server如果有SSI功能的话就会对shtml文件特殊招待，服务器会先扫一次shtml文件看没有特殊的SSI指令存在，如果有的话就按Web Server设定规则解释SSI指令，解释完后跟一般html一起调去客户端。<br><br>   
+                </div>
+                <div class="yewei">
+                    &nbsp;&nbsp;&nbsp; 关于各种的语言区别与联系可以点击<a href="https://blog.csdn.net/u014558480/article/details/45583449/"  target="_blank">此处</a>获取更多详细内容
+                </div>
+		   </div>
+	</div>
+	<div class="zhengwen">
+		<div class="shang">
+			<div class="zuo">
+				<p>Day-8 </p>
+			</div>
+			<div class="zuo" style="float:right;width: 150px;">
+
+				<p>授课教师：彭老师</p>
+			</div>
+		</div>
+		<hr width="100%" size ="1px" color="#888">
+		<div class="jieshao">
+				<div class="biaoti">FTP以及工具介绍</div>
+				<br>
+				<div class="wen" style="padding: 0 30px;"> 
+						&nbsp;&nbsp;&nbsp;1.<a href="https://baike.baidu.com/item/FTP工具/7838526?fr=aladdin"  target="_blank">FTP </a>--FTP（File Transfer Protocol）是Internet上用来传送文件的协议（文件传输协议）。FTP工具一般分为FLASHFXP、LEAPFTP、CuteFTP，合称FTP三剑客，以汉化版和破解版居多。国产简体中文版目前有8UFTP。<br><br>
+						&nbsp;&nbsp;&nbsp;2.工具介绍:<br><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1)<a href="https://baike.baidu.com/item/FTP%20Server/1205085?fr=aladdin"  target="_blank">FTP Server</a>FTP Server 服务器是一种专供其他电脑检索文件和存储的特殊电脑。文件服务器通常比一般的个人电脑拥有更大的存储容量，并具有一些其他的功能，如磁盘镜像、多个网络接口卡、热备援多电源供应器。到后来，文件服务器逐渐进化成带有RAID（Redundant Array of Independent Disk）存储子系统和其他高可用特性的高性能系统。<br><br>
+
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2)<a href="https://baike.baidu.com/item/FileZilla%20Server/7329064"  target="_blank">FileZilla Server</a>FileZilla Server，程序语言，是一个非常流行的开源的免费的FTP客户端、服务器端的项目，主要优势在于高安全、高性能。主要的特点：a.自定义欢迎消息b.可选择是否显示软件版本
+						c.上传下载速度限制，并可以限定某个特定的时间段的速度
+						d.组设置及用户设置新增封闭IP和允许特定IP访问的功能
+						e.支持将日志写入文件，并可定义是否在日志中显示密码和欢迎消息
+						f.支持虚拟目录，可以映射不同的盘符的文件到根目录下
+						g.可以限制总用户数、单个IP连接数，不同用户可以设置不同的用户数限定以及不同的速度限制，也可以应用组设置！(开源软件)想要具体了解可以进入官网查询：<a href="https://filezilla-project.org/">https://filezilla-project.org/</a> <br><br>
+				</div>
+				<div class="yewei">
+					&nbsp;&nbsp;&nbsp; 如果你想学会如何搭建一个FTP服务器，可以点击<a href="https://blog.csdn.net/u014558480/article/details/45583449/"  target="_blank">此处</a>获取视频教学内容！
+				</div>
+		   </div>
+	</div>
+	<div class="zhengwen">
+		<div class="shang">
+			<div class="zuo">
+				<p>Day-9 </p>
+			</div>
+			<div class="zuo" style="float:right;width: 150px;">
+
+				<p>授课教师：彭老师</p>
+			</div>
+		</div>
+		<hr width="100%" size ="1px" color="#888">
+		<div class="jieshao">
+				<div class="biaoti">网站故障问题修复</div>
+				<br>
+				<div class="wen" style="padding: 0 30px;"> 
+						&nbsp;&nbsp;&nbsp;&nbsp;1.网站404错误: 404是一个常见的错误。它表示正在查找的页面不存在。这通常发生在点击断开的链接时，或者网站转移页面时未正确重定向。但是，如果输错网址，也会发生这种情况。
+
+						当看到404时，请检查以确保没有输入错误的地址。然后尝试搜索引擎以找到正确的页面，因为它可能已经转移。<br><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;2.网站403：403错误表示您已提出有效的请求，但服务器无法完成，因为您不允许访问它。这不同于401。
+
+						401告诉你，你还没有登录，所以它不能验证你。但403错误表示它知道你是谁，但不会让你访问该页面。通常，这意味着您已经偶然发现了一些私密的内容，需要网站管理员才能访问。
+						<br><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;3.网站302： 302 代表暂时性转移，意思就是你访问网址A，但是网址A因为服务器端的拦截器或者其他后端代码处理的原因，会被重定向到网址B。因而可以将网站A要访问的接口的关键词进行了修改，使其不会被拦截器拦截，就能正常从后端获取数据了。<br><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;4.网站500：一般来说，如果程序出错，那么在浏览器内会返回给用户一个友好的错误提示，统一称之为服务器500错误。 解决的方法就是您必须在http中能够正确的获得错误信息，方法为：请打开浏览器，选择工具，internet选项，高级，在高级中的浏览项目里面有一个\"显示http友好错误提示\"的复选框，请取消该复选框，这样您可以获得正确的错误提示。 在获得正确的错误提示之后，您就可以根据该错误提示检查您具体的出错原因了 
+				</div>
+
+		   </div>
+	</div>
+	<div class="zhengwen">
+		<div class="shang">
+			<div class="zuo">
+				<p>Day-10 </p>
+			</div>
+			<div class="zuo" style="float:right;width: 150px;">
+
+				<p>授课教师：彭老师</p>
+			</div>
+		</div>
+		<hr width="100%" size ="1px" color="#888">
+		<div class="jieshao">
+				<div class="biaoti">服务器安全</div>
+				<br>
+				<div class="wen" style="padding: 0 30px;"> 
+					1.常见服务器安全以及解决方法：<br><br>
+						 &nbsp;&nbsp;&nbsp;&nbsp;(1)服务器中病毒-----改端口/处理办法就是开启防火墙仅允许必要的通信外出，然后分析系统提交样本给防病毒厂商,感觉假如是服务器的话，一般都会希望最短的时间内恢复/ 重装系统
+						 <br><br>
+						 &nbsp;&nbsp;&nbsp;&nbsp;(2)网页篡改-----第一时间恢复被篡改的网页--> 查询木马、病毒--->做好服务器攻击防护、安全预警及网站程序防篡改保护工作<br>
+					2.网络安全设备:<br><br>
+						 &nbsp;&nbsp;&nbsp;&nbsp;(1)<a href="https://baike.baidu.com/item/WAF/3239498?fr=aladdin"  target="_blank"> WAF </a>Web应用防护系统（也称为：网站应用级入侵防御系统。<br><br>
+						 &nbsp;&nbsp;&nbsp;&nbsp;(2)<a href="https://baike.baidu.com/item/IPS/2131631"  target="_blank">IPS</a>入侵防御系统(IPS: Intrusion Prevention System)是电脑网络安全设施，是对防病毒软件（Antivirus Programs）和防火墙(Packet Filter, Application Gateway)的解释。 入侵防御系统(Intrusion-prevention system)是一部能够监视网络或网络设备的网络资料传输行为的计算机网络安全设备，能够即时的中断、调整或隔离一些不正常或是具有伤害性的网络资料传输行为。<br><br>
+						 &nbsp;&nbsp;&nbsp;&nbsp;(3)<a href="https://baike.baidu.com/item/堡垒机"  target="_blank">堡垒机</a>堡垒机，即在一个特定的网络环境下，为了保障网络和数据不受来自外部和内部用户的入侵和破坏，而运用各种技术手段实时收集和监控网络环境中每一个组成部分的系统状态、安全事件、网络活动，以便集中报警、及时处理及审计定责。<br><br>
+				</div>
+				<div class="yewei">
+					&nbsp;&nbsp;&nbsp;&nbsp;这里是一篇关于IPS与WAF区别与联系的文章，可以参考请点击<a href="https://www.cnblogs.com/milantgh/p/3603127.html"  target="_blank">此处</a>获取详情！
+					</div>
+		   </div>
+	</div>
+	<div class="zhengwen">
+		<div class="shang">
+			<div class="zuo">
+				<p>Day-1 </p>
+			</div>
+			<div class="zuo" style="float:right;width: 150px;">
+				<p>授课教师：黄老师</p>
+			</div>
+		</div>
+		<hr width="100%" size ="1px" color="#888">
+		<div class="jieshao">
+				<div class="biaoti">Linux系统介绍以及安装</div>
+				<br>
+				<div class="wen" style="padding: 0 30px;"> 
+						&nbsp;&nbsp;&nbsp;1.<a href="https://baike.baidu.com/item/linux/27050?fr=aladdin"  target="_blank">Linux</a>介绍--Linux是一套免费使用和自由传播的类Unix操作系统，是一个基于POSIX和UNIX的多用户、多任务、支持多线程和多CPU的操作系统。它能运行主要的UNIX工具软件、应用程序和网络协议。它支持32位和64位硬件。Linux继承了Unix以网络为核心的设计思想，是一个性能稳定的多用户网络操作系统。你也可以访问他的官网:<a href="https://www.linux.org/">https://www.linux.org/</a><br>	
+					<br>
+						&nbsp;&nbsp;&nbsp;2.<a href="http://www.runoob.com/linux/linux-install.html"  target="_blank">Linux安装教程 </a>分为下面几步：<br><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1)下载并安装VMware Workstation -----下载得到VMware Workstation的安装文件，点击安装<br><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2)在VM中新建Linux虚拟机 ----- 打开VM，选择“新建虚拟机”<br><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(3)导入Fedora镜像文件 ----- 点击刚刚建好的虚拟机，选择“编辑虚拟机设置”<br><br>
+
+				</div>
+				<div class="yewei">
+					&nbsp;&nbsp; 如果你还没有搭建成功，可以点击<a href="https://blog.csdn.net/qq_42183184/article/details/82504057"  target="_blank">此处</a>获取详细的教学内容（图文并茂 简单易懂哟）！
+				</div>
+		   </div>
+	</div>
+	<div class="zhengwen">
+		<div class="shang">
+			<div class="zuo">
+				<p>Day-2 </p>
+			</div>
+			<div class="zuo" style="float:right;width: 150px;">
+				<p>授课教师：黄老师</p>
+			</div>
+		</div>
+		<hr width="100%" size ="1px" color="#888">
+		<div class="jieshao">
+				<div class="biaoti">Linux基本命令介绍以及使用</div>
+				<br>
+				<div class="wen" style="padding: 0 30px;"> 
+					<h3>1.基本常用的命令：</h3><br>
+					    (1)、显示日期的指令： date<br>
+						(2)、切换执行等级： init<br>
+						Linux共有七种执行等级：
+						&nbsp;&nbsp;&nbsp;&nbsp;0:系统停机状态，系统默认运行级别不能设置为0，否则不能正常启动，机器关闭。<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;1:单用户工作状态，root权限，用于系统维护，禁止远程登陆，就像Windows下的安全模式登录。<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;2:多用户状态，没有NFS支持。<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;3:完整的多用户模式，有NFS，登陆后进入控制台命令行模式。<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;4:系统未使用，保留一般不用，在一些特殊情况下可以用它来做一些事情。例如在笔记本电脑的电池用尽时，可以切换到这个模式来做一些设置。<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;5:X11控制台，登陆后进入图形GUI模式，XWindow系统。<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;6:系统正常关闭并重启，默认运行级别不能设为6，否则不能正常启动。运行init6机器就会重启。<br>
+						(3)、变换目录：cd<br>
+						(4)、显示当前所在目录：pwd<br>
+						(5)、建立新目录：mkdir<br>
+						(6)、删除『空』的目录：rmdir<br>
+						(7)、档案与目录的显示：ls<br>
+						(8)、复制档案或目录：cp<br>
+						(9)、移除档案或目录：rm<br>
+						10、移动档案与目录，或更名：mv<br>
+						(11)、取得路径的文件名与目录名：basename，dirname<br>
+						(12)、由第一行开始显示档案内容：cat<br>
+						(13)、从最后一行开始显示：tac<br>
+						(14)、显示的时候，顺道输出行号：nl<br>
+						(15)、一页一页的显示档案内容：more<br>
+						(16)、与 more 类似，但是比 more 更好的是，他可以往前翻页：less<br>
+						(17)、只看头几行：head<br>
+						(18)、只看尾几行：tail<br>
+						(19)、以二进制的放置读取档案内容：od<br>
+						(20)、观察文件类型：file<br>
+						(21)、寻找特定档案：locate/find<br>
+						(22)、压缩文件和读取压缩文件：gzip，zcat/bzip2，bzcat<br><br>
+			        <h3>2.使用的时候可以多看看例子，多多应用，达到熟练地额效果。</h3><br>
+			<br>
+				</div>
+				<div class="yewei">
+					&nbsp;&nbsp;&nbsp; 你如果想要了解各种具体的Linux命令，可以点击<a href="man.linuxde.net/"  target="_blank">此处</a>获取详细内容！
+				</div>
+		   </div>
+		</div>
+	<div class="zhengwen">
+		<div class="shang">
+			<div class="zuo">
+				<p>Day-3 </p>
+			</div>
+			<div class="zuo" style="float:right;width: 150px;">
+				<p>授课教师：黄老师</p>
+			</div>
+		</div>
+		<hr width="100%" size ="1px" color="#888">
+		<div class="jieshao">
+				<div class="biaoti">Linux磁盘与系统管理</div>
+				<br>
+				<div class="wen" style="padding: 0 30px;"> 
+					<p style="text-indent: 2em; font-size: 24px;">1.Linux磁盘-----使用fdisk进行磁盘管理
+					fdisk（基于MBR）：IBM的老牌分区工具，支持绝大多数操作系统，几乎所有的linux发型版本都装由fdisk，包括rescue模式下的linux。</p><br>
+					<strong>fdisk：</strong><br>
+					<div>
+					&nbsp;&nbsp;&nbsp;&nbsp;(1). fdisk的命令只有具有超级用户权限才能运行。<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;(2). fdisk –l：列出所有安装的磁盘及其分区信息。<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;(3). fdisk 磁盘位置：可对磁盘进行分区操作。<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;(4). 分区之后需用partprobe命令使内核更新分区信息，或者重启；。<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;(5). /proc/partitions文件可用来查看分区信息。<br>
+				    </div>
+					&nbsp;&nbsp;&nbsp;&nbsp;<p style="text-indent: 2em; font-size: 24px;">2.Linux系统管理(文件系统：操作系统通过文件系统管理文件及数据，磁盘或分区需要创建文件系统后才能为操作系统使用)</p><br>
+					&nbsp;&nbsp;&nbsp;(1)格式化：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为分区或硬盘创建文件系统的过程,将存储空间划分为小块,创建一个二维表用于存放文件信息<br><br>
+					&nbsp;&nbsp;&nbsp;(2)说明：<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a.没有文件系统的设备又称之为裸（raw）设备；（通常用于安装数据库等）<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.常见的文件系统也有fat32、NTFS（windows主流文件系统）、ext2、ext3、ext4（linux主流文件系统），xfs，HFS等；<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c. 文件系统之间的区别：日志、支持分区的大小、支持单个文件的大小、性能（主要区别）等；<br>
+				<br>
+				</div>
+				<div class="yewei">
+					&nbsp;&nbsp;&nbsp;这里是一篇关于文件管理的博客非常的全面，可以参考一下，请点击<a href="https://blog.csdn.net/weixin_42718198/article/details/81083183"  target="_blank">此处</a>获取详情！
+				</div>
+		   </div>
+	</div>
+	<div class="zhengwen">
+		<div class="shang">
+			<div class="zuo">
+				<p>Day-4 </p>
+			</div>
+			<div class="zuo" style="float:right;width: 150px;">
+				<p>授课教师：黄老师</p>
+			</div>
+		</div>
+		<hr width="100%" size ="1px" color="#888">
+		<div class="jieshao">
+				<div class="biaoti">Linux文件与目录</div>
+				<br>
+				<div class="wen" style="padding: 0 30px;"> 
+						<p style="text-indent: 2em;">1.我们知道Linux的目录结构为树状结构，最顶级的目录为根目录 /。
+						其他目录通过挂载可以将它们添加到树中，通过解除挂载可以移除它们。
+						在开始本教程前我们需要先知道什么是绝对路径与相对路径。</p><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;绝对路径：
+						路径的写法，由根目录 / 写起，例如： /usr/share/doc 这个目录。<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相对路径：
+						路径的写法，不是由 / 写起，例如由 /usr/share/doc 要到 /usr/share/man 底下时，可以写成： cd ../man 这就是相对路径的写法啦！
+						<br><br>
+						2.处理目录的常见命令：<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;/ls: 列出目录<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;/cd：切换目录<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;/pwd：显示目前的目录<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;/mkdir：创建一个新的目录<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;/rmdir：删除一个空的目录<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;/cp: 复制文件或目录<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;/rm: 移除文件或目录<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;/mv: 移动文件与目录，或修改文件与目录的名称<br><br>
+						3.Linux 文件内容查看：<br>
+						<div style="padding: 0 39px;">
+						/cat  由第一行开始显示文件内容<br>
+						//tac  从最后一行开始显示，可以看出 tac 是 cat 的倒著写！<br>
+						//nl   显示的时候，顺道输出行号！<br>
+						//more 一页一页的显示文件内容<br>
+						//less 与 more 类似，但是比 more 更好的是，他可以往前翻页！<br>
+						//head 只看头几行<br>
+						//tail 只看尾巴几行<br><br>
+					    </div>
+				</div>
+				<div class="yewei">
+					&nbsp;&nbsp;&nbsp;&nbsp;这里是一篇关于文件管理的博客非常的全面，可以参考一下，请点击<a href="http://www.runoob.com/linux/linux-file-content-manage.html"  target="_blank">此处</a>获取详情！
+				</div>
+		   </div>
+	</div>
+	<div class="zhengwen">
+		<div class="shang">
+			<div class="zuo">
+				<p>Day-5 </p>
+			</div>
+			<div class="zuo" style="float:right;width: 150px;">
+				<p>授课教师：黄老师</p>
+			</div>
+		</div>
+		<hr width="100%" size ="1px" color="#888">
+		<div class="jieshao">
+				<div class="biaoti">系统服务与系统设置，服务器网站环境配置</div>
+				<div class="wen" style="padding: 0 30px;"> 
+					<br>
+				<p style="font-size: 24px;">1.系统服务与系统设置-----权限管理</p><br>
+				<div style="padding: 0 20px;">
+					​ &nbsp;&nbsp;&nbsp;(1)、权限设置对象：属主（u） 属组（g） 其他人（o）  所有人（a（u+g+o））<br>
+					​ &nbsp;&nbsp;&nbsp;(2)、权限类型：读：r=4 写：w=2 执行：x=1 数字加减总和得到的数字<br>，
+					​ 就得到了文件的两 种及其两种以上权限。比如数字5，即得到了“读”和“写”的权限<br>
+					​ &nbsp;&nbsp;&nbsp;(3)、设置权限<br>
+					​ &nbsp;&nbsp;&nbsp;(4)、增加执行权限：#chmod u+x file1 //u是主组，x是执行，file1是新创建的文件<br>
+					​ &nbsp;&nbsp;&nbsp;(5)、删除执行权限：#chmod u-x file1 //u是主组，x是执行，file1是新创建的文件​<br>
+					​ &nbsp;&nbsp;&nbsp;(6)、编写程序：#vim file1<br>
+					​ echo "Hello World"
+					​ read -p "请输入您的姓名：" name
+					​ echo "$name是男神"<br>
+					​ &nbsp;&nbsp;&nbsp;(7)、数字赋权限<br>
+					​ &nbsp;&nbsp;&nbsp;(8)、去除权限<br><br>
+				</div>
+					<p style="font-size: 24px;">2.服务器网络环境配置</p> <br>
+					<div style="padding: 0 20px;">
+					&nbsp;&nbsp;&nbsp;(1)Linux面板环境要求
+					网站建设推荐选择CentOS或Ubuntu系统，内存推荐512MB以上，确保是干净的操作系统，没有安装过其它环境带的Apache/Nginx/php/MySQL等程序；<br>
+					&nbsp;&nbsp;&nbsp;(2)远程连接服务器
+					使用远程连接软件 (如 Putty、XShell) 连接你的Linux服务器<br>
+					&nbsp;&nbsp;&nbsp;(3)安装宝塔面板
+					Centos安装命令查看地址：kehu56.com/course/579.html
+					Ubuntu安装命令查看地址：kehu56.com/course/579.html<br>
+					&nbsp;&nbsp;&nbsp;(4)LNMP和LAMP环境的安装<br>
+					&nbsp;&nbsp;&nbsp;(5)添加网站
+				</div>
+				</div>
+	</div>
+	</div>
+	<div class="zhengwen">
+		<div class="shang">
+			<div class="zuo">
+				<p>Day-6 </p>
+			</div>
+			<div class="zuo" style="float:right;width: 150px;">
+				<p>授课教师：黄老师</p>
+			</div>
+		</div>
+		<hr width="100%" size ="1px" color="#888">
+		<div class="jieshao">
+				<div class="biaoti">shell脚本的编写</div>
+				<div class="wen" style="padding: 0 30px;"> 
+					<p style="font-size: 24px;">1.了解<a href="http://www.runoob.com/linux/linux-shell.html" target="_blank">shell</a></p><br>
+					<div style="padding: 0 20px;">
+					&nbsp;&nbsp; &nbsp;(1)shell 是一个用 C 语言编写的程序，它是用户使用 Linux 的桥梁。Shell 既是一种命令语言，又是一种程序设计语言。
+					Shell 是指一种应用程序，这个应用程序提供了一个界面，用户通过这个界面访问操作系统内核的服务。
+					Ken Thompson 的 sh 是第一种 Unix Shell，Windows Explorer 是一个典型的图形界面 Shell。<br>
+					&nbsp;&nbsp; &nbsp;(2)Shell 脚本（shell script），是一种为 shell 编写的脚本程序。<br>
+					&nbsp;&nbsp; &nbsp;(3)Shell 环境，Linux 的 Shell 种类众多，常见的有：
+					&nbsp; Bourne Shell（/usr/bin/sh或/bin/sh）
+					/Bourne Again Shell（/bin/bash）
+					/C Shell（/usr/bin/csh）
+					/K Shell（/usr/bin/ksh）
+					/Shell for Root（/sbin/sh）
+				</div>
+					 <br><br>
+					<p style="font-size: 24px;">2.脚本具体的书写过程：</p><br>&nbsp;&nbsp; &nbsp;(用户的登陆shell  登陆后默认的shell程序是： /bin/bash
+					不同的shell内部指令，运行环境会有所区别)<br>
+					&nbsp;&nbsp; &nbsp;(1)编写脚本代码 ----- <p>使用vi编辑器，每行一条Linux命令，按照顺序执行<br>
+					&nbsp;&nbsp; &nbsp;(2)然后赋予脚本文件可执行的属性<br>
+					&nbsp;&nbsp; &nbsp;(3)执行脚本文件的三种方法<br>
+					&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;./chao.sh<br>
+					&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;sh /chao.sh<br>
+					&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;source /chao.sh<br><br>
+				
+				</div>
+				<div class="yewei">
+						&nbsp;&nbsp;&nbsp;这里是一篇关于shell脚本书写的博客，非常的全面，参考请点击<a href="https://blog.csdn.net/sdb5858874/article/details/80522129"  target="_blank">此处</a>获取详情！
+					</div>
+		   </div>
+	</div>
+	<div class="zhengwen">
+		<div class="shang">
+			<div class="zuo">
+				<p>Day-7 </p>
+			</div>
+			<div class="zuo" style="float:right;width: 150px;">
+				<p>授课教师：黄老师</p>
+			</div>
+		</div>
+		<hr width="100%" size ="1px" color="#888">
+		<div class="jieshao">
+				
+				<div class="biaoti">vim与bash</div>
+				<br>
+			<div class="wen" style="padding: 0 30px;"> 
+				&nbsp;&nbsp;&nbsp;1.<a href="https://baike.baidu.com/item/VIM/60410?fr=aladdin" target="_blank">VIM </a>(Unix及类Unix系统文本编辑器) 
+				Vim是一个类似于Vi的著名的功能强大、高度可定制的文本编辑器，在Vi的基础上改进和增加了很多特性。   VIM是自由软件。
+				Vim普遍被推崇为类Vi编辑器中最好的一个，事实上真正的劲敌来自Emacs的不同变体。1999 年Emacs被选为Linuxworld文本编辑分类的优胜者，Vim屈居第二。但在2000年2月Vim赢得了Slashdot Beanie的最佳开放源代码文本编辑器大奖，又将Emacs推至二线， 总的来看， Vim和Emacs在文本编辑方面都是非常优秀的。<br><br>
+
+
+				&nbsp;&nbsp;&nbsp;2.<a href="https://baike.baidu.com/item/bash"  target="_blank">bash</a>是一个为GNU计划编写的Unix shell。它的名字是一系列缩写：Bourne-Again SHell — 这是关于Bourne shell（sh）的一个双关语（Bourne again / born again）。Bourne shell是一个早期的重要shell，由史蒂夫·伯恩在1978年前后编写，并同Version 7 Unix一起发布。bash则在1987年由布莱恩·福克斯创造。在1990年，Chet Ramey成为了主要的维护者。<br><br>
+				&nbsp;&nbsp;&nbsp;3.用Vim完成BashShell脚本编写:下面是个例子可以进行具体的学习。<br><a href="https://blog.csdn.net/solaraceboy/article/details/78771190"  target="_blank">&nbsp;&nbsp;&nbsp;https://blog.csdn.net/solaraceboy/article/details/78771190</a>
+			</div>
+	   </div>
+	</div>
+	<div class="zhengwen">
+		<div class="shang">
+			<div class="zuo">
+				<p>Day-8 </p>
+			</div>
+			<div class="zuo" style="float:right;width: 150px;">
+				<p>授课教师：黄老师</p>
+			</div>
+		</div>
+		<hr width="100%" size ="1px" color="#888">
+		<div class="jieshao">
+				<div class="biaoti">分析日志文件</div>
+				<br>
+				<div class="wen" style="padding: 0 30px;"> 
+					<p style="font-size: 24px;">1.常用日志文件(系统日志是由一个名为syslog的服务管理的，如以下日志文件都是由syslog日志服务驱动的)：</p><br>
+					&nbsp; &nbsp;&nbsp;/var/log/boot.log：录了系统在引导过程中发生的事件，就是Linux系统开机自检过程显示的信息<br>
+					&nbsp; &nbsp;&nbsp;/var/log/lastlog ：记录最后一次用户成功登陆的时间、登陆IP等信息<br>
+					&nbsp; &nbsp;&nbsp;/var/log/messages ：记录Linux操作系统常见的系统和服务错误信息<br>
+					&nbsp; &nbsp;&nbsp;/var/log/secure ：Linux系统安全日志，记录用户和工作组变坏情况、用户登陆认证情况<br><br>
+					<p style="font-size: 24px;">2.分析日志文件</p><br>
+					&nbsp;&nbsp;(1)内核及系统日志----在Linux内核中，根据日志消息的重要程度不同，将其分为不同的优先级别（数字等级越小，优先级越高，消息越重要）。<br><br>
+					<div style="padding: 0 40px;">
+					0 EMERG(紧急)：会导致主机系统不可用的情况。<br>
+					1 ALERT(警告)：必须马上采取措施解决的问题。<br>
+					2 CRIT(严重)：比较严重的情况。<br>
+					3 ERR(错误)：运行出现错误。<br>
+					4 WARNING(提醒)：可能影响系统功能，需要提醒用户的重要事件。<br>
+					5 NOTICE(注意)：不会影响正常功能，但是需要注意的事件。<br>
+					6 INFO(信息)：一般信息。<br><br>
+				    </div>
+					&nbsp;&nbsp;(2)用户日志<br>
+					&nbsp;&nbsp;(3)程序日志<br>
+					</div>
+					<br>
+				<div class="yewei">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里是一篇关于日志分析的博客非常的全面，可以参考请点击<a href="https://www.cnblogs.com/hehheai/p/6513693.html"  target="_blank">此处</a>获取详情！
+					</div>
+		   </div>
+	</div>
+	<div class="zhengwen">
+		<div class="shang">
+			<div class="zuo">
+				<p>Day-9 </p>
+			</div>
+			<div class="zuo" style="float:right;width: 150px;">
+				<p>授课教师：黄老师</p>
+			</div>
+		</div>
+		<hr width="100%" size ="1px" color="#888">
+		<div class="jieshao">				
+				<div class="biaoti">vim与bash</div>
+			<div class="wen" style="padding: 0 30px;"> 
+				<br>
+				<p style="font-size: 28px;">这里举个例子来分析：</p><br>
+				<div style="padding: 0 20px;">
+				<p style="text-indent: 2em;">1.先看看sshd就否有异常，异常一般是名称不一样，如.ssh进程在运行
+				ps -ef|grep sshd
+				或看看运行的sshd是否被替换过了，比如 ls -art /usr/local/bin/sshd
+				如看不出来， 看ps是否被替换过，可以如下看
+				which ps
+				ls -alrt /bin/ps
+				如文件生成日期很新或大小与其它正常服务器不一样，那可能被替换了，从其它服务器拷过来。
+				rm -f /usr/bin/.sshd
+				删除发现异常的的命令
+				ps -ef|grep .sshd|grep -v grep|grep -v slviss|grep -v sbin|cut -c 9-15|xargs kill -9
+				批量把异常进程杀掉，其中grep -v slviss 是过淲自己登录的目录
+				/usr/bin/sshd -v</p><br>
+				<p style="text-indent: 2em;">2.看看sshd版本，是否对,不对则删掉,删除异常进程
+				ls -alrt /usr/bin/bsd-port
+				rm -rf /usr/bin/bsd-port
+				删掉他们的扫描软件</p><br>
+				<p style="text-indent: 2em;">3.查找名为 zabbix_AgentD 异常程序,删除root下的异常程序,删除/tmp下的异常文件，删除 /etc/rc.d/r 下的异常启动脚本，删除 /etc/rc.d/r 下的异常启动脚本</p><br>
+				<p style="text-indent: 2em;">4.再检 查，发现下面的异常进程 getty， 杀之,把相关的top进程杀之,把相关的netstat 进程杀之,</p><br>
+			</div>
+			</div>
+			<div class="yewei">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你没有看懂，这个例子的详细情况在右手边，请<a href="	http://www.queqia.com/yunying/12.html">此处</a>获取详情！
+		</a>获取详情！
+		</div>
+		</div>
+	</div>
+	<div class="zhengwen">
+		<div class="shang">
+			<div class="zuo">
+				<p>Day-10 </p>
+			</div>
+			<div class="zuo" style="float:right;width: 150px;">
+				<p>授课教师：黄老师</p>
+			</div>
+		</div>
+		<hr width="100%" size ="1px" color="#888">
+		<div class="jieshao">
+				<div class="biaoti">后门的绝地反击</div>
+				<div class="wen" style="padding: 0 30px;"> 
+					<p style="font-size: 24px;">1.桌面Linux的被动</p>
+					<br>
+					<p style="text-indent: 2em;">Linux操作系统在服务器、互联网、移动通信、嵌入式、云计算、高性能计算等领域，起主流或主导作用，唯在桌面领域长期陷于被动。</p><br><br>
+					<p style="font-size: 24px;">2.扩大桌面概念</p>
+					<br>
+					<p style="text-indent: 2em;">扩大桌面概念（或重新定义客户端），是将其扩充至手机、MID、上网本、上网机
+					（Nettop）、车载电子、游戏机、平板电视或数字家庭等数据处理客户终端设备；桌面平台正在向网络终端迁移，有人也将基于浏览器的网络终端看成扩大
+					（或宏观）的桌面终端。</p><br>
+					<p style="font-size: 24px;">3.桌面Linux正面突击</p>
+					<br>
+					<p style="text-indent: 2em;">过去在桌面Linux上缺乏一些消费市场软件、游戏软件、家庭报税软件、
+					CAD软件、多媒体软件等主要应用软件，现在这些应用软件大多数已获解决一些可在桌面Linux上运行的常用
+					应用软件（包括在线服务软件，现在大多数也已获解决；一些可在桌面Linux上运行的本土资源应用软件，如：中文输入、聊天（QQ等）、股市分析（大智慧、摇钱树等）、
+					电子商务（支付宝等现在已经或正在解决中；随着Moblin新版本的发布，桌面Linux可借鉴、移植其创新应
+					用软件桌面Linux应用的发展取决于第三方，现在国内外一些较大的Linux平台已在筹建“Linux应用商店"</p><br>
+					<p style="font-size: 24px;">4.向Windows(桌面)绝地反击</p>
+				</div>
+				<br>
+				<div class="yewei">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里是一篇关于Linux桌面绝地反击的博客非常的全面，可以参考请点击<a href="https://www.xuebuyuan.com/1124283.html"  target="_blank">此处</a>获取详情！
+					</div>
+		</div>
+		</div>
+	</div>
+	</div>
+	<!-- </div> -->
+	<div id="next" onclick="ne()">
+		<sapn>Next Day</sapn>
+	</div>
+	<div id="last" onclick="cb()">
+		<span>Back</span>
+	</div>
+	<div id="tiao">
+    	<span class="to"><<<<</span>
+        <div class="pd">
+            <a href="index.html"><div class="lj">首页</div></a>
+            <a href="web渗透测试.html"><div class="lj">Web渗透测试</div></a>
+            <a href="编程基础.html"><div class="lj">编程基础</div></a>
+            <a href="代码审计.html"><div class="lj">代码审计</div></a>
+            <a href="CTF.html"><div class="lj">CTF攻防夺旗比赛</div></a>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+	// 侧栏动画
+    var oA = document.querySelectorAll(".main ul li span");
+	var oLi = document.querySelectorAll(".main ul li");
+
+	for(var i = 0; i < oA.length; i++)
+	{
+		oA[i].index = i;
+		oA[i].onclick = function () {
+			for(var j = 0; j < oA.length; j++)
+			{
+				oLi[j].style.height = "100px";
+			}
+			oLi[this.index].style.height = "401px";
+		}
+	}
+
+	var zw=document.getElementsByClassName('zhengwen')   //获取卡片对象
+    var dt=document.getElementsByTagName('dt')           //获取侧边栏对象
+    var lo=0     //计数器
+    var go=0     //计数器
+    var last=document.getElementById('last')        //获取last按钮对象
+    if(document.getElementsByClassName('zhengwen')[0].offsetHeight+100>window.innerHeight)     //在卡片高度大于屏幕高度时，通过设置将页面设置为可以滚动
+    {
+        document.getElementById('content').style.height=document.getElementsByClassName('zhengwen')[0].offsetHeight+100+"px"
+    }
+
+    for(var r=0;r<dt.length;r++)
+    {
+        (function(r) {
+            dt[r].onclick=function() {                 //这个函数用来动态设置点击侧栏对应位置对应卡片出来，原本卡片消失
+                zw[lo].setAttribute('style',"animation:san 2.4s;top:1500px;")     //设置点击出现下一个卡片之前--当前卡片的消失动画
+                dt[lo].setAttribute('style',"background-color:#666;")        //将要消失的卡片对应在侧栏上的栏目背景颜色调回原样
+                zw[r].setAttribute('style',"animation:qi 0.8s;top:50px;")      //设置要新出现的卡片的出场动画
+                dt[r].setAttribute('style',"background-color:#444;")     //设置将要新出现的卡片的侧栏对应位置的背景颜色
+                go=lo     //go计数器跟保持是lo的前一个的状态
+                lo=r     //lo更新为当前卡片在数组里的下标
+                if(document.getElementsByClassName('zhengwen')[r].offsetHeight+100>window.innerHeight)    //这个判断目的是切换卡片后根据卡片高度实时调整页面可否滚动
+                {
+                    document.getElementById('content').style.height=document.getElementsByClassName('zhengwen')[r].offsetHeight+100+"px"
+                } else {
+                document.getElementById('content').style.height=window.innerHeight+"px"
+                }
+            }
+        })(r)
+    }
+
+    function ne(){               //这个函数是个快捷按钮，点击后直接跳转下一天的卡片，如没有该功能可不加
+        zw[lo].setAttribute('style',"animation:san 2.4s;top:1500px;")
+        dt[lo].setAttribute('style',"background-color:#666;")
+        go=lo
+        lo+=1
+        if(lo>=20)
+        {lo=0}
+        zw[lo].setAttribute('style',"animation:qi 0.8s;top:50px;")
+        dt[lo].setAttribute('style',"background-color:#444;")
+        if(document.getElementsByClassName('zhengwen')[lo].offsetHeight+100>window.innerHeight)
+        {
+            document.getElementById('content').style.height=document.getElementsByClassName('zhengwen')[lo].offsetHeight+100+"px"
+        } else {
+            document.getElementById('content').style.height=window.innerHeight+"px"
+        }
+    }
+
+    function cb(){          //这个函数是last按钮倒退回上一次浏览位置，如没有该功能可不加
+        zw[go].setAttribute('style',"animation:ju 0.8s;top:50px;")
+        dt[go].setAttribute('style',"background-color:#444;")
+        zw[lo].setAttribute('style',"animation:luo 0.8s;top:1500px;")
+        dt[lo].setAttribute('style',"background-color:#666;")
+        lo=go
+        if(document.getElementsByClassName('zhengwen')[lo].offsetHeight+100>window.innerHeight)
+        {
+            document.getElementById('content').style.height=document.getElementsByClassName('zhengwen')[lo].offsetHeight+100+"px"
+        } else {
+            document.getElementById('content').style.height=window.innerHeight+"px"
+        }
+    }
+
+    setInterval(function(){if(lo==go){last.setAttribute('style',"cursor: not-allowed;pointer-events: none;")}     //实时设置last按钮是否可以跳转回上次浏览位置，没有last按钮可不加
+	else{last.setAttribute('style',"cursor: auto;pointer-events: all;")}},300)
+
+    class Circle {
+    //创建对象
+    //以一个圆为对象
+    //设置随机的 x，y坐标，r半径，_mx，_my移动的距离
+    //this.r是创建圆的半径，参数越大半径越大
+    //this._mx,this._my是移动的距离，参数越大移动
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.r = Math.random() * 1;
+        this._mx = Math.random();
+        this._my = Math.random();
+    }
+    //canvas 画圆和画直线
+    //画圆就是正常的用canvas画一个圆
+    //画直线是两个圆连线，为了避免直线过多，给圆圈距离设置了一个值，距离很远的圆圈，就不做连线处理
+    drawCircle(ctx) {
+        ctx.beginPath();
+        //arc() 方法使用一个中心点和半径，为一个画布的当前子路径添加一条弧。
+        ctx.arc(this.x, this.y, this.r, 0, 360)
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(150, 150, 150, 0.3)';
+        ctx.fill();
+    }
+
+    drawLine(ctx, _circle) {
+        let dx = this.x - _circle.x;
+        let dy = this.y - _circle.y;
+        let d = Math.sqrt(dx * dx + dy * dy)
+        if (d < 150) {
+            ctx.beginPath();
+            //开始一条路径，移动到位置 this.x,this.y。创建到达位置 _circle.x,_circle.y 的一条线：
+            ctx.moveTo(this.x, this.y); //起始点
+            ctx.lineTo(_circle.x, _circle.y); //终点
+            ctx.closePath();
+            ctx.strokeStyle = 'rgba(150, 150, 150, 0.3)';
+            ctx.stroke();
+        }
+    }
+
+    // 圆圈移动
+    // 圆圈移动的距离必须在屏幕范围内
+    move(w, h) {
+        this._mx = (this.x < w && this.x > 0) ? this._mx : (-this._mx);
+        this._my = (this.y < h && this.y > 0) ? this._my : (-this._my);
+        this.x += this._mx / 2;
+        this.y += this._my / 2;
+        }
+    }
+
+    //鼠标点画圆闪烁变动
+    class currentCirle extends Circle {
+        constructor(x, y) {
+            super(x, y)
+        }
+
+    drawCircle(ctx) {
+        ctx.beginPath();
+        //注释内容为鼠标焦点的地方圆圈半径变化
+        //this.r = (this.r < 14 && this.r > 1) ? this.r + (Math.random() * 2 - 1) : 2;
+        this.r = 8;
+        ctx.arc(this.x, this.y, this.r, 0, 360);
+        ctx.closePath();
+        //ctx.fillStyle = 'rgba(0,0,0,' + (parseInt(Math.random() * 100) / 100) + ')'
+        ctx.fillStyle = 'rgba(255, 77, 54, 0.6)'
+        ctx.fill();
+        }
+    }
+
+    //更新页面用requestAnimationFrame替代setTimeout
+    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let w = canvas.width = canvas.offsetWidth;
+    let h = canvas.height = canvas.offsetHeight;
+    let circles = [];
+    let current_circle = new currentCirle(0, 0)
+
+    let draw = function() {
+        ctx.clearRect(0, 0, w, h);
+        for (let i = 0; i < circles.length; i++) {
+            circles[i].move(w, h);
+            circles[i].drawCircle(ctx);
+            for (j = i + 1; j < circles.length; j++) {
+                circles[i].drawLine(ctx, circles[j])
+            }
+        }
+        if (current_circle.x) {
+            current_circle.drawCircle(ctx);
+            for (var k = 1; k < circles.length; k++) {
+                current_circle.drawLine(ctx, circles[k])
+            }
+        }  
+        requestAnimationFrame(draw)
+    }
+
+    let init = function(num) {
+        for (var i = 0; i < num; i++) {
+            circles.push(new Circle(Math.random() * w, Math.random() * h));
+        }
+        draw();
+    }
+
+    window.addEventListener('load', init(180));
+
+    window.onmousemove = function(e) {
+        e = e || window.event;
+        current_circle.x = e.clientX;
+        current_circle.y = e.clientY;
+    }
+
+    window.onmouseout = function() {
+        current_circle.x = null;
+        current_circle.y = null;
+    }
+</script>
+</html>

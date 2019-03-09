@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>首页</title>
+	<style type="text/css">
+	    * {
+	    	margin: 0;
+	    	padding: 0;
+	    }
+	    html {
+	    	height: 100%;
+	    }
+	    body {
+	    	margin: 0;
+	    	height: 100%;
+            opacity: 1;
+            position: relative;
+            overflow: hidden;
+	    }
+	    canvas {
+	    	display: block;
+	    	width: 100%;
+	    	height: 100%;
+        	position: fixed;
+	    }
+	    a {
+			text-decoration: none;
+        	color:inherit;
+		}
+        ft {
+            font-family: Avenir;
+            font-weight: lighter;
+        }
+		#bei { 
+			height: 100%;
+			width: 100%;
+			position: fixed;
+		}
+		.men {
+			height: 50%;
+			width: 100%;
+			position: relative;
+			top: 25%;
+      		background: hsla(144,10%,75%,0.9);
+      		box-shadow: 0 0 5px #000;
+		}
+		.xian {
+			height: 2px;
+			width: 100%;
+			position: absolute;
+			top: 50%;
+			margin-top: -1px;
+			background-color: #000;
+		}
+		.gy {
+			height: 20px;
+			width: 20px;
+			position: absolute;
+			background-color: #EEE;
+			box-shadow: 0 0 200px #000;
+			border-radius: 1px;
+			top: 50%;
+			margin-top: -10px;
+			animation:  py 5s;
+			animation-timing-function: linear;
+			animation-iteration-count: infinite;
+		}
+		.xy {
+			height: 50%;
+			border-radius: 50%;
+			background: hsla(144,10%,75%,1);
+			box-shadow: 0 0 5px #000;
+			position: absolute;
+			top: 25%;
+			left: 25%;
+			display: -webkit-flex;
+			-webkit-justify-content: center;
+			-webkit-align-items: center;
+			transform: scale(1) rotate(0deg);
+		}
+		.dy {
+			height: 50%;
+			width: 10px;
+			border-radius: 50%;
+			background: hsla(144,10%,75%,1);
+			box-shadow: 0 0 5px #000;
+			position: absolute;
+			top: 25%;
+			left: 50%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			transform: scale(1) rotate(0deg);
+		}
+		.tao {
+			height: 50%;
+			width: 10px;
+			border-radius: 50%;
+			position: absolute;
+			top: 25%;
+			left: 25%;
+			transform: scale(1) rotate(0deg);
+		}
+		.wao {
+			height: 50%;
+			width: 10px;
+			border-radius: 50%;
+			position: absolute;
+			top: 25%;
+			left: 25%;
+			pointer-events: none;
+		}
+		.pie {
+  		    position: relative;
+  		    padding: 0;
+  		    width: 100%;
+  		    height: 100%;
+  		    border-radius: 50%;
+  		    list-style: none;
+  		    overflow: hidden;
+  		    box-shadow: 0 0 5px #000;
+		}
+		.slice {
+  		    overflow: hidden;
+  		    position: absolute;
+  		    top: 0; 
+  		    right: 0;
+  		    width: 50%;
+  		    height: 50%;
+  		    transform-origin: 0% 100%; 
+		}
+		.slice-one:hover {
+			background: #EEE !important;
+		}
+		.slice-two:hover {
+			background: #EEE !important;
+		}
+		.slice-three:hover {
+			background: #EEE !important;
+		}
+		.slice-four:hover {
+			background: #EEE !important;
+		}
+		.slice-five:hover {
+			background: #EEE !important;
+		}
+		.slice-one {
+  		    transform: scale(1) rotate(108deg) skewY(-18deg);
+  		    background: hsla(144,10%,75%,0.6);
+  		    box-shadow: 0 0 5px #000;
+		}
+		.slice-two {
+  		    transform: scale(1) rotate(36deg) skewY(-18deg);
+  		    background: hsla(144,10%,75%,0.6);
+  		    box-shadow: 0 0 5px #000;
+		}
+		.slice-three {
+  		    transform: scale(1) rotate(-36deg) skewY(-18deg);
+  		    background: hsla(144,10%,75%,0.6);
+  		    box-shadow: 0 0 5px #000;
+		}
+		.slice-four {
+  		    transform: scale(1) rotate(-108deg) skewY(-18deg);
+  		    background:hsla(144,10%,75%,0.6);
+  		    box-shadow: 0 0 5px #000;
+		}
+		.slice-five {
+  		    transform: scale(1) rotate(-180deg) skewY(-18deg);
+  		    background:hsla(144,10%,75%,0.6);
+  		    box-shadow: 0 0 5px #000;
+		}
+		@keyframes py {
+			from{left:0%;}
+			to{left: 100%}
+		}
+		@keyframes chu {
+			from{transform: scale(1) rotate(0deg);}
+			to{transform: scale(1.1) rotate(360deg);}
+		}
+		@keyframes hui {
+			from{transform: scale(1.1) rotate(360deg);}
+			to{transform: scale(1) rotate(0deg);}
+		}
+		@keyframes dchu {
+			from{transform: scale(1) rotate(0deg);}
+			to{transform: scale(1.7) rotate(360deg);}
+		}
+		@keyframes dhui {
+			from{transform: scale(1.7) rotate(360deg);}
+			to{transform: scale(1) rotate(0deg);}
+		}
+		fk {
+            font-family: Avenir;
+            font-weight: normal;
+            font-size: 12px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            text-align: center;
+            transition: all 0.1s;
+		}
+		.jiz {
+			font-family: Avenir;
+			font-weight: normal;
+			font-size: 18px;
+			animation: gn 4s;
+			width: 20px !important;
+			top: -20%;
+			animation-timing-function: linear;
+			color: #222;
+			text-shadow: 0 0 5px #000;
+			display: inline-block;
+			position: absolute;
+			transform: rotate(90deg);
+		}
+		@keyframes gn {
+			from 
+			{
+				top: -20%;
+			}
+			to
+			{
+				top: 120%;
+			}
+		}
+		body {
+			background: url(img/12.jpg);
+		}
+		.dahl, .dahlone {
+			width: 750px;			
+			box-shadow: 0 0 5px #000 inset;
+			transform: skew(-30deg);
+			position: fixed;
+		}
+		.dahl {
+			background:hsla(360,0%,0%,0.5);
+			height: 200px;
+		}
+		.dahlone {
+			background:hsla(360,0%,0%,0.8);
+			height: 230px;
+		}
+		.rha {
+			height: 80px;
+			width: 650px;
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			position: fixed;
+			text-shadow: 0 0 3px #000;
+			font-weight: lighter;
+			font-family: Avenir;
+			text-decoration: none;
+		}
+		.rha a {
+			text-decoration: none;
+			color: #bbb;
+		}
+		.rha a:hover {
+			color: #fff;
+			font-weight: bolder;
+		}
+		#colum {
+			float: right;
+			font-family: KaiTi;
+			font-weight: bolder;
+			line-height: 70px;
+			color: #222;
+			width: 50%;
+		}
+		.rha img {
+			width: 50px;
+			height: 30px;
+		}
+		.rin {
+			margin-left: 300px;
+			color: #bbb;
+		}
+		#add {
+            width: 100%;
+            height: 100%;
+            border: 2px solid #222;
+            border-radius: 20px;
+            background-color: #222;
+            opacity: 0.9;
+            z-index: 100;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            display: none;
+		}
+		#add img {
+            position: absolute;
+            left: 35%;
+            top: 15%;
+            width: 30%;
+            height: 60%;
+            margin: 50px auto;
+            opacity: 1;
+            background-color: #000;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+	<div id="bei">
+	    <div class="dahl" style="top: -120px;left: -50px;"></div>
+	    <div class="rha" style="left: 0px;top: 0px;">
+		    <a href="系统安全.html"><ft>系统安全</ft></a>
+		    <a href="web渗透测试.html"><ft>Web渗透测试</ft></a>
+		    <a href="编程基础.html"><ft>编程基础</ft></a>
+		    <a href="代码审计.html"><ft>代码审计</ft></a>
+		    <a href="CTF.html"><ft>CTF攻防夺旗赛</ft></a>
+	    </div>
+	    <div class="dahlone" style="bottom: -150px;right: -350px;"></div>
+	    <div class="rha" style="bottom: 0px;right: 0px;">
+	    	<div class="rin">联系方式:
+	    		<br>&nbsp;&nbsp;&nbsp;&nbsp;陕西师范大学&nbsp;&nbsp;17909896578
+	    		<img src="img/微信.png" id="vor">	    	    
+	    	</div>    
+	    </div>
+		<div class="men" id="wid">
+			<div id="colum">
+				<p>我们不仅是孤独的逐梦者，也是同行的筑梦者。<br>
+				一个人的成功，并不是真正的成功。<br>
+				个人的荣誉得失必将随着时间的流转没入凡尘。<br>
+				只有大家一起取得的进步，<br>
+				才能在平凡的生活中留下一点点刻苦铭心的改变和记忆！</p>
+			</div>
+		</div>
+		<div class="xian">
+		</div>
+		<div class="tao">
+		   	<ul class='pie'>
+   		    	<a href="编程基础.html"><li class='slice-one slice'> </li> </a>
+    	    	<a href="web渗透测试.html"><li class='slice-two slice'> </li></a>
+    	    	<a href="系统安全.html"><li class='slice-three slice'> </li></a>
+    	    	<a href="CTF.html"><li class='slice-four slice'> </li></a>
+    		    <a href="代码审计.html"><li class='slice-five slice'> </li></a>
+  			</ul>
+  			<a href="系统安全.html"><fk>系统安全</fk></a>
+  			<a href="web渗透测试.html"><fk>Web渗透测试</fk></a>
+  			<a href="编程基础.html"><fk>编程基础</fk></a>
+  			<a href="代码审计.html"><fk>代码审计</fk></a>
+  			<a href="CTF.html"><fk>CTF攻防夺旗赛</fk></a>
+  			<div class="wao"></div>
+		</div>
+		<div class="xy">
+			<img src="img/4.png" name="ib" width="50%" height="50%" style="position: absolute;transition: opacity 0.5s;">
+		    <fg name="ib" style="font-size: 44px;opacity: 0;transition: opacity 0.5s;color: #000;">Aisnnu</fg>
+		</div>
+		<div id="add">
+			<div class="bin">
+			    <img src="img/qc.jpg">
+			</div>    
+		</div>	
+	</div>
+<script type="text/javascript" >
+    /*网页字跟随页面自动变化*/
+     function setRem(){
+         /*获取当前页面的宽度*/
+         var width = document.body.offsetWidth;
+         var height = document.body.offsetHeight;
+         /*设置页面的字体大小*/
+         var nowFont=width/375*7;
+         var nowHight=height/11;
+         /*通过标签名称来获取元素*/
+         var htmlFont=document.getElementById('colum');
+         // 给获取到的元素的字体大小赋值
+         htmlFont.style.fontSize =nowFont+"px";
+         htmlFont.style.lineHeight = nowHight + "px";
+     }
+      setRem();
+      window.onresize=setRem;  //监听屏幕变化
+
+    var oVor = document.getElementById('vor');
+    var oAdd = document.getElementById('add');
+
+    oVor.onclick = function ()
+    {
+    	oAdd.style.display = 'block';
+    }
+
+    oAdd.onclick = function ()
+    {
+    	this.style.display = 'none';
+    }
+
+	var xy=document.getElementsByClassName('xy')
+	var tao=document.getElementsByClassName('tao')
+	var fk=document.getElementsByTagName('fk')
+	var kq=new Array()
+	var z=0
+	var mj=window.innerHeight*0.2
+	for(var t=0;t<fk.length;t++)
+	{
+		kq[t]=z
+		z=z+72
+	}
+	var ib=document.getElementsByName('ib')
+	document.getElementsByClassName('xy')[0].style.width=document.getElementsByClassName('xy')[0].offsetHeight+"px"
+	document.getElementsByClassName('xy')[0].style.marginLeft="-"+document.getElementsByClassName('xy')[0].offsetHeight/2+"px"
+	document.getElementsByClassName('tao')[0].style.width=document.getElementsByClassName('tao')[0].offsetHeight+"px"
+	document.getElementsByClassName('tao')[0].style.marginLeft="-"+document.getElementsByClassName('tao')[0].offsetHeight/2+"px"
+	document.getElementsByClassName('wao')[0].style.width=document.getElementsByClassName('wao')[0].offsetHeight+"px"
+	document.getElementsByClassName('wao')[0].style.marginLeft="-"+document.getElementsByClassName('wao')[0].offsetHeight/2+"px"
+	xy[0].onmouseover=function() 
+	{
+		xy[0].style.animation="chu 0.5s"
+		xy[0].style.transform="scale(1.1) rotate(360deg)"
+		tao[0].style.animation="dchu 0.5s"
+		tao[0].style.transform="scale(1.7) rotate(360deg)"
+		ib[0].style.opacity="0"
+		ib[1].style.opacity="1"
+		mj=window.innerHeight*0.21
+		for(var a=0;a<fk.length;a++)
+		{
+			fk[a].style.transform="rotate("+kq[a]+"deg) translateY(-"+mj+"px)"
+		}
+	}
+	tao[0].onmouseout=function()
+	{
+		var wx = window.event.clientX;
+    	var wy = window.event.clientY;
+    	var d_left = tao[0].offsetLeft;
+    	var d_top = tao[0].offsetTop;
+    	var d_width = tao[0].clientWidth;
+    	var d_height = tao[0].clientHeight;
+    	if(wx < d_left || wy<d_top || wx > (d_left + d_width) || wy > (d_top + d_height))
+		{
+			xy[0].style.animation="hui 0.5s"
+			xy[0].style.transform="scale(1) rotate(0deg)"
+			tao[0].style.animation="dhui 0.5s"
+			tao[0].style.transform="scale(1) rotate(0deg)"
+		ib[0].style.opacity="1"
+		ib[1].style.opacity="0"
+		}
+		mj=window.innerHeight*0.20
+		for(var b=0;b<fk.length;b++)
+		{
+			fk[b].style.transform="rotate("+kq[b]+"deg) translateY(-"+mj+"px)"
+		}
+	}
+	var ti=0
+	for(var i=0;i<fk.length;i++)
+	{
+		fk[i].style.marginLeft="-"+fk[i].offsetWidth*0.5+"px"
+		fk[i].style.marginTop="-"+fk[i].offsetHeight*0.5+"px"
+		fk[i].style.transform="rotate("+ti+"deg) translateY(-"+mj+"px)"
+		ti=ti+72
+	}
+</script>
+</body>
+<script type="text/javascript">
+	// 参考资料：https://github.com/sunshine940326/canvas-nest
+
+    class Circle {
+    //创建对象
+    //以一个圆为对象
+    //设置随机的 x，y坐标，r半径，_mx，_my移动的距离
+    //this.r是创建圆的半径，参数越大半径越大
+    //this._mx,this._my是移动的距离，参数越大移动
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.r = Math.random() * 1;
+        this._mx = Math.random();
+        this._my = Math.random();
+    }
+
+    //canvas 画圆和画直线
+    //画圆就是正常的用canvas画一个圆
+    //画直线是两个圆连线，为了避免直线过多，给圆圈距离设置了一个值，距离很远的圆圈，就不做连线处理
+    drawCircle(ctx) {
+        ctx.beginPath();
+        //arc() 方法使用一个中心点和半径，为一个画布的当前子路径添加一条弧。
+        ctx.arc(this.x, this.y, this.r, 0, 360)
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(150, 150, 150, 0.3)';
+        ctx.fill();
+    }
+
+    drawLine(ctx, _circle) {
+        let dx = this.x - _circle.x;
+        let dy = this.y - _circle.y;
+        let d = Math.sqrt(dx * dx + dy * dy)
+        if (d < 150) {
+            ctx.beginPath();
+            //开始一条路径，移动到位置 this.x,this.y。创建到达位置 _circle.x,_circle.y 的一条线：
+            ctx.moveTo(this.x, this.y); //起始点
+            ctx.lineTo(_circle.x, _circle.y); //终点
+            ctx.closePath();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.stroke();
+        }
+    }
+
+    // 圆圈移动
+    // 圆圈移动的距离必须在屏幕范围内
+    move(w, h) {
+        this._mx = (this.x < w && this.x > 0) ? this._mx : (-this._mx);
+        this._my = (this.y < h && this.y > 0) ? this._my : (-this._my);
+        this.x += this._mx / 2;
+        this.y += this._my / 2;
+        }
+    }
+
+    //鼠标点画圆闪烁变动
+    class currentCirle extends Circle {
+        constructor(x, y) {
+            super(x, y)
+        }
+
+    drawCircle(ctx) {
+        ctx.beginPath();
+        //注释内容为鼠标焦点的地方圆圈半径变化
+        //this.r = (this.r < 14 && this.r > 1) ? this.r + (Math.random() * 2 - 1) : 2;
+        this.r = 8;
+        ctx.arc(this.x, this.y, this.r, 0, 360);
+        ctx.closePath();
+        //ctx.fillStyle = 'rgba(0,0,0,' + (parseInt(Math.random() * 100) / 100) + ')'
+        ctx.fillStyle = 'rgba(255, 77, 54, 0.6)'
+        ctx.fill();
+        }
+    }
+
+    //更新页面用requestAnimationFrame替代setTimeout
+    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let w = canvas.width = canvas.offsetWidth;
+    let h = canvas.height = canvas.offsetHeight;
+    let circles = [];
+    let current_circle = new currentCirle(0, 0)
+
+    let draw = function() {
+        ctx.clearRect(0, 0, w, h);
+        for (let i = 0; i < circles.length; i++) {
+            circles[i].move(w, h);
+            circles[i].drawCircle(ctx);
+            for (j = i + 1; j < circles.length; j++) {
+                circles[i].drawLine(ctx, circles[j])
+            }
+        }
+        if (current_circle.x) {
+            current_circle.drawCircle(ctx);
+            for (var k = 1; k < circles.length; k++) {
+                current_circle.drawLine(ctx, circles[k])
+            }
+        }  
+        requestAnimationFrame(draw)
+    }
+
+    let init = function(num) {
+        for (var i = 0; i < num; i++) {
+            circles.push(new Circle(Math.random() * w, Math.random() * h));
+        }
+        draw();
+    }
+
+    window.addEventListener('load', init(120));
+
+    window.onmousemove = function(e) {
+        e = e || window.event;
+        current_circle.x = e.clientX;
+        current_circle.y = e.clientY;
+    }
+
+    window.onmouseout = function() {
+        current_circle.x = null;
+        current_circle.y = null;
+    }
+</script>
+
+</html>
