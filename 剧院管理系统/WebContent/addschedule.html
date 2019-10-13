@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<title>影厅管理</title>
+<style>
+.table th, .table td {
+	text-align: center;
+	height: 30px;
+}
+</style>
+<script>
+	UrlParm = function() { // url参数  
+		var data, index;
+		(
+            function init() {
+			data = [];
+			index = {};
+			var u = window.location.search.substr(1);
+			if (u != '') {
+				var parms = decodeURIComponent(u).split('&');
+				for (var i = 0, len = parms.length; i < len; i++) {
+					if (parms[i] != '') {
+						var p = parms[i].split("=");
+						if (p.length == 1 || (p.length == 2 && p[1] == '')) {// p | p=  
+							data.push([ '' ]);
+							index[p[0]] = data.length - 1;
+						} else if (typeof (p[0]) == 'undefined' || p[0] == '') { // =c | =  
+							data[0] = [ p[1] ];
+						} else if (typeof (index[p[0]]) == 'undefined') { // c=aaa  
+							data.push([ p[1] ]);
+							index[p[0]] = data.length - 1;
+						} else {// c=aaa  
+							data[index[p[0]]].push(p[1]);
+						}
+					}
+				}
+			}
+		})();
+		return {
+			// 获得参数,类似request.getParameter()  
+			parm : function(o) { // o: 参数名或者参数次序  
+				try {
+					return (typeof (o) == 'number' ? data[o][0]
+							: data[index[o]][0]);
+				} catch (e) {
+				}
+			},
+			//获得参数组, 类似request.getParameterValues()  
+			parmValues : function(o) { //  o: 参数名或者参数次序  
+				try {
+					return (typeof (o) == 'number' ? data[o] : data[index[o]]);
+				} catch (e) {
+				}
+			},
+			//是否含有parmName参数  
+			hasParm : function(parmName) {
+				return typeof (parmName) == 'string' ? typeof (index[parmName]) != 'undefined'
+						: false;
+			},
+			// 获得参数Map ,类似request.getParameterMap()  
+			parmMap : function() {
+				var map = {};
+				try {
+					for ( var p in index) {
+						map[p] = data[index[p]];
+					}
+				} catch (e) {
+				}
+				return map;
+			}
+		}
+	}();
+
+	function init() {
+		var type = UrlParm.parm("type");
+		//alert(type);
+		document.getElementById("type").value = type;
+		if(type=="modify"){
+			var schedule_ID = UrlParm.parm("schedule_ID");
+			var studio_name = UrlParm.parm("studio_name");
+			var play_name = UrlParm.parm("play_name");
+			var schedule_time = UrlParm.parm("schedule_time");
+			var schedule_price = UrlParm.parm("schedule_price");
+		//	var schedule_endtime = UrlParm.parm("schedule_endtime");
+
+			document.getElementById("schedule_ID").value = schedule_ID;
+			document.getElementById("studio_name").value = studio_name;
+			document.getElementById("play_name").value = play_name;
+			document.getElementById("schedule_time").value = schedule_time;
+			document.getElementById("schedule_price").value = schedule_price;		
+		//	document.getElementById("schedule_endtime").value = schedule_endtime;
+		}
+	}
+
+	function check() {
+		var form = document.getElementById("myform");
+		if( form.rowcount.value=="" || form.colcount.value=="" ){
+			alert("请填写完整信息");
+			return;
+		}
+		
+		var url = "ScheduleUpdate";
+		req = new XMLHttpRequest();
+		if (req) {
+			//采用POST方式，异步传输
+			req.open("post", url, true);
+			//POST方式，必须加入如下头信息设定
+			req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			req.onreadystatechange = checkComplete;
+			var data = "type=" + form.type.value 
+			+ "&schedule_ID="+ form.studioid.value 
+			+ "&studio_name="+ form.studioname.value 
+			+ "&play_name="+ form.rowcount.value 
+			+ "&schedule_time=" + form.colcount.value
+			+ "&schedule_price=" + form.colcount1.value
+			+ "&schedule_info=" + form.colcount2.value
+			req.send(data);
+			console.log(data)
+			//alert(data)
+		}
+	}
+
+	function checkComplete() {
+		if (req.readyState == 4 && req.status == 200) {
+			//alert(req.responseText);
+			//alert('提交成功！是否生成票？')
+		}
+	}
+</script>
+</head>
+<body onload="init()" style="background:url(./images/zb.jpg); opacity: 0.8; background-size: cover;">
+
+	<div
+		style="height: 50px; line-height: 50px; font-size: 25px; vertical-align: middle; text-align: center;background: rgba(224, 238, 238, 0.9);color: rgba(54,54,54,0.9)"
+		class="bg-primary">金太阳剧院管理系统</div>
+
+	<div class="row" style="padding: 10px 10px">
+		<!-- 左导航栏 -->
+		<div class="col-md-2">
+			<div class="panel panel-primary">
+				<div class="panel-heading" style="background:rgba(135,206,255,0.7);">
+					<h3 class="panel-title" style="color: rgba(54,54,54,0.9);" >导航</h3>
+				</div>
+				<div class="panel-body">
+					<table class="table table-hover">
+						<tr>
+							<td><img src="images/yingting.png" width="24px">&nbsp;&nbsp;<a
+								href="studio.html"> 影厅管理</a></td>
+						</tr>
+						<tr>
+							<td><img src="images/zuowei.png" width="24px">&nbsp;&nbsp;<a
+								href="./seat1.html">座位管理</a></td>
+						</tr>
+						<tr>
+							<td><img src="images/yingpian.png" width="24px">&nbsp;&nbsp;<a
+								href="./play2.html">影片管理</a></td>
+						</tr>
+						<tr>
+							<td><img src="images/dingpiao.png" width="24px">&nbsp;&nbsp;<a
+								href="./schedule.html"><font color="red">计划管理<font color="red"></font></a></td>
+						</tr>
+						<tr>
+							<td><img src="images/renyuan.png" width="24px">&nbsp;&nbsp;<a
+								href="./staff.html">员工管理</a></td>
+						</tr>
+						<tr>
+							<td><img src="images/teseyingting.png" width="24px">&nbsp;&nbsp;<a href="./index1.html">票务管理</a></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- 增加员工信息 -->
+		<div class="col-md-10" style="padding-top: 30px">
+			<form id="myform" class="form-horizontal" role="form" action="#"
+				method="post">
+				<input type="hidden" id="type" name="type">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">计划编号</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" name="studioid"
+							id="schedule_ID" disabled="disabled">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">影厅名称</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" name="studioname"
+                            id="studio_name" placeholder="请输入影厅名称"> 
+                            
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">剧目名称</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" name="rowcount"
+							id="play_name" placeholder="请输入剧目名称">
+					</div>
+                </div>
+                
+				<div class="form-group">
+					<label class="col-sm-2 control-label">计划时间</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" name="colcount"
+							id="schedule_time" placeholder="请输入演出计划时间:如2019-12-12 12:12:00">
+					</div>
+                </div>
+
+                <div class="form-group">
+					<label class="col-sm-2 control-label">剧目票价</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" name="colcount1"
+                            id="schedule_price" placeholder="请输入剧目票价">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">是否生成票</label>
+					<div class="col-sm-6">
+						<!-- <input type="text" class="form-control" name="studioname"
+                            id="studio_name" placeholder="请输入影厅名称">  -->
+                            <select id="schedule_info" class="form-control" name="colcount2">
+                            	<option>是</option>
+                            	<option>否</option>
+                            </select>
+                         
+                            
+					</div>
+				</div>
+				
+                
+		
+				<div class="form-group">
+					<div class="col-sm-2 control-label"
+						style="color: red; font-weight: bold;"></div>
+					<div class="col-sm-6" style="display:flex;justify-content:center;margin-top:3%;">
+						<!-- <input type="hidden" name="method" value="add"> -->
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<button type="button" class="btn btn-primary" onclick="check()">提交</button>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<button type="button" class="btn btn-warning"
+							onclick="javascript:window.location='schedule.html?type=add'">返 回</button>
+					</div>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</body>
+</html>

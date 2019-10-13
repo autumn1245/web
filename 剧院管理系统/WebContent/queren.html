@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>支付界面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="./css/queren.css" />
+     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <!--jQuery文件务必在bootstrap.min.js之前引入-->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!--再引入bootstrap.min.js-->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="./css/playdetail.css" /> -->
+    <script src="main.js"></script>
+
+    
+    <style>
+ 
+    </style>
+    <script>
+            function daojishi(){
+            var m = 14;  //分
+            var s = 59;  //秒
+            var countdown = document.getElementById("fenmiao");
+            getCountdown();
+            setInterval(function(){ getCountdown() },1000);
+            function getCountdown (){
+                countdown.innerHTML = "<span>"+m+"</span> ：<span>"+s+"</span>";
+                if( m == 0 && s == 0 ){
+                    alert("此订单失效！");
+                    window.location.href="./goupiao.html"
+                    m = 14;
+                    s = 59;
+                }else if( m >= 0 ){
+                    if( s > 0 ){
+                        s--;
+                    }else if( s == 0 ){
+                        m--;
+                        s = 59;
+                    }
+                }
+            }
+        }
+        function changci(){
+		var url = "TicketUpdate";
+		req = new XMLHttpRequest();
+		if (req) {
+			//采用POST方式，异步传输
+			req.open("post", url, true);
+			//POST方式，必须加入如下头信息设定
+			req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			//var id = UrlParm.parm("play_name");
+			req.onreadystatechange = changciComplete;
+			req.send();
+			//confirm("play_name="+document.getElementById("studioname").value)
+			//console.log("schedule_ID="+2+"seat1_id="+1 +"seat2_id="+2+"seat3_id="+3+"seat4_id="+4+"sea5_id="+5+"sea6_id="+7);
+		}
+	}
+	function changciComplete(){
+		if (req.readyState == 4 && req.status == 200) {
+			//alert(req.responseText);
+			var json = JSON.parse(req.responseText);
+			var tbody = document.getElementById('tbody');
+			var length = json.length;
+			for(let i  = 0 ;i < length ; i++){
+				var rowcount = tbody.rows.length;
+				var row = tbody.insertRow(rowcount);
+				row.insertCell(0).innerHTML = json[i].play_name;
+				row.insertCell(1).innerHTML = json[i].schedule_time;
+				row.insertCell(2).innerHTML = json[i].studio_name;
+				row.insertCell(3).innerHTML = json[i].seat_row +"排"+json[i].seat_column + "座";				
+				}
+		}
+		
+	}
+    function init(){
+        daojishi();
+        setTimeout(function(){
+        	 changci();
+		},2000)
+       
+    }
+    </script>
+</head>
+<body onload="init()">
+        <div class="header"> 
+                <div class="logo" style="width:14%;">
+                    <h3 style="color:red;position: relative;left: 20%;">金太阳剧院</h3>
+                </div>
+              <div class="nav">
+                      <div class="child"><a href="">首页</a></div>
+                      <div class="child"><a href="">电影</a></div>
+                      <div class="child"><a href="">榜单</a></div>
+                      <div class="child"><a href="">热点</a></div>
+                      <div class="child"><a href="">商城</a></div>
+              </div>
+            
+        
+             <div class="touxiang">
+                 <div class="tou">
+                     <a href="./login.html" style="color:white;font-size:14px;">登录</a>
+                 </div>
+                    <img src="images/1.jpg" onclick="dianji()">
+             </div>
+            </div> 
+        <div class="neirong">
+            <div class="daojishi" id="daojishi">
+                请在
+                <span id="fenmiao">
+
+                </span>
+                内完成支付！
+                <div class="xiaozi" style="font-size:12px;line-height:40px;color:#454;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;超时订单会自动取消，请在倒计时内完成支付，如有问题请联系管理员！
+                    </div>
+            </div>
+            
+            <div class="liebiao">
+                    <div class="changci">
+                            <div class="chang" id="chang">
+                                <table class="table table-striped" id="table">
+                                    <thead>
+                                        <tr>
+                                                <th>影片</th>
+                                                <th>时间</th>
+                                                <th>放映厅</th>
+                                                <th>座位</th>
+                                               
+                                        </tr>
+                                    </thead>
+                                    <tbody class="tbody" id="tbody">
+                    
+                                    </tbody>
+                                </table>	
+                    
+                            </div>
+                    
+                    
+                        </div>
+                    
+
+            </div>
+
+        </div>
+
+    
+</body>
+</html>

@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style1.css">
+    <script src="./js/jquery-3.3.1.js"></script>
+    <meta name="viewport" content="width=device-width,inital-scale=1.0"/>
+    
+    <style type="text/css">
+    </style>
+
+    <script>
+    function login(){
+        var name = document.getElementById("user-login");
+        var pass = document.getElementById("psw-login");
+        if (name!=null && name.value.length>0 && pass!=null && pass.value.length>0) {
+            req = new XMLHttpRequest();
+               //采用POST方式，异步传输
+               req.open("post", "UserSearch", true);
+               //POST方式，必须加入如下头信息设定
+            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            req.onreadystatechange = loginComplete;
+            req.send("username="+name.value+"&password="+pass.value);
+        } else
+            alert("账号和密码不能为空");
+    }
+
+    function loginComplete() {
+        if (req.readyState == 4 && req.status == 200) {
+            //alert(req.responseText);
+            if(req.responseText=='0')
+                alert("登录失败，请检查账号和密码");
+            else{
+            	
+            	alert("登录成功！");
+                window.location="./index1.html";}
+        }
+      }
+    function register(){
+        var name = document.getElementById("username");
+        console.log('name');
+        var pass1 = document.getElementById("password");
+        var pass2 = document.getElementById("rePassword");
+        if (name!=null && name.value.length>0 && pass1!=null && pass2.value.length>0 && pass1.value.length>0) {
+            req = new XMLHttpRequest();
+               //采用POST方式，异步传输
+               req.open("post", "UserAdd", true);
+               //POST方式，必须加入如下头信息设定
+               req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+               req.onreadystatechange = registerComplete;
+               req.send("username="+name.value+"&password="+pass1.value+"&password1="+pass2.value);
+        } else
+            alert("账号和密码不能为空");
+    }
+
+    function registerComplete() {
+        if (req.readyState == 4 && req.status == 200) {
+            alert(req.responseText);
+            if(req.responseText=='0')
+                alert("注册失败，请检查账号和密码");
+            else {
+            	alert("注册成功！")
+                window.location="studio.html";
+            }
+            	
+        }
+    }
+    </script>
+
+<title>登录</title>
+</head>
+
+<body>
+  <div class="main" style="background:url(images/er.jpg);">
+      <div class="quarter-div col-xs-12 col-ms-12 col-md-6 col-lg-6">
+        <div class="wlr">
+           
+        </div>
+        <div class="qaz">
+          <p style="color: #fff; text-align: center;"><em><b>welcome</b></em>&nbsp;&nbsp;&nbsp;to&nbsp;<br>金&nbsp;&nbsp;太&nbsp;&nbsp;阳<br><em><i>剧院</i><br>票务系统</em></p>
+        </div>
+      </div>
+      <div class="quarter-div code col-xs-12 col-ms-12 col-md-6 col-lg-6">
+        <div style="text-align: center;margin-bottom: 0;" class="cls">
+          <p style="color:#fff;"><button id="denglu" style="border:0; background-color:rgba(173,216,230 , 0.1) " class="wq">登录</button>&nbsp;&nbsp;|&nbsp;&nbsp;<button id="zhuce" class="wq" style="background-color:rgba(173,216,230 , 0.1)">注册</button></p>
+        </div>
+     <div class="container" id="first">
+  <form role = "form">
+
+   <div class = "form-group sa"><!-- sa控制每个输入框的上下边距 -->
+     <label>用户名</label>
+     <input type=" text" class = "form-control" placeholder="user" id="user-login" style="border-radius :5%;">
+   </div>
+   <div class ="input-group-sm sa ">
+     <label>密码&nbsp;</label>
+
+     <input type="password" class="form-control" placeholder="enter password" id="psw-login" style="border-radius :5%;">
+     </div>
+
+     <div class="form-group za"><!-- za提交按钮的居中 -->
+     <button type="button" class="btn btn-info btn-block" id="submit-login" type="submit" onclick="login()">登录</button>
+     </div>
+     </form>
+ </div>
+     <div class="container1" id="second" style="display: none;">
+        <form role="form">
+       <div class="form-group sa">
+         <label>用户名</label>
+     <input type="text" class="form-control" placeholder="user" id="username"><br>
+     <!-- 用户名错误提示框 -->
+     <span class="errPrint"></span>
+       </div>
+       <div class="form-group sa">
+         <label>密码</label>
+     <input type="password" class="form-control" placeholder="password" id="password"><br>
+     <!-- 密码错误提示框 -->
+     <span class="errPrint"></span>
+       </div>
+       <div class="form-group sa" >
+         <label>再次输入密码</label>
+     <input type="password" class="form-control" placeholder="password again" id="rePassword"><br>
+     <!-- 在此输入密码提示框 -->
+     <span class="errPrint"></span>
+       </div>
+     <div class="za">
+      <button type="button" class="btn btn-info btn-block" id="submit" onclick="register()">注册</button>
+    </div>
+   </div>
+      
+     </form>
+        </div>
+</div>
+<div>
+  <!-- <button id="tologout">退出登录</button> -->
+</div>
+<script src="./js/regisAndLogin.js"></script>
+</body> 
+</html>

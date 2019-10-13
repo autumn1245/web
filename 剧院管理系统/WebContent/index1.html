@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>金太阳影视集团</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" type="text/css" media="screen" href="./css/zhuyemian.css" />
+<link rel=" stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<style>
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.nav{
+    width: 65%;
+    position: relative;
+    margin: 1%;
+    font-size: 23px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 10px;
+	line-height: 80px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+
+}
+
+ .main{
+      width: 70%;
+      min-height: 400px;
+      left: 2%;
+    }
+    .header{
+		width: 100%;
+		height: 80px;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		border-bottom: 1px solid #999;
+		
+	}
+	.logo{
+		line-height:80px;
+		text-align: center; 
+	}
+
+	.nav .child{
+		text-align: center;
+		font-family: Avenir;
+		font-size: 18px;
+		color: #000;
+	}
+	.touxiang{
+		height: 50px;
+		width: 20%;
+		position: relative;
+		display:flex;
+		justify-content:space-around;
+	}
+	.touxiang img{
+    width: 50px;
+    height: 50px;
+    margin-top: 0%;
+    border-radius: 50%;
+}
+	
+	.content{
+		padding-top:1%;
+	}
+	
+	
+	.zhongjian ul,li{ 
+		padding:0;
+		margin:0;
+		list-style:none;
+		font-size: 16px;
+		line-height: 50px;
+		font-family: Avenir;
+	}
+
+	.cont-time{
+		width: 20%;
+		height: inherit;
+		
+		
+	}
+	.zhongjian{
+		width: 70%;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		
+	}
+	.detail-cont{
+		width: 150%;
+		min-height: 800px;
+		backdrop-filter: blur(20px);
+		position: absolute;
+		top:0px;
+		left: -25%;
+		
+		box-sizing: border-box;
+	}
+	.cont-title{
+		font-size: 22px;line-height: 50px;
+		border-bottom:1px solid #BBB;
+		padding: 0px 20px 0px 20px;
+		margin: 20px;
+		position: relative;
+
+	}
+	.center-wrap{
+		width: 55%;
+		margin: auto;
+	}
+	.header{
+		width: 100%;
+		height: 80px;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		border-bottom: 1px solid #999;
+		margin-bottom:2%;
+	}
+	.logo{
+		line-height:80px;
+		text-align: center; 
+	}
+	.nav{
+		width: 65%;
+		line-height: 80px;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+	}
+
+	.nav .child{
+		text-align: center;
+		font-family: Avenir;
+		font-size: 18px;
+		color: #000;
+	}
+	.changci{
+		width: 100%;
+		min-height: 400px;
+		border: 1px solid #989989;
+	}
+	.chang{
+		width: 95%;
+		height: 400px;
+		/* border: 1px solid #989989; */
+		margin: auto;
+	}
+	.table{
+		width: 100%;
+		border: 0;
+		border-spacing: 0;
+	}
+	.table thead{
+		background-color: #f7f7f7;
+		color: #333;
+		font-size:16px;
+		line-height: 50px;
+		padding: 18px 0;
+		box-sizing: border-box;
+	}
+	.table tr{
+		display: table-row;
+    	vertical-align: inherit;
+    	border-color: inherit;
+	}
+	.table th{
+		font-weight: bold;
+		display: table-cell;
+		vertical-align: inherit;
+	}
+	
+
+	
+
+
+</style>
+<script src="js/jquery-2.1.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script>
+    function search(){
+		var url = "PlaySearch";
+		req = new XMLHttpRequest();
+		if (req) {
+			//采用POST方式，异步传输
+			req.open("post", url, true);
+			//POST方式，必须加入如下头信息设定
+			req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			req.onreadystatechange = searchComplete;
+			req.send("play_name="+"");
+			//confirm("play_name="+document.getElementById("studioname").value)
+			//alert("play_name="+document.getElementById("studioname").value)
+		}
+	}
+	function searchComplete() {
+		if (req.readyState == 4 && req.status == 200) {
+			//alert(req.responseText);
+       var json = JSON.parse(req.responseText);
+       var play_content = document.getElementById('play_content');
+      var play_content1 = document.getElementById('play_content1');
+				length = json.length;
+        //alert(length);
+        var dl = document.createElement('dl');
+            dl.className = "movie-list";
+        var dl1 = document.createElement("dl");
+            dl1.className = "movie-list"
+	for(let i = 0 ; i < length ; i++){
+          if(json[i].play_status == 1){
+            var dd  = document.createElement("dd");
+            dl.appendChild(dd);
+            var div = document.createElement("div");
+            div.className="movie-item";
+            dd.appendChild(div);
+            var lianjie = document.createElement('a');
+            var divv = document.createElement('div')
+            divv.className="movie-detail movie-detail-strong movie-sale";
+            div.appendChild(lianjie);
+            div.appendChild(divv);
+            var divvv = document.createElement("div");
+            divvv.className="movie-poster"
+            lianjie.appendChild(divvv);
+            var img = document.createElement('img');
+            var aa = document.createElement('a');
+            divv.appendChild(aa);
+            divvv.appendChild(img);
+            img.src = "./images/"+ json[i].play_image  +".png";
+            lianjie.href="playdetail.html?&play_name=" + json[i].play_name;
+            aa.href="playdetail.html?&play_name=" + json[i].play_name;
+            //alert(json[i].play_name)
+            aa.innerHTML = "购票";
+            aa.style.textAlign = "center";
+
+          }
+          if(json[i].play_status == 0){
+            var dd1  = document.createElement("dd");
+            dl1.appendChild(dd1);
+            var div1 = document.createElement("div");
+            div1.className="movie-item";
+            dd1.appendChild(div1);
+            var lianjie1 = document.createElement('a');
+            var divv1 = document.createElement('div')
+            divv1.className="movie-detail movie-detail-strong movie-sale";
+            div1.appendChild(lianjie1);
+            div1.appendChild(divv1);
+            var divvv1 = document.createElement("div");
+            divvv1.className="movie-poster"
+            lianjie1.appendChild(divvv1);
+            var img1 = document.createElement('img');
+            var aa1 = document.createElement('a');
+            divv1.appendChild(aa1);
+            divvv1.appendChild(img1);
+            img1.src = "./images/"+ json[i].play_image  +".png";
+            lianjie1.href="playdetail.html?&play_name=" + json[i].play_name;
+            aa1.href="playdetail.html?&play_name=" + json[i].play_name
+            aa1.innerHTML = "购票";
+            aa1.style.textAlign = "center";
+          }
+      }
+      play_content.appendChild(dl)
+      play_content1.appendChild(dl1)
+		}
+	}
+	
+	function modify(a,b,c,d,e,f){
+		window.location="addschedule.html?type=modify&schedule_id="+a+"&studio_name="+b+"&play_name="+c+"&schedule_time="+d+"&schedule_endtime="+e+"&schedule_price="+f;
+	}
+
+  function init(){
+    search();
+  }
+    </script>
+</head>
+<body onload="init()" />
+<div class="header"> 
+        <div class="logo" style="width:14%;">
+         <h3 style="color:red;position: relative;left: 20%;">金太阳剧院</h3>
+        </div>
+      <div class="nav">
+			  <div class="child"><a href="index.html">首页</a></div>
+			  <div class="child"><a href="">电影</a></div>
+			  <div class="child"><a href="">榜单</a></div>
+			  <div class="child"><a href="">热点</a></div>
+			  <div class="child"><a href="">商城</a></div>
+      </div>
+     <div class="touxiang">
+		 <div class="tou">
+			 <a href="./login.html" style="color:white;">登录</a>
+		 </div>
+            
+            <img src="images/1.jpg" onclick="dianji()">
+     </div>
+     
+    </div> 
+   
+    <div class="container" id="app">
+        <div class="content">
+          <div class="aside">
+            <div class="ranking-box-wrapper">
+          <div class="panel">
+            <div class="panel-header">
+              <span class="panel-title">
+                <span class="textcolor_red">今日票房</span>
+              </span>
+            </div>
+            <div class="panel-content">
+                    <ul class="ranking-wrapper ranking-box">
+            <li class="ranking-item ranking-top ranking-index-1">
+              <a href="https://v.qq.com/x/search/?q=%E9%98%BF%E6%8B%89%E4%B8%81&stag=0&smartbox_ab=" target="_blank" data-act="ticketList-movie-click" data-val="{movieid:1207959}">
+                <div class="ranking-top-left">
+                  <i class="ranking-top-icon"></i>
+            <img class="ranking-img  default-img" src="./images/99.png" style="margin-bottom:10px;">
+                </div>
+                <div class="ranking-top-right">
+                  <div class="ranking-top-right-main">
+                    <span class="ranking-top-moive-name"> &nbsp;&nbsp;阿拉丁</span>
+                      <!-- <p class="ranking-top-wish">
+                          <span class="stonefont"></span>万
+                      </p> -->
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="ranking-item ranking-index-2">
+              <a href="https://v.qq.com/x/search/?q=%E6%80%AA%E5%85%BD%E4%B9%8B%E7%8E%8B&stag=0&smartbox_ab=" target="_blank" data-act="ticketList-movie-click" data-val="{movieid:246061}">
+                  <span class="normal-link">
+                    <i class="ranking-index">2</i>
+                    <span class="ranking-movie-name">哥斯拉2：怪兽之王</span>
+                    <span class="ranking-num-info">
+                        <span class="stonefont"></span>
+                      </span>
+                  </span>
+              </a>
+            </li>
+            <li class="ranking-item ranking-index-3">
+              <a href="https://v.qq.com/x/cover/950h5k5p7h7m2qn/l002381grzn.html?" target="_blank" data-act="ticketList-movie-click" data-val="{movieid:1254277}">
+                  <span class="normal-link">
+                    <i class="ranking-index">3</i>
+                    <span class="ranking-movie-name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一条狗的使命2</span>
+                    <span class="ranking-num-info">
+                        <span class="stonefont"></span>
+                    </span>
+                  </span>
+              </a>
+            </li>
+            <li class="ranking-item ranking-index-4">
+              <a href="https://v.qq.com/x/search/?q=%E5%A4%A7%E4%BE%A6%E6%8E%A2%E7%9A%AE%E5%8D%A1%E4%B8%98&stag=0&smartbox_ab=" target="_blank" data-act="ticketList-movie-click" data-val="{movieid:346629}">
+                  <span class="normal-link">
+                    <i class="ranking-index">4</i>
+                    <span class="ranking-movie-name">大侦探皮卡丘</span>
+                    <span class="ranking-num-info">
+                        <span class="stonefont"></span>
+                    </span>
+                  </span>
+              </a>
+            </li>
+            <li class="ranking-item ranking-index-5">
+              <a href="https://maoyan.com/films/1233255" target="_blank" data-act="ticketList-movie-click" data-val="{movieid:1233255}">
+                  <span class="normal-link">
+                    <i class="ranking-index">5</i>
+                    <span class="ranking-movie-name">五月天人生无限公司</span>
+                    <span class="ranking-num-info">
+                        <span class="stonefont"></span>
+                    </span>
+                  </span>
+              </a>
+            </li>
+            <li class="ranking-item ranking-index-6">
+              <a href="https://maoyan.com/films/1219454" target="_blank" data-act="ticketList-movie-click" data-val="{movieid:1219454}">
+                  <span class="normal-link">
+                    <i class="ranking-index">6</i>
+                    <span class="ranking-movie-name">龙珠超：布罗利</span>
+                    <span class="ranking-num-info">
+                        <span class="stonefont"></span>
+                    </span>
+                  </span>
+              </a>
+            </li>
+            <li class="ranking-item ranking-index-7">
+              <a href="https://maoyan.com/films/1262593" target="_blank" data-act="ticketList-movie-click" data-val="{movieid:1262593}">
+                  <span class="normal-link">
+                    <i class="ranking-index">7</i>
+                    <span class="ranking-movie-name">最好的我们</span>
+                    <span class="ranking-num-info">
+                        <span class="stonefont"></span>
+                      </span>
+                  </span>
+              </a>
+            </li>
+            <li class="ranking-item ranking-index-8">
+              <a href="https://maoyan.com/films/883196" target="_blank" data-act="ticketList-movie-click" data-val="{movieid:883196}">
+                  <span class="normal-link">
+                    <i class="ranking-index">8</i>
+                    <span class="ranking-movie-name">一个母亲的复仇</span>
+                    <span class="ranking-num-info">
+                        <span class="stonefont"></span>
+                      </span>
+                  </span>
+              </a>
+            </li>
+            <li class="ranking-item ranking-index-9">
+              <a href="https://maoyan.com/films/1218727" target="_blank" data-act="ticketList-movie-click" data-val="{movieid:1218727}">
+                  <span class="normal-link">
+                    <i class="ranking-index">9</i>
+                    <span class="ranking-movie-name">何以为家</span>
+                    <span class="ranking-num-info">
+                        <span class="stonefont"></span>
+                      </span>
+                  </span>
+              </a>
+            </li>
+            <li class="ranking-item ranking-index-10">
+              <a href="https://maoyan.com/films/342893" target="_blank" data-act="ticketList-movie-click" data-val="{movieid:342893}">
+                  <span class="normal-link">
+                    <i class="ranking-index">10</i>
+                    <span class="ranking-movie-name">进京城</span>
+                    <span class="ranking-num-info">
+                     <span class="stonefont"></span>
+                      </span>
+                  </span>
+              </a>
+            </li>
+        </ul>
+        </div>
+    </div>
+</div>
+
+        
+        <div class="top100-wrapper">
+          <div class="panel">
+            <div class="panel-header">
+              <span class="panel-more">
+                <a href="https://maoyan.com/board/4" class="textcolor_orange" data-act="all-TOP100-click">
+                  <span>查看完整榜单</span>
+                </a>
+                <span class="panel-arrow panel-arrow-orange"></span>
+              </span>
+              <span class="panel-title">
+                <span class="textcolor_orange">TOP 100</span>
+              </span>
+            </div>
+            <div class="panel-content">
+                    <ul class="ranking-wrapper ranking-top100">
+                    <li class="ranking-item ranking-top ranking-index-1">
+              <a href="https://maoyan.com/films/1203" target="_blank" data-act="TOP100-movie-click" data-val="{movieid:1203}">
+                <div class="ranking-top-left">
+                  <i class="ranking-top-icon"></i>
+                    <img class="ranking-img  default-img" src="./images/100.jpg">
+                </div>
+                <div class="ranking-top-right">
+                  <div class="ranking-top-right-main">
+                    <span class="ranking-top-moive-name">霸王别姬</span>
+                      <!-- <p class="ranking-top-wish">
+                          <span class="stonefont"></span>
+                      </p> -->
+                  </div>
+                </div>
+              </a>
+            </li>
+        
+            <li class="ranking-item ranking-index-2">
+              <a href="https://maoyan.com/films/1297" target="_blank" data-act="TOP100-movie-click" data-val="{movieid:1297}">
+                  <span class="normal-link">
+                    <i class="ranking-index">2</i>
+                    <span class="ranking-movie-name">肖申克的救赎</span>
+        
+                    <span class="ranking-num-info">
+                        <span class="stonefont"></span>
+                      </span>
+                  </span>
+              </a>
+            </li>
+        
+            <li class="ranking-item ranking-index-3">
+              <a href="https://maoyan.com/films/2641" target="_blank" data-act="TOP100-movie-click" data-val="{movieid:2641}">
+                  <span class="normal-link">
+                    <i class="ranking-index">3</i>
+                    <span class="ranking-movie-name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;罗马假日</span>
+                    <span class="ranking-num-info">
+                        <span class="stonefont"></span>
+                      </span>
+                  </span>
+              </a>
+            </li>
+        
+              <li class="ranking-item ranking-index-4">
+              <a href="https://maoyan.com/films/4055" target="_blank" data-act="TOP100-movie-click" data-val="{movieid:4055}">
+                  <span class="normal-link">
+                    <i class="ranking-index">4</i>
+                    <span class="ranking-movie-name">这个杀手不太冷</span>
+        
+                    <span class="ranking-num-info">
+                        <span class="stonefont"></span>
+                      </span>
+                  </span>
+              </a>
+            </li>
+        
+                    <li class="ranking-item ranking-index-5">
+              <a href="https://maoyan.com/films/267" target="_blank" data-act="TOP100-movie-click" data-val="{movieid:267}">
+                  <span class="normal-link">
+                    <i class="ranking-index">5</i>
+                    <span class="ranking-movie-name">泰坦尼克号</span>
+        
+                    <span class="ranking-num-info">
+                        <span class="stonefont"></span>
+                      </span>
+                  </span>
+              </a>
+            </li>
+        
+                    <li class="ranking-item ranking-index-6">
+              <a href="https://maoyan.com/films/837" target="_blank" data-act="TOP100-movie-click" data-val="{movieid:837}">
+                  <span class="normal-link">
+                    <i class="ranking-index">6</i>
+                    <span class="ranking-movie-name">唐伯虎点秋香</span>
+        
+                    <span class="ranking-num-info">
+                        <span class="stonefont"></span>
+                      </span>
+                  </span>
+              </a>
+            </li>
+        
+                    <li class="ranking-item ranking-index-7">
+              <a href="https://maoyan.com/films/2760" target="_blank" data-act="TOP100-movie-click" data-val="{movieid:2760}">
+                  <span class="normal-link">
+                    <i class="ranking-index">7</i>
+                    <span class="ranking-movie-name">魂断蓝桥</span>
+        
+                    <span class="ranking-num-info">
+                    <span class="stonefont"></span>
+                      </span>
+                  </span>
+              </a>
+            </li>
+        
+            <li class="ranking-item ranking-index-8">
+              <a href="https://maoyan.com/films/7431" target="_blank" data-act="TOP100-movie-click" data-val="{movieid:7431}">
+                  <span class="normal-link">
+                    <i class="ranking-index">8</i>
+                    <span class="ranking-movie-name">乱世佳人</span>
+        
+                    <span class="ranking-num-info">
+                        <span class="stonefont"></span>
+                      </span>
+                  </span>
+              </a>
+            </li>
+        
+            <li class="ranking-item ranking-index-9">
+              <a href="https://maoyan.com/films/1228" target="_blank" data-act="TOP100-movie-click" data-val="{movieid:1228}">
+                  <span class="normal-link">
+                    <i class="ranking-index">9</i>
+                    <span class="ranking-movie-name">天空之城</span>
+        
+                    <span class="ranking-num-info">
+                        <span class="stonefont"></span>
+                      </span>
+                  </span>
+              </a>
+            </li>
+            <li class="ranking-item ranking-index-10">
+              <a href="https://maoyan.com/films/3667" target="_blank" data-act="TOP100-movie-click" data-val="{movieid:3667}">
+                  <span class="normal-link">
+                    <i class="ranking-index">10</i>
+                    <span class="ranking-movie-name">辛德勒的名单</span>
+                    <span class="ranking-num-info">
+                        <span class="stonefont"></span>
+                      </span>
+                  </span>
+              </a>
+            </li>
+        </ul>
+       </div>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+            <div class="movie-grid">
+          <div class="panel">
+            <div class="panel-header">
+              <span class="panel-more">
+                <a href="https://maoyan.com/films?showType=1" class="textcolor_red" data-act="all-playingMovie-click">
+                  <span>全部</span>
+                </a>
+                <span class="panel-arrow panel-arrow-red"></span>
+              </span>
+              <span class="panel-title">
+                <span class="textcolor_red">正在热映（54部）</span>
+              </span>
+            </div>
+            <div class="panel-content" id="play_content">
+		</div>
+          </div >
+        
+          <div class="panel">
+            <div class="panel-header">
+              <span class="panel-more">
+                <a href="https://maoyan.com/films?showType=2" class="textcolor_blue" data-act="all-upcomingMovie-click">
+                  <span>全部</span>
+                </a>
+                <span class="panel-arrow panel-arrow-blue"></span>
+              </span>
+              <span class="panel-title">
+                <span class="textcolor_blue">即将上映（147部）</span>
+              </span>
+            </div>
+            <div class="panel-content" id="play_content1">
+            </div>
+          </div>
+            </div>
+    </div>
+    </div>
+        
+        </div>
+    <div class="footer"></div>
+</body>
+</html>

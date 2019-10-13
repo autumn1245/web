@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/seat.css" rel="stylesheet">
+<meta http-equiv="Access-Control-Allow-Origin" content="*" />
+<title>座位管理</title>
+<style>
+body {
+	width: 100%
+}
+
+#zuowei{
+    width: 80%;
+    min-height: 400px;
+    }
+
+.kuang{
+    width: inherit;
+    min-height: 400px;
+    table-layout:fixed;
+    position: relative;
+    left:13%;
+    padding:10px;
+
+    }
+    td{
+        width: 10%;
+    }
+    .cel{
+        width: 50px;
+        min-height: 50px;
+    }
+    .cel img{
+        width: inherit;
+        min-height: 50px;
+    }
+</style>
+<script src="js/jquery-2.1.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+UrlParm = function() { // url参数  
+	var data, index;
+	(
+        function init() {
+		data = [];
+		index = {};
+		var u = window.location.search.substr(1);
+		if (u != '') {
+			var parms = decodeURIComponent(u).split('&');
+			for (var i = 0, len = parms.length; i < len; i++) {
+				if (parms[i] != '') {
+					var p = parms[i].split("=");
+					if (p.length == 1 || (p.length == 2 && p[1] == '')) {// p | p=  
+						data.push([ '' ]);
+						index[p[0]] = data.length - 1;
+					} else if (typeof (p[0]) == 'undefined' || p[0] == '') { // =c | =  
+						data[0] = [ p[1] ];
+					} else if (typeof (index[p[0]]) == 'undefined') { // c=aaa  
+						data.push([ p[1] ]);
+						index[p[0]] = data.length - 1;
+					} else {// c=aaa  
+						data[index[p[0]]].push(p[1]);
+					}
+				}
+			}
+		}
+	})();
+	return {
+		// 获得参数,类似request.getParameter()  
+		parm : function(o) { // o: 参数名或者参数次序  
+			try {
+				return (typeof (o) == 'number' ? data[o][0]
+						: data[index[o]][0]);
+			} catch (e) {
+			}
+		},
+		//获得参数组, 类似request.getParameterValues()  
+		parmValues : function(o) { //  o: 参数名或者参数次序  
+			try {
+				return (typeof (o) == 'number' ? data[o] : data[index[o]]);
+			} catch (e) {
+			}
+		},
+		//是否含有parmName参数  
+		hasParm : function(parmName) {
+			return typeof (parmName) == 'string' ? typeof (index[parmName]) != 'undefined'
+					: false;
+		},
+		// 获得参数Map ,类似request.getParameterMap()  
+		parmMap : function() {
+			var map = {};
+			try {
+				for ( var p in index) {
+					map[p] = data[index[p]];
+				}
+			} catch (e) {
+			}
+			return map;
+		}
+	}
+}();
+    function search(){
+		var url = "SeatSearch";
+		req = new XMLHttpRequest();
+		if (req) {
+			//采用POST方式，异步传输
+			req.open("post", url, true);
+			var id = UrlParm.parm("studio_name")
+			//POST方式，必须加入如下头信息设定
+			req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			req.onreadystatechange = searchComplete;
+            req.send("studio_name="+ id );
+            console.log("studio_name="+ id)
+            //alert(("type="+ 'modify'+"&studio_name="+$('#mingchen option:selected').text() + "&seat_row="+ window.x+"&seat_column=" + window.y +"&seat_status=" + window.z ));
+            
+        }
+    }
+	function searchComplete() {
+		if (req.readyState == 4 && req.status == 200) {
+           console.log(req.responseText) ;
+        var json = JSON.parse(req.responseText);
+        var table = document.createElement('table');
+        var length = json.length;
+        var chang = json[length-1];
+        //alert(chang.rowcount);
+        //alert(chang.columncount);
+        for(let i = 0; i < chang.rowcount;i++){
+            var rowcount = table.rows.length;
+            var row  = table.insertRow(rowcount);
+            for(let j = 0 ;j < chang.columncount ; j++){
+                //alert(chang.columncount);
+                var td= document.createElement("td");
+                td.className = "cel";
+                var image = document.createElement('img');
+                image.id = 'cel'+i + '  ' + j;
+                //alert(image.id);
+                td.appendChild(image);
+                row.appendChild(td);
+                table.appendChild(row);
+                table.className="kuang"
+                image.src="./images/zuowei.png"
+                image.onclick = function(){
+                    if(this.className!="select"){
+                        this.src="./images/seatt.png";
+                        this.className = "select"
+                    }
+                    else{
+                        this.src = "./images/zuowei.png";
+                        this.className = ' ';
+                    }
+                }
+            }
+        }
+        var zuowei  = document.getElementById('zuowei')
+        zuowei.appendChild(table);
+        console.log(length)
+		console.log(json)
+        for(let i = 0 ; i < length-1; i++){
+            var row = json[i].row-1;
+            var column = json[i].column-1;
+          	console.log(row);
+           	console.log(column);
+            var image = document.getElementById( 'cel'+row+ '  ' + column);
+            console.log(image)
+            
+            if(json[i].seat_status == 1){
+                image.src="./images/seatt.png";
+                image.className = "select";
+            }  
+        }
+	}
+}
+    function post(){
+        var url = "SeatUpdate";
+        var studio = UrlParm.parm("studio_name")
+        req = new XMLHttpRequest();
+        if(req){
+            req.open("post",url,true);
+            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			req.onreadystatechange = postComplete;
+            var select = document.getElementsByClassName('select');
+            var length = select.length;
+            var seat = [];
+            for (let i = 0 ; i < length;i++ ){
+                var info = select[i].id.slice(3);
+                info = info.split("  ");
+                var obj = {};
+                obj.row = parseInt(info[0])+1;	
+              // console.log(obj.row);
+                obj.column = parseInt(info[1])+1;
+                seat.push(obj);
+            }
+            seat =JSON.stringify(seat);
+            var length = length.toString();
+         //   var obj2 = {
+         //   	"num="+length,
+         //       "seat="+seat,
+          //      "studio_id="+studio 
+        //    }
+            //console.log(obj2)
+         //   var data = JSON.stringify(obj2);
+            req.send("num="+length+"&seat="+seat+"&studio_name="+studio);
+          alert("num="+length+"&seat="+seat+"&studio_name="+studio);
+        }
+    }
+    function postComplete(){
+        if(req.readyState == 4 && req.onreadystatechange==200){
+				alert(req.responseText);
+				search();
+        }
+    }
+	function modify(){
+		var url = "StudioSearch";
+		req = new XMLHttpRequest();
+		if (req) {
+			//采用POST方式，异步传输
+			req.open("post", url, true);
+			//POST方式，必须加入如下头信息设定
+			req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			req.onreadystatechange = modifyComplete;
+            req.send("studio_id="+$('#mingchen option:selected').text() + "&seat_row"+ window.x+"&seat_column" + window.y +"&seat_status" + window.z );
+            //alert(("studio_name="+$('#mingchen option:selected').text() + "&seat_row="+ window.x+"&seat_column=" + window.y +"&seat_status=" + window.z ));
+		}
+	}
+    function modifyComplete(){
+        if(req.readyState == 4 && req.onreadystatechange == 200){
+
+        }
+        else{
+            alert('座位信息修改失败，请重试！')
+        }
+    }
+    function init(){    	
+    	search();
+    }
+</script>
+</head>
+<body onload="init()"
+	  style="background:url(./images/zb.jpg); 
+			   opacity: 0.7; 
+			   background-size: cover;">
+  <div
+		style="height: 50px;
+			   line-height: 50px; 
+			   font-size: 25px; 
+			   vertical-align: middle; 
+			   text-align: center;
+			   background: rgba(224, 238, 238, 0.9);
+			   color: rgba(54,54,54,0.9)" 
+		class="bg-primary">金太阳剧院管理系统</div>
+
+  <div class="row" style="padding: 10px 10px">
+
+		<!-- 左导航栏 -->
+		<div class="col-md-2">
+			<div class="panel panel-primary">
+				<div class="panel-heading" 
+					 style="background:rgba(135,206,255,0.7);
+					 		text-align: center;">
+					<h3 class="panel-title" style="color: rgba(54,54,54,0.9);" >导航</h3>
+				</div>
+				<div class="panel-body">
+					<table class="table table-hover">
+						<tr>
+							<td><img src="images/teseyingting.png" width="24px">&nbsp;&nbsp;<a
+								href="studio.html">影厅管理</a></td>
+						</tr>
+						<tr>
+							<td><img src="images/zuowei.png" width="24px">&nbsp;&nbsp;<a
+								href="./seat1.html"><font color="red">座位管理</font></a></td>
+						</tr>
+						<tr>
+                            <td><img src="images/dianying.png" width="24px">&nbsp;&nbsp; <a
+                                href="./play2.html">
+                                影片管理</a></td>
+						</tr>
+						<tr>
+							<td><img src="images/jihua.png" width="24px">&nbsp;&nbsp;<a
+								href="./schedule.html">计划管理</a></td>
+						</tr>
+						<tr>
+                            <td><img src="images/yonghu.png" width="24px">&nbsp;&nbsp;<a
+                                 href="./staff.html">员工管理</a></td>
+						</tr>
+						<tr>
+							<td><img src="images/teseyingting.png" width="24px">&nbsp;&nbsp;<a href="./index1.html">票务管理</a></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+  
+  <div class="col-md-10" style="padding-top: 10px">
+
+	<!-- 查询块 -->
+	<div class="search">
+		
+        <div class="form-group">
+            <label class="col-sm-2 control-label">剧院名称</label>
+            <div class="col-sm-6" id="mingchen">
+                    <select class="form-control" id="play_type_id">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+            </div>
+        </div>
+
+    </div>
+<div id="zuowei">
+
+</div>
+    <div class="button">
+        <input type="button" class="btn btn-primary" value="修改" onclick="post()" style="background:rgba(70,140,180,0.9)" />&nbsp;&nbsp; 
+	
+    </div>
+  </div>
+</div>
+<script>
+
+       
+</script>
+</body>
+</html>

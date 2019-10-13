@@ -1,0 +1,43 @@
+*{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+.yingpian1{
+	width:80%;
+	height:79%;
+	margin-top: 20px;
+	display:flex;
+	justify-content:space-around;
+}
+.yingpian1 a{
+	width:20%;
+	height:280px;
+	display: flex;
+	justify-items: center;
+	transition: all 500ms ease;
+	/* transform-style: preserve-3d; */
+}
+/* .yingpian1 a::after{
+	content: 'dddd';
+	width:280px;
+	height:320px;
+	border: 1px solid black;
+	background:url('./images/124567.jpg') no-repeat;
+	transform: rotateX(90deg);
+	transform-origin: right ;
+} */
+.yingpian1 a:hover{
+	cursor: pointer;
+	transform: rotateY(-90deg);
+
+
+}
+.yingpian1 a img{
+	width: 86%;
+	height: 86%;
+}
+.pagination{
+	position: relative;
+	
+}

@@ -1,0 +1,21 @@
+*{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+.yingping{
+	width:80%;
+	height:200px;
+	padding-top: 10px;
+	border:1px soild blue;
+	display:flex;
+	justify-content:;
+}
+.text-center{
+	
+}
+.yingpian a{
+	width:100px;
+	height:200px;
+	
+}
