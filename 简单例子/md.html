@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <title></title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <style type="text/css">
+        body,
+        html {
+            background-color: #EEE;
+            margin: 0;
+            box-sizing: border-box;
+            -webkit-user-select: none;
+        }
+        
+        a {
+            color: #EEE;
+        }
+        
+        a:link {
+            text-decoration: none;
+        }
+        
+        a:visited {
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: none;
+        }
+        
+        a:active {
+            text-decoration: none;
+        }
+        
+        .wrap {
+            height: 100%;
+            position: fixed;
+            width: 100%;
+            background-color: #EEE;
+            /*background-image: url(img/background.jpg);*/
+            background-size: cover;
+            background-position: center;
+            transition: all .3s;
+        }
+        
+        .head {
+            height: 60px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .title-input {
+            height: 40px;
+            width: 75%;
+            font-family: Avenir;
+            font-size: 16px;
+            color: #000;
+            border-radius: 4px;
+            box-sizing: border-box;
+            outline: none;
+            border: 1px solid #BBB;
+            padding: 0 5px;
+        }
+        
+        .passage-btn {
+            height: 40px;
+            width: 120px;
+            color: #FFF;
+            font-family: Avenir;
+            font-size: 14px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 4px;
+            background-color: rgb(188, 0, 19);
+        }
+        
+        .user-photo {
+            width: 35px;
+            height: 35px;
+            border-radius: 18px;
+        }
+        
+        .control-row {
+            height: 50px;
+            width: 100%;
+            clear: both;
+            box-sizing: border-box;
+            padding: 0 20px;
+            font-family: Avenir;
+            font-size: 16px;
+            color: #666;
+            background-color: rgba(0, 0, 0, .1);
+        }
+        
+        .icons {
+            height: 40px;
+            width: 40px;
+            display: flex;
+            justify-content: center;
+            border-radius: 4px;
+            align-items: center;
+            margin: 5px 0px;
+            float: left;
+            cursor: pointer;
+        }
+        
+        .icons:hover {
+            background-color: #777;
+            color: #bfbfbf;
+        }
+        
+        .icon {
+            height: 20px;
+            width: 20px;
+        }
+        
+        .fixtime {
+            float: right;
+            line-height: 50px;
+            text-align: center;
+            color: #8a8a8a;
+            font-size: 10px;
+            max-width: 180px;
+        }
+        
+        .mainarea {
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            clear: both;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .main-input-area {
+            width: 100%;
+            height: 50%;
+            float: left;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+        
+        .main-input {
+            height: 50%;
+            width: 100%;
+            border: none;
+            outline: none;
+            background-color: #eee;
+            box-sizing: border-box;
+            padding-bottom: 15%;
+        }
+        
+        .main-preview-area {
+            height: 100%;
+            width: 100%;
+            line-height: 2;
+            background-color: #FFF;
+            float: left;
+            box-sizing: border-box;
+            padding: 10px;
+            overflow: auto;
+        }
+        
+        textarea::-webkit-scrollbar {
+            background-color: #EEE;
+            width: 5px;
+        }
+        
+        textarea::-webkit-scrollbar-thumb {
+            background-color: #000;
+            border-radius: 5px;
+        }
+        
+        textarea::-webkit-scrollbar-corner {
+            background-color: #eee;
+        }
+        
+        textarea::-webkit-resizer {
+            background-color: #eee;
+        }
+        
+        .main-preview-area::-webkit-scrollbar {
+            background-color: #EEE;
+            width: 5px;
+        }
+        
+        .main-preview-area::-webkit-scrollbar-thumb {
+            background-color: #000;
+            border-radius: 5px;
+        }
+        
+        .main-preview-area::-webkit-scrollbar-corner {
+            background-color: #eee;
+        }
+        
+        .main-preview-area::-webkit-resizer {
+            background-color: #eee;
+        }
+        
+        .mask {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, .3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+        
+        .url-block {
+            height: 240px;
+            width: 400px;
+            border-radius: 4px;
+            box-shadow: 0 0 2px #666;
+            box-sizing: border-box;
+            padding: 20px;
+            background-color: #FFF;
+            position: relative;
+            font-family: Avenir;
+            font-size: 14px;
+            color: #222;
+        }
+        
+        .url-head {
+            height: 20px;
+            width: 100%;
+            margin-bottom: 30px;
+            color: #000;
+            font-size: 16px;
+            clear: both;
+        }
+        
+        .url-head-text {
+            float: left;
+            line-height: 20px;
+        }
+        
+        .url-head-icon {
+            height: 20px;
+            width: 20px;
+            float: right;
+        }
+        
+        .url-head-icon:hover {
+            background-color: #EEE;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        function mat(wg, w, blog, m1, m2, s1, s2) {
+            if (wg.test(blog)) {
+                blog.match(wg).map(item => s1 + item.replace(m1, '') + s2).map(item => blog = blog.replace(w, item))
+            }
+            return blog
+        }
+
+        function parser(val, oldVal) {
+            let blog = this.blog
+            let self = this
+            let bg = /\*\*[^\*]+\*\*/g
+            let b = /\*\*[^\*]+\*\*/
+            let ig = /\*[^\*]+\*/g
+            let i = /\*[^\*]+\*/
+            let h4g = /\n?#{4} [^#+\n+]+\n?/g
+            let h4 = /\n?#{4} [^#+\n+]+\n?/
+            let dg = /~~[^~~]+~~/g
+            let d = /~~[^~~]+~~/
+            blog = blog.replace(/</g, '&lt;').replace(/"/g, '&quot;').replace(/>[^ ]/g, '&gt;\n')
+            blog = mat(bg, b, blog, /\*\*/g, '', '<b>', '</b>')
+            blog = mat(ig, i, blog, /\*/g, '', '<i>', '</i>')
+            blog = mat(h4g, h4, blog, /\n?#{4} /g, '', '<p class="p p4">', '</p>')
+            blog = mat(dg, d, blog, /~~/g, '', '<del>', '</del>')
+            console.log('result:', blog)
+            blog = blog.replace(/\n/g, '<br>')
+            this.preBlog = blog
+        }
+    </script>
+    <div id="app" class="wrap">
+        <div class="control-row">
+            <div class="icons" v-for="(con,index) in cons" :title="con.intro" @click="add(index,con.operate)">
+                <img :src="'img/'+con.src" class="icon">
+            </div>
+        </div>
+        <div class="mainarea">
+            <div class="main-input-area">
+                <textarea v-model="blog" class="main-input"></textarea>
+            </div>
+            <div class="main-preview-area" v-html="preBlog">
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            cons: [{
+                'src': 'bold.png',
+                'text': 'jiacu',
+                'intro': '粗体',
+                'operate': '**加粗样式**'
+            }, {
+                'src': 'italic.png',
+                'text': 'xieti',
+                'intro': '斜体',
+                'operate': '*斜体样式*'
+            }, {
+                'src': 'header.png',
+                'text': 'biaoti',
+                'intro': '标题',
+                'operate': '\n## 标题\n'
+            }, {
+                'src': 'delline.png',
+                'text': 'shanchuxian',
+                'intro': '删除线',
+                'operate': '~~删除线格式~~'
+            }],
+            blog: '',
+            preBlog: (function() {})(),
+            mask: false,
+            title: '',
+        },
+        watch: {
+            blog: function(val, oldVal) {
+                parser.call(this, val, oldVal)
+            }
+        },
+        methods: {
+            add: function(index, operate) {
+                if (operate == 'con') {
+                    this.mask = true
+                }
+                if (operate != 'con') {
+                    this.blog += operate
+                }
+            },
+        },
+        mounted() {
+            v = this
+        },
+    })
+</script>
+
+</html>
